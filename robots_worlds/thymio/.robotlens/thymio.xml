@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robotlens_project schemaVersion="8" displayName="Untitled">
+    <connectionProfile domainId="0" namespace=""/>
+    <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="true" buildTerminal="false" terminal="false" projectFiles="true" settings="false" plot="true"/>
+    <assets>
+        <asset id="urdf-main" originalPath="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/urdf/thymio.urdf.xacro" relativePath="urdf/thymio.urdf.xacro" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="348" lastWriteTimeUnix="-4649838998"/>
+        <robot id="robot-main" originalPath="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/urdf/thymio.urdf.xacro" relativePath="examples/thymio/urdf/thymio.urdf.xacro" absolutePath="" format="xacro" enabled="true" reloadOnOpen="true" fileSize="348" lastWriteTimeUnix="-354871702"/>
+    </assets>
+    <sceneModel id="file_urdf/thymio" sourceKind="file_urdf" displayName="thymio" visible="true" position="0.000000 0.000000 0.000000" orientation="1.000000 0.000000 0.000000 0.000000">
+        <asset id="file_urdf/thymio" originalPath="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/urdf/thymio.urdf.xacro" relativePath="urdf/thymio.urdf.xacro" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="348" lastWriteTimeUnix="-4649838998"/>
+    </sceneModel>
+    <primitive id="primitive/scene/Plane_1" shape="plane" name="Plane 1" parentId="" alpha="1" metallic="0" roughness="0.85000002" materialId="" smoothShading="false" rigidBodyEnabled="false" rigidBodyType="static" mass="1" position="0.000000 0.000000 -0.010000" rotation="0.707107 0.707107 0.000000 0.000000" size="5.000000 0.000000 5.000000" color="0.620000 0.660000 0.740000"/>
+    <primitive id="primitive/scene/Box_2" shape="box" name="Box 2" parentId="" alpha="1" metallic="0" roughness="0.85000002" materialId="" smoothShading="false" rigidBodyEnabled="false" rigidBodyType="static" mass="1" position="-1.425899 0.000000 0.200000" rotation="1.000000 0.000000 0.000000 0.000000" size="0.500000 0.500000 0.500000" color="0.620000 0.660000 0.740000"/>
+    <primitive id="primitive/scene/Cone_3" shape="cone" name="Cone 3" parentId="" alpha="1" metallic="0" roughness="0.85000002" materialId="" smoothShading="false" rigidBodyEnabled="false" rigidBodyType="static" mass="1" position="-1.163798 1.449374 -0.049016" rotation="1.000000 0.000000 0.000000 0.000000" size="0.500000 0.600000 0.000000" color="0.620000 0.660000 0.740000"/>
+    <primitive id="primitive/scene/Box_4" shape="box" name="Box 4" parentId="" alpha="1" metallic="0" roughness="0.85000002" materialId="" smoothShading="false" rigidBodyEnabled="false" rigidBodyType="static" mass="1" position="1.038576 0.282933 0.191388" rotation="1.000000 0.000000 0.000000 0.000000" size="0.500000 0.500000 0.500000" color="0.620000 0.660000 0.740000"/>
+    <primitive id="primitive/scene/Cylinder_5" shape="cylinder" name="Cylinder 5" parentId="" alpha="1" metallic="0" roughness="0.85000002" materialId="" smoothShading="false" rigidBodyEnabled="false" rigidBodyType="static" mass="1" position="0.238576 -1.217067 0.291388" rotation="1.000000 0.000000 0.000000 0.000000" size="0.500000 0.600000 0.500000" color="0.620000 0.660000 0.740000"/>
+    <light id="light/scene/Directional Light_2" type="directional" name="Directional Light 2" parentId="" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" position="0.136308 -1.471123 1.866423" rotation="0.035972 -0.298480 0.683600 0.665062" color="1.000000 1.000000 1.000000"/>
+    <visualOrigin linkName="base_link" visualIndex="0" position="-0.024300 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="right_wheel_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="left_wheel_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="0.707107 0.707107 0.000000 0.000000"/>
+    <jointOrigin jointName="base_joint" position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="right_wheel_joint" position="-0.024300 -0.046750 0.022000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="left_wheel_joint" position="-0.024300 0.046750 0.022000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="front_left_proximity_joint" position="0.038700 0.049300 0.035000" rotation="0.945518 0.000000 0.000000 0.325570"/>
+    <jointOrigin jointName="front_center_left_proximity_joint" position="0.051300 0.026100 0.035000" rotation="0.986286 0.000000 0.000000 0.165046"/>
+    <jointOrigin jointName="front_center_proximity_joint" position="0.055700 0.000000 0.035000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="front_center_right_proximity_joint" position="0.051300 -0.026100 0.035000" rotation="0.986286 0.000000 0.000000 -0.165046"/>
+    <jointOrigin jointName="front_right_proximity_joint" position="0.038700 -0.049300 0.035000" rotation="0.945518 0.000000 0.000000 -0.325570"/>
+    <jointOrigin jointName="rear_right_proximity_joint" position="-0.054300 -0.030500 0.035000" rotation="0.000001 0.000000 0.000000 1.000000"/>
+    <jointOrigin jointName="rear_left_proximity_joint" position="-0.054300 0.030500 0.035000" rotation="0.000001 0.000000 0.000000 1.000000"/>
+    <viewport target="-0.257618 -1.475664 -0.014961" yaw="-277.5" pitch="5.5" distance="4.0307527" fov="45" projectionMode="0" showGrid="true"/>
+    <pathIntelligence plannedPathTopic="/plan" odometryTopic="/odom" fixedFrame="map" warningMeters="0.050000000000000003" criticalMeters="0.14999999999999999" maxPathRevisions="64" maxTrajectorySamples="4096"/>
+    <autonomousMission name="Autonomous Mission" behavior="waypoint" patrolForever="false" patrolCycles="1" patrolDurationSeconds="0" mode="waypoints">
+        <coverage frameId="map" laneSpacingMeters="0.5"/>
+    </autonomousMission>
+    <behaviorTree enabled="true">
+        <xml>&lt;?xml version="1.0"?&gt;
+&lt;root main_tree_to_execute="MainTree"&gt;
+  &lt;BehaviorTree ID="MainTree"&gt;
+    &lt;Sequence name="Navigate"&gt;
+      &lt;ComputePathToPose name="Compute path" goal="{goal_pose}"&gt;&lt;/ComputePathToPose&gt;
+      &lt;FollowPath name="Follow path" path="{path}"&gt;&lt;/FollowPath&gt;
+    &lt;/Sequence&gt;
+  &lt;/BehaviorTree&gt;
+&lt;/root&gt;
+</xml>
+        <layout>[{"id":"node_2","x":340.0,"y":20.0},{"id":"node_3","x":340.0,"y":150.0},{"id":"node_4","x":600.0,"y":40.0}]</layout>
+    </behaviorTree>
+    <display typeName="rviz/TF" instanceName="TF" enabled="false" paused="false">
+        <property key="all_enabled" type="bool" value="true"/>
+        <property key="axis_length" type="double" value="0.050000000000000003"/>
+        <property key="frame_name_blacklist" type="string" value=""/>
+        <property key="frame_name_filter" type="string" value=""/>
+        <property key="link_thickness" type="double" value="0.0050000000000000001"/>
+        <property key="show_arrows" type="bool" value="true"/>
+        <property key="show_axes" type="bool" value="true"/>
+        <property key="show_names" type="bool" value="true"/>
+        <property key="show_parent_links" type="bool" value="true"/>
+        <property key="staleness_seconds" type="double" value="1"/>
+        <property key="tree_depth_limit" type="int" value="0"/>
+        <property key="update_interval" type="double" value="0"/>
+        <property key="use_mesh_axes" type="bool" value="true"/>
+        <property key="use_thick_links" type="bool" value="true"/>
+    </display>
+    <display typeName="scene/Primitives" instanceName="Primitives" enabled="true" paused="false"/>
+    <display typeName="scene/ImportedModels" instanceName="Imported Models" enabled="true" paused="false"/>
+    <display typeName="scene/Lights" instanceName="Lights" enabled="true" paused="false"/>
+    <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
+    <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
+    <workspaceRoot>/home/narinder/Documents/ROSWorkspace/RobotLens</workspaceRoot>
+    <simulation backend="gazebo" executable="" worldFile="/tmp/robotlens_setup_41561.sdf" worldName="robotlens_setup_41561" robotModelName="thymio" attachOnly="false"/>
+    <nav2 launchPackage="" launchFile="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/nav2_config/nav2_launch.py" mapYamlPath="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/nav2_config/nav2_map.yaml" paramsYamlPath="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/nav2_config/nav2_params.yaml" autoConfigureOutputDir=""/>
+</robotlens_project>

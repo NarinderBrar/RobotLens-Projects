@@ -1,0 +1,28 @@
+# Static occupancy grid for the Nav2 fixture (examples/turtlebot3/README.md).
+#
+# This is a synthetic 10m x 10m bordered room, not a survey of the Gazebo
+# open_interior world's real walls -- it exists to give nav2_map_server,
+# the planner, and the costmaps a valid `map` frame to plan in, not to model
+# real obstacles. The fixture has no lidar (see the README's "Why no AMCL"
+# section), so nothing localizes against this map's actual wall pixels; a
+# static identity transform ties `map` directly to `odom`. origin (-5, -5)
+# puts the image center at (0, 0), matching the robot's Gazebo spawn pose,
+# so goal coordinates near the origin land inside the free interior.
+#
+# Regenerate with:
+#   python3 - <<'PY'
+#   width, height, border, free, occ = 200, 200, 4, 254, 0
+#   with open("open_interior.pgm", "wb") as f:
+#       f.write(f"P5\n{width} {height}\n255\n".encode("ascii"))
+#       for y in range(height):
+#           f.write(bytes(
+#               occ if x < border or x >= width - border or y < border or y >= height - border
+#               else free
+#               for x in range(width)))
+#   PY
+image: open_interior.pgm
+resolution: 0.05
+origin: [-5.0, -5.0, 0.0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.25

@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!-- Generated from /home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots by tools/sdf_to_urdf.cpp, see its header comment for known limitations. -->
+<robot name="panda">
+  <link name="panda_link0">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link0.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_link1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link1.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_link2">
+    <visual>
+      <origin xyz="0 0 -2.77556e-17" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link2.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_link3">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link3.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_link4">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link4.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_link5">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link5.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_link6">
+    <visual>
+      <origin xyz="0 -2.22045e-16 1.11022e-16" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link6.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_link7">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link7.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_hand">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 1.664e-31"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/hand.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_leftfinger">
+    <visual>
+      <origin xyz="6.93889e-18 6.93889e-18 -2.22045e-16" rpy="0 -0 1.664e-31"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/finger.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_rightfinger">
+    <visual>
+      <origin xyz="6.93889e-18 6.93889e-18 -2.22045e-16" rpy="0 -0 3.14159"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/finger.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="panda_link8">
+  </link>
+  <joint name="panda_joint1" type="revolute">
+    <parent link="panda_link0"/>
+    <child link="panda_link1"/>
+    <origin xyz="0 0 0.333" rpy="0 -0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.89725" upper="2.89725" effort="100" velocity="100"/>
+  </joint>
+  <joint name="panda_joint2" type="revolute">
+    <parent link="panda_link1"/>
+    <child link="panda_link2"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.76278" upper="1.76278" effort="100" velocity="100"/>
+  </joint>
+  <joint name="panda_joint3" type="revolute">
+    <parent link="panda_link2"/>
+    <child link="panda_link3"/>
+    <origin xyz="0 -0.316 0" rpy="1.5708 -0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.89725" upper="2.89725" effort="100" velocity="100"/>
+  </joint>
+  <joint name="panda_joint4" type="revolute">
+    <parent link="panda_link3"/>
+    <child link="panda_link4"/>
+    <origin xyz="0.0825 0 0" rpy="1.5708 -0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.07178" upper="-0.0698132" effort="100" velocity="100"/>
+  </joint>
+  <joint name="panda_joint5" type="revolute">
+    <parent link="panda_link4"/>
+    <child link="panda_link5"/>
+    <origin xyz="-0.0825 0.384 1.11022e-16" rpy="-1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.89725" upper="2.89725" effort="100" velocity="100"/>
+  </joint>
+  <joint name="panda_joint6" type="revolute">
+    <parent link="panda_link5"/>
+    <child link="panda_link6"/>
+    <origin xyz="0 0 0" rpy="1.5708 -0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.0174533" upper="3.75246" effort="100" velocity="100"/>
+  </joint>
+  <joint name="panda_joint7" type="revolute">
+    <parent link="panda_link6"/>
+    <child link="panda_link7"/>
+    <origin xyz="0.088 -2.22045e-16 1.11022e-16" rpy="1.5708 -0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.89725" upper="2.89725" effort="100" velocity="100"/>
+  </joint>
+  <joint name="panda_hand_joint" type="fixed">
+    <parent link="panda_link7"/>
+    <child link="panda_hand"/>
+    <origin xyz="0 -1.2701e-16 0.107" rpy="1.67645e-16 6.20543e-17 -0.785398"/>
+  </joint>
+  <joint name="panda_finger_joint1" type="prismatic">
+    <parent link="panda_hand"/>
+    <child link="panda_leftfinger"/>
+    <origin xyz="-6.93889e-18 2.08167e-17 0.0584" rpy="0 -0 1.664e-31"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0" upper="0.04" effort="100" velocity="100"/>
+  </joint>
+  <joint name="panda_finger_joint2" type="prismatic">
+    <parent link="panda_hand"/>
+    <child link="panda_rightfinger"/>
+    <origin xyz="-6.93889e-18 2.08167e-17 0.0584" rpy="0 -0 1.664e-31"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="0" upper="0.04" effort="100" velocity="100"/>
+  </joint>
+  <joint name="end_effector_frame_fixed_joint" type="fixed">
+    <parent link="panda_hand"/>
+    <child link="panda_link8"/>
+    <origin xyz="-6.245e-17 7.63278e-17 0.103" rpy="0 -0 1.664e-31"/>
+  </joint>
+</robot>

@@ -1,0 +1,65 @@
+<mujoco model="irobot_create">
+  <include file="../../worlds/playground_world/playground.xml"/>
+
+  <asset>
+    <texture type="2d" name="create_body_tex" file="../materials/textures/create_body.png"/>
+    <material name="create_body_mat" texture="create_body_tex"/>
+    <mesh name="create_body" file="../meshes/create_body.obj" scale="0.0254 0.0254 0.0254"/>
+  </asset>
+
+  <worldbody>
+    <body name="base_link" pos="0 0 0.010">
+      <freejoint name="base_joint"/>
+      <inertial pos="0.0015 -0.0005 0.0298" mass="2.234"
+                 diaginertia="0.0159 0.0159 0.0304"/>
+      <geom type="cylinder" size="0.16 0.0306" pos="0 0 0.0478"/>
+      <geom type="mesh" mesh="create_body" pos="0 0 0.0478"
+            material="create_body_mat" contype="0" conaffinity="0"/>
+
+      <body name="wheel_left_link" pos="0 0.13 0.023">
+        <joint name="wheel_left_joint" type="hinge" axis="0 1 0"
+               armature="0.01" frictionloss="0.1"/>
+        <inertial pos="0 0 0" mass="0.05"
+                   diaginertia="1.58e-05 2.72e-05 1.58e-05"/>
+        <geom type="cylinder" size="0.033 0.0115" zaxis="0 1 0"
+              rgba="0.15 0.15 0.15 1"/>
+      </body>
+
+      <body name="wheel_right_link" pos="0 -0.13 0.023">
+        <joint name="wheel_right_joint" type="hinge" axis="0 1 0"
+               armature="0.01" frictionloss="0.1"/>
+        <inertial pos="0 0 0" mass="0.05"
+                   diaginertia="1.58e-05 2.72e-05 1.58e-05"/>
+        <geom type="cylinder" size="0.033 0.0115" zaxis="0 1 0"
+              rgba="0.15 0.15 0.15 1"/>
+      </body>
+
+      <body name="caster_front_link" pos="0.13 0 0.008">
+        <inertial pos="0 0 0" mass="0.01"
+                   diaginertia="1e-06 1e-06 1e-06"/>
+        <geom type="sphere" size="0.018" rgba="0.3 0.3 0.3 1"
+              friction="0.0001 0.0001 0.0001" condim="1"/>
+      </body>
+
+      <body name="caster_rear_link" pos="-0.13 0 0.005">
+        <inertial pos="0 0 0" mass="0.01"
+                   diaginertia="1e-06 1e-06 1e-06"/>
+        <geom type="sphere" size="0.015" rgba="0.3 0.3 0.3 1"
+              friction="0.0001 0.0001 0.0001" condim="1"/>
+      </body>
+    </body>
+
+  </worldbody>
+
+  <actuator>
+    <velocity name="left_motor" joint="wheel_left_joint" kv="0.1" ctrlrange="-20 20" ctrllimited="true"/>
+    <velocity name="right_motor" joint="wheel_right_joint" kv="0.1" ctrlrange="-20 20" ctrllimited="true"/>
+  </actuator>
+
+  <contact>
+    <exclude body1="base_link" body2="wheel_left_link"/>
+    <exclude body1="base_link" body2="wheel_right_link"/>
+    <exclude body1="base_link" body2="caster_front_link"/>
+    <exclude body1="base_link" body2="caster_rear_link"/>
+  </contact>
+</mujoco>

@@ -1,0 +1,200 @@
+<mujoco model="microduck">
+  <!--
+    Simplified MJCF for Pollen Robotics' Microduck (github.com/pollen-robotics/microduck).
+    Kinematic tree, joint ranges, and actuator gains are transcribed from the
+    project's Apache-2.0-licensed robot_walk.xml / joints_properties.xml
+    (github.com/pollen-robotics/microduck_rl). The real CAD/STL meshes are
+    licensed CC BY-SA-NC (noncommercial) and are intentionally NOT included
+    here; primitive geoms stand in for them. See ../README.md.
+  -->
+  <compiler angle="radian" autolimits="true"/>
+  <option timestep="0.005" integrator="implicitfast"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge"
+             rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+  </asset>
+
+  <default>
+    <default class="microduck">
+      <joint frictionloss="0.1" armature="0.005"/>
+      <default class="servo">
+        <!-- Dynamixel XL330 gains tuned by Pollen Robotics (robot_walk.xml, class "chosen_actuator") -->
+        <joint damping="0.053" frictionloss="0.0048" armature="0.0018"/>
+        <position kp="0.55" kv="0.0" forcerange="-0.96 0.96" ctrlrange="-10.0 10.0"/>
+      </default>
+      <default class="link">
+        <!-- No collision on body-shell primitives, matching upstream's real
+             MJCF (its "visual" class is contype=0/conaffinity=0 for every
+             non-foot part): these primitives are rough stand-ins for the
+             real shells and overlap each other/the trunk at rest (e.g. the
+             hip modules sit inside the trunk box), so leaving collision on
+             here just fights the solver and flings the robot. Only the feet
+             (below) need real collision, against the floor. -->
+        <geom contype="0" conaffinity="0"/>
+      </default>
+      <default class="foot">
+        <geom type="box" rgba="0.98 0.71 0.004 1" friction="0.9 0.01 0.0001" condim="4"/>
+      </default>
+    </default>
+  </default>
+
+  <worldbody>
+    <light pos="0 0 3.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" type="plane" size="0 0 0.05" pos="0 0 0" material="groundplane"/>
+
+    <!-- Link trunk_base -->
+    <body name="trunk_base" pos="0 0 0.12" childclass="microduck">
+      <freejoint name="trunk_base_freejoint"/>
+      <inertial pos="-0.0226 0 0.0028" mass="0.199224" diaginertia="0.000124 0.000146 0.000115"/>
+      <geom class="link" type="box" size="0.032 0.026 0.019" pos="-0.006 0 0" rgba="0.35 0.38 0.4 1"/>
+      <site name="imu" pos="-0.021 0 -0.0147"/>
+
+      <!-- Left leg -->
+      <body name="yaw2roll" pos="0.006 0.0175 -0.005" quat="0 -0.707107 -0.707107 0">
+        <joint name="left_hip_yaw" axis="0 0 1" type="hinge" range="-0.4363323 0.5235988" class="servo"/>
+        <inertial pos="0 0.001 0.0169" mass="0.023041" diaginertia="4.196e-06 3.418e-06 2.327e-06"/>
+        <geom class="link" type="sphere" size="0.007" rgba="0.65 0.65 0.65 1"/>
+        <geom class="link" type="capsule" fromto="0 0 0 0 0.0165 0.0125" size="0.005" rgba="0.65 0.65 0.65 1"/>
+
+        <body name="hip_l" pos="0 0.0165 0.0125" quat="0.707107 -0.707107 0 0">
+          <joint name="left_hip_roll" axis="0 0 1" type="hinge" range="-0.3839724 0.3839724" class="servo"/>
+          <inertial pos="0.0148 0 -0.0083" mass="0.006189" diaginertia="8.606e-07 1.158e-06 6.516e-07"/>
+          <geom class="link" type="capsule" fromto="0 0 0 0.025 0 -0.0185" size="0.006" rgba="0.9 0.9 0.9 1"/>
+
+          <body name="upper_leg_left" pos="0.025 0 -0.0185" quat="0.5 -0.5 0.5 -0.5">
+            <joint name="left_hip_pitch" axis="0 0 1" type="hinge" range="-1.5707963 1.5707963" class="servo"/>
+            <inertial pos="0.0068 0.0229 0.0135" mass="0.048207" diaginertia="1.688e-05 1.037e-05 1.983e-05"/>
+            <geom class="link" type="capsule" fromto="0 0 0 0.022 0.0357771 -0.004" size="0.009" rgba="0.87 0.87 0.87 1"/>
+
+            <body name="leg" pos="0.022 0.0357771 -0.004" quat="0 0.707107 0.707107 0">
+              <joint name="left_knee" axis="0 0 1" type="hinge" range="-1.5707963 1.5707963" class="servo"/>
+              <inertial pos="0 0.0319 -0.0095" mass="0.021584" diaginertia="5.251e-06 2.155e-06 4.339e-06"/>
+              <geom class="link" type="capsule" fromto="0 0 0 0 0.042 -0.026" size="0.008" rgba="0.81 0.86 0.9 1"/>
+
+              <body name="ankle_left" pos="0 0.042 -0.026" quat="0 1 0 0">
+                <joint name="left_ankle" axis="0 0 1" type="hinge" range="-1.5707963 1.5707963" class="servo"/>
+                <inertial pos="-0.0062 -0.0137 -0.0157" mass="0.030025" diaginertia="5.915e-06 1.115e-05 7.740e-06"/>
+                <geom class="foot" size="0.02 0.011 0.006" pos="-0.003 -0.017 -0.021"/>
+                <geom class="foot" name="left_foot_collision" size="0.02 0.011 0.006" pos="-0.003 -0.017 -0.021"/>
+                <site name="left_foot" pos="0 -0.0238146 -0.0140852"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <!-- Right leg (mirrored) -->
+      <body name="bearing_roll" pos="0.006 -0.0175 -0.005" quat="0 0.707107 0.707107 0">
+        <joint name="right_hip_yaw" axis="0 0 1" type="hinge" range="-0.5235988 0.4363323" class="servo"/>
+        <inertial pos="0 0.001 0.0169" mass="0.023041" diaginertia="4.196e-06 3.418e-06 2.327e-06"/>
+        <geom class="link" type="sphere" size="0.007" rgba="0.65 0.65 0.65 1"/>
+        <geom class="link" type="capsule" fromto="0 0 0 0 0.0165 0.0125" size="0.005" rgba="0.65 0.65 0.65 1"/>
+
+        <body name="hip_l_2" pos="0 0.0165 0.0125" quat="0 0 0.707107 0.707107">
+          <joint name="right_hip_roll" axis="0 0 1" type="hinge" range="-0.3839724 0.3839724" class="servo"/>
+          <inertial pos="0.0148 0 -0.0083" mass="0.006189" diaginertia="8.606e-07 1.158e-06 6.516e-07"/>
+          <geom class="link" type="capsule" fromto="0 0 0 0.025 0 -0.0185" size="0.006" rgba="0.9 0.9 0.9 1"/>
+
+          <body name="upper_leg_right" pos="0.025 0 -0.0185" quat="0.5 -0.5 0.5 -0.5">
+            <joint name="right_hip_pitch" axis="0 0 1" type="hinge" range="-1.5707963 1.5707963" class="servo"/>
+            <inertial pos="-0.0068 0.0229 0.0135" mass="0.048207" diaginertia="1.688e-05 1.037e-05 1.983e-05"/>
+            <geom class="link" type="capsule" fromto="0 0 0 -0.022 0.0357771 -0.004" size="0.009" rgba="0.87 0.87 0.87 1"/>
+
+            <body name="leg_2" pos="-0.022 0.0357771 -0.004" quat="0 1 0 0">
+              <joint name="right_knee" axis="0 0 1" type="hinge" range="-1.5707963 1.5707963" class="servo"/>
+              <inertial pos="-0.0319 0 -0.0095" mass="0.021584" diaginertia="2.155e-06 5.251e-06 4.339e-06"/>
+              <geom class="link" type="capsule" fromto="0 0 0 -0.042 0 -0.026" size="0.008" rgba="0.81 0.86 0.9 1"/>
+
+              <body name="ankle_right" pos="-0.042 0 -0.026" quat="0 -0.707107 -0.707107 0">
+                <joint name="right_ankle" axis="0 0 1" type="hinge" range="-1.5707963 1.5707963" class="servo"/>
+                <inertial pos="0.0062 -0.0137 -0.0157" mass="0.030025" diaginertia="5.915e-06 1.115e-05 7.740e-06"/>
+                <geom class="foot" size="0.02 0.011 0.006" pos="0.003 -0.017 -0.021"/>
+                <geom class="foot" name="right_foot_collision" size="0.02 0.011 0.006" pos="0.003 -0.017 -0.021"/>
+                <site name="right_foot" pos="0 -0.0238146 -0.0140852"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <!-- Neck / head -->
+      <body name="neck" pos="0.026 0.0145 0.0324215" quat="0 0 0.707107 -0.707107">
+        <joint name="neck_pitch" axis="0 0 1" type="hinge" range="-1.5707963 1.0471976" class="servo"/>
+        <inertial pos="0 -0.025 0.0142" mass="0.036841" diaginertia="1.729e-05 3.127e-06 1.637e-05"/>
+        <geom class="link" type="capsule" fromto="0 0 0 0 -0.05 0" size="0.006" rgba="0.8 0.8 0.8 1"/>
+
+        <body name="neck_pitch_link" pos="0 -0.05 0" quat="0 1 0 0">
+          <joint name="head_pitch" axis="0 0 1" type="hinge" range="-1.5707963 1.5707963" class="servo"/>
+          <inertial pos="0 0.0117 -0.0145" mass="0.00572" diaginertia="1.092e-06 9.669e-07 5.121e-07"/>
+          <geom class="link" type="sphere" size="0.006" rgba="0.35 0.38 0.4 1"/>
+
+          <body name="yaw_roll_motion" pos="0 0.0186931 -0.0145" quat="0 0 -0.707107 -0.707107">
+            <joint name="head_yaw" axis="0 0 1" type="hinge" range="-2.9670597 2.9670597" class="servo"/>
+            <inertial pos="-0.0002 -0.005 0.0178" mass="0.0486" diaginertia="6.979e-06 8.103e-06 9.579e-06"/>
+            <geom class="link" type="capsule" fromto="0 0 0 -0.0179 0 0.0145" size="0.006" rgba="0.77 0.89 0.95 1"/>
+
+            <body name="jaw_soft" pos="-0.0179 0 0.0145" quat="0.707107 0 -0.707107 0">
+              <joint name="head_roll" axis="0 0 1" type="hinge" range="-0.4363323 0.4363323" class="servo"/>
+              <inertial pos="0.0046 0.0012 -0.0325" mass="0.188766" diaginertia="0.000321 0.000254 0.00015"/>
+              <!-- Head shell (approx enclosure for camera / depth sensor / IMU) -->
+              <geom class="link" type="box" size="0.02 0.022 0.032" pos="0 0 -0.045" rgba="0.9 0.9 0.9 1"/>
+              <!-- Articulated beak, actuated with head_roll -->
+              <geom class="link" type="capsule" fromto="0 0 -0.02 -0.0081 0 -0.0777" size="0.008"
+                    rgba="0.98 0.71 0.004 1"/>
+              <site name="head_camera" pos="0.0155 0 -0.0733" quat="0.707107 0 0.707107 0"/>
+              <camera name="head_camera" pos="0.0155 0 -0.0733" quat="0 0 -1 0"/>
+              <site name="tof" pos="0.0135 0.0224 -0.0733" quat="0.707107 0 0.707107 0"/>
+              <site name="head_imu" pos="0.0152 0 -0.0511"/>
+              <site name="mouth_tip" pos="-0.0081 0 -0.0777"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <sensor>
+    <framequat name="orientation" objtype="site" objname="imu" noise="0.001"/>
+    <gyro name="imu_ang_vel" site="imu" noise="0.005"/>
+    <velocimeter name="imu_lin_vel" site="imu"/>
+    <accelerometer name="imu_accel" site="imu"/>
+    <subtreeangmom name="root_angmom" body="trunk_base"/>
+  </sensor>
+
+  <actuator>
+    <position class="servo" name="left_hip_yaw" joint="left_hip_yaw"/>
+    <position class="servo" name="left_hip_roll" joint="left_hip_roll"/>
+    <position class="servo" name="left_hip_pitch" joint="left_hip_pitch"/>
+    <position class="servo" name="left_knee" joint="left_knee"/>
+    <position class="servo" name="left_ankle" joint="left_ankle"/>
+    <position class="servo" name="right_hip_yaw" joint="right_hip_yaw"/>
+    <position class="servo" name="right_hip_roll" joint="right_hip_roll"/>
+    <position class="servo" name="right_hip_pitch" joint="right_hip_pitch"/>
+    <position class="servo" name="right_knee" joint="right_knee"/>
+    <position class="servo" name="right_ankle" joint="right_ankle"/>
+    <position class="servo" name="neck_pitch" joint="neck_pitch"/>
+    <position class="servo" name="head_pitch" joint="head_pitch"/>
+    <position class="servo" name="head_yaw" joint="head_yaw"/>
+    <position class="servo" name="head_roll" joint="head_roll"/>
+  </actuator>
+
+  <keyframe>
+    <!-- Joint order follows this file's body tree: left leg, right leg, neck/head. -->
+    <key name="STAND"
+      qpos="0 0 0.12 1 0 0 0
+            0 -0.0872665 -0.457924 -0.004940 0.452984
+            0 0.0872665 0.457924 0.004940 -0.452984
+            0.3490659 0.3490659 0 0"
+      ctrl="0 -0.0872665 -0.457924 -0.004940 0.452984
+            0 0.0872665 0.457924 0.004940 -0.452984
+            0.3490659 0.3490659 0 0"/>
+  </keyframe>
+</mujoco>

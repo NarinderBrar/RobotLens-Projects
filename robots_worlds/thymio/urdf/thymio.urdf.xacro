@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot name="thymio" xmlns:xacro="http://wwww.ros.org/wiki/xacro">
+
+    <xacro:include filename="materials.xacro"/>
+    <xacro:include filename="inertia.xacro"/>
+    <xacro:include filename="thymio_chassis.xacro"/>
+    <xacro:include filename="proximity_sensors.xacro"/>
+    <xacro:include filename="gazebo.xacro"/>
+
+</robot>

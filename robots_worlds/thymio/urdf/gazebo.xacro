@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wwww.ros.org/wiki/xacro">
+
+	<gazebo reference="base_link">
+        <material>Gazebo/White</material>
+        <selfCollide>false</selfCollide>
+        <mu1>0.1</mu1>
+        <mu2>0.1</mu2>
+      </gazebo>
+
+    <gazebo reference="right_wheel_link">
+        <material>Gazebo/Black</material>
+        <mu1>${100}</mu1>
+        <mu2>${100 / 2.0}</mu2>
+    </gazebo>
+
+    <gazebo reference="left_wheel_link">
+        <material>Gazebo/Black</material>
+        <mu1>${100}</mu1>
+        <mu2>${100 / 2.0}</mu2>
+    </gazebo>
+
+
+    <!-- No diff-drive plugin declared here: this xacro's original
+         libgazebo_ros_diff_drive.so block targeted Gazebo Classic and cannot
+         load under gz sim ("Could not find shared library"). RobotLens's own
+         setup step (SimulatorSetupWorker::injectSimulationPlugins) auto-injects
+         the matching gz-sim-diff-drive-system plugin (same wheel joints,
+         odom->base_footprint TF) whenever a model has no
+         gz-sim-diff-drive-system plugin of its own, so this file must stay
+         free of a diff-drive plugin block for that injection to happen. -->
+
+</robot>

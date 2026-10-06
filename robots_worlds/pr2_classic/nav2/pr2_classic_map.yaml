@@ -1,0 +1,10 @@
+# Deliberately blank 20x20 m map for the pr2_classic Nav2 demo.
+# PR2's physics fixture has no laser/scan bridge, so Nav2's costmaps and AMCL
+# have no sensor data; a fully-free map keeps the map_server/lifecycle bring-up
+# valid and lets the planner/controller servers run without map-load errors.
+image: pr2_classic_map.pgm
+resolution: 0.05
+origin: [-10.0, -10.0, 0.0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196

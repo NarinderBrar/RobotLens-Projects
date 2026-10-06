@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+<!--
+  Research Circular Robot — Gazebo SDF 1.6 model
+  Generic large differential-drive robot with circular chassis.
+  Dimensions representative of a 300 mm diameter circular research platform.
+
+  Physical dimensions (metres):
+    Chassis   : cylinder r=0.156 m, total height ≈ 0.204 m
+    Wheel sep : 0.240 m (±0.120 from centre)
+    Wheel r   : 0.052 m, width 0.020 m
+    Caster    : sphere r=0.012 m at rear
+    Sensors   : 8 sonar (ps0–ps7) around perimeter, IMU
+-->
+<sdf version="1.6">
+  <model name="research_circular_robot">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         BASE CHASSIS
+    ═══════════════════════════════════════════════════════════ -->
+    <link name="base_link">
+      <pose>0 0 0.074 0 0 0</pose>
+
+      <inertial>
+        <mass>1.600</mass>
+        <inertia>
+          <ixx>0.010649</ixx>  <!-- (1/12)*m*(3r²+h²) approx -->
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.010649</iyy>
+          <iyz>0</iyz>
+          <izz>0.019469</izz>  <!-- (1/2)*m*r² -->
+        </inertia>
+      </inertial>
+
+      <collision name="chassis_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.156</radius>
+            <length>0.170</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.6</mu>
+              <mu2>0.6</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+
+      <visual name="chassis_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.156</radius>
+            <length>0.170</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.3 0.3 0.3 1</ambient>
+          <diffuse>0.3 0.3 0.3 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+
+      <!-- Ball caster (rear) -->
+      <collision name="caster_collision">
+        <pose>0 -0.130 -0.052 0 0 0</pose>
+        <geometry>
+          <sphere><radius>0.012</radius></sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode><mu>0</mu><mu2>0</mu2></ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="caster_visual">
+        <pose>0 -0.130 -0.052 0 0 0</pose>
+        <geometry>
+          <sphere><radius>0.012</radius></sphere>
+        </geometry>
+        <material>
+          <ambient>0.15 0.15 0.15 1</ambient>
+          <diffuse>0.15 0.15 0.15 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- ─── Ultrasonic distance sensors (ps0–ps7) ─────────────
+           Placed around the chassis perimeter at r=0.160 m, h=0.05 m
+           Angles match PROTO translations (approximate cardinal/diagonal):
+             ps0: rear-left  ~180°
+             ps1: left-rear  ~135°
+             ps2: left-front ~ 90° (left)
+             ps3: front-left ~ 45°
+             ps4: front      ~  0°
+             ps5: front-right ~-45°
+             ps6: right-front ~-90°
+             ps7: right-rear  ~-135°
+      ──────────────────────────────────────────────────────────── -->
+      <sensor name="ps0" type="ray">
+        <pose>-0.156 0 0.050 0 0 3.14159</pose>
+        <ray>
+          <scan><horizontal><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></horizontal></scan>
+          <range><min>0.02</min><max>6.0</max><resolution>0.01</resolution></range>
+        </ray>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+
+      <sensor name="ps1" type="ray">
+        <pose>-0.110 -0.110 0.050 0 0 2.35619</pose>
+        <ray>
+          <scan><horizontal><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></horizontal></scan>
+          <range><min>0.02</min><max>6.0</max><resolution>0.01</resolution></range>
+        </ray>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+
+      <sensor name="ps2" type="ray">
+        <pose>0 -0.156 0.050 0 0 1.5708</pose>
+        <ray>
+          <scan><horizontal><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></horizontal></scan>
+          <range><min>0.02</min><max>6.0</max><resolution>0.01</resolution></range>
+        </ray>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+
+      <sensor name="ps3" type="ray">
+        <pose>0.110 -0.110 0.050 0 0 0.78540</pose>
+        <ray>
+          <scan><horizontal><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></horizontal></scan>
+          <range><min>0.02</min><max>6.0</max><resolution>0.01</resolution></range>
+        </ray>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+
+      <sensor name="ps4" type="ray">
+        <pose>0.156 0 0.050 0 0 0</pose>
+        <ray>
+          <scan><horizontal><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></horizontal></scan>
+          <range><min>0.02</min><max>6.0</max><resolution>0.01</resolution></range>
+        </ray>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+
+      <sensor name="ps5" type="ray">
+        <pose>0.110 0.110 0.050 0 0 -0.78540</pose>
+        <ray>
+          <scan><horizontal><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></horizontal></scan>
+          <range><min>0.02</min><max>6.0</max><resolution>0.01</resolution></range>
+        </ray>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+
+      <sensor name="ps6" type="ray">
+        <pose>0 0.156 0.050 0 0 -1.5708</pose>
+        <ray>
+          <scan><horizontal><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></horizontal></scan>
+          <range><min>0.02</min><max>6.0</max><resolution>0.01</resolution></range>
+        </ray>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+
+      <sensor name="ps7" type="ray">
+        <pose>-0.110 0.110 0.050 0 0 -2.35619</pose>
+        <ray>
+          <scan><horizontal><samples>1</samples><min_angle>0</min_angle><max_angle>0</max_angle></horizontal></scan>
+          <range><min>0.02</min><max>6.0</max><resolution>0.01</resolution></range>
+        </ray>
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+      </sensor>
+
+      <!-- IMU (accelerometer + gyro) -->
+      <sensor name="imu" type="imu">
+        <pose>0 0 0 0 0 0</pose>
+        <always_on>1</always_on>
+        <update_rate>100</update_rate>
+        <imu>
+          <angular_velocity>
+            <x><noise type="gaussian"><mean>0</mean><stddev>2e-4</stddev></noise></x>
+            <y><noise type="gaussian"><mean>0</mean><stddev>2e-4</stddev></noise></y>
+            <z><noise type="gaussian"><mean>0</mean><stddev>2e-4</stddev></noise></z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x><noise type="gaussian"><mean>0</mean><stddev>1.7e-2</stddev></noise></x>
+            <y><noise type="gaussian"><mean>0</mean><stddev>1.7e-2</stddev></noise></y>
+            <z><noise type="gaussian"><mean>0</mean><stddev>1.7e-2</stddev></noise></z>
+          </linear_acceleration>
+        </imu>
+      </sensor>
+    </link>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         LEFT WHEEL  (y = +0.120 m)
+    ═══════════════════════════════════════════════════════════ -->
+    <link name="left_wheel">
+      <pose>0 0.120 0.052 0 1.5708 1.5708</pose>
+      <inertial>
+        <mass>0.080</mass>
+        <inertia>
+          <ixx>0.000054</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000054</iyy>
+          <iyz>0</iyz>
+          <izz>0.000108</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder><radius>0.052</radius><length>0.020</length></cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode><mu>10</mu><mu2>10</mu2><fdir1>0 0 0</fdir1></ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder><radius>0.052</radius><length>0.020</length></cylinder>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+        </material>
+      </visual>
+    </link>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         RIGHT WHEEL  (y = -0.120 m)
+    ═══════════════════════════════════════════════════════════ -->
+    <link name="right_wheel">
+      <pose>0 -0.120 0.052 0 1.5708 1.5708</pose>
+      <inertial>
+        <mass>0.080</mass>
+        <inertia>
+          <ixx>0.000054</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000054</iyy>
+          <iyz>0</iyz>
+          <izz>0.000108</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <cylinder><radius>0.052</radius><length>0.020</length></cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode><mu>10</mu><mu2>10</mu2><fdir1>0 0 0</fdir1></ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder><radius>0.052</radius><length>0.020</length></cylinder>
+        </geometry>
+        <material>
+          <ambient>0.1 0.1 0.1 1</ambient>
+          <diffuse>0.1 0.1 0.1 1</diffuse>
+        </material>
+      </visual>
+    </link>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         JOINTS
+    ═══════════════════════════════════════════════════════════ -->
+    <joint name="left_wheel_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>left_wheel</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit><lower>-1e+16</lower><upper>1e+16</upper></limit>
+        <dynamics><friction>0.1</friction><damping>0.1</damping></dynamics>
+      </axis>
+    </joint>
+
+    <joint name="right_wheel_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>right_wheel</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit><lower>-1e+16</lower><upper>1e+16</upper></limit>
+        <dynamics><friction>0.1</friction><damping>0.1</damping></dynamics>
+      </axis>
+    </joint>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         GAZEBO PLUGINS
+    ═══════════════════════════════════════════════════════════ -->
+    <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
+      <ros>
+        <namespace>/research_circular_robot</namespace>
+        <remapping>cmd_vel:=cmd_vel</remapping>
+        <remapping>odom:=odom</remapping>
+      </ros>
+      <left_joint>left_wheel_joint</left_joint>
+      <right_joint>right_wheel_joint</right_joint>
+      <wheel_separation>0.240</wheel_separation>
+      <wheel_diameter>0.104</wheel_diameter>
+      <max_wheel_torque>2.0</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>false</publish_wheel_tf>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+    </plugin>
+
+    <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+      <ros>
+        <namespace>/research_circular_robot</namespace>
+        <remapping>~/out:=joint_states</remapping>
+      </ros>
+      <update_rate>30</update_rate>
+      <joint_name>left_wheel_joint</joint_name>
+      <joint_name>right_wheel_joint</joint_name>
+    </plugin>
+
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+      <ros>
+        <namespace>/research_circular_robot</namespace>
+        <remapping>~/out:=imu/data</remapping>
+      </ros>
+      <sensor_name>imu</sensor_name>
+      <frame_name>base_link</frame_name>
+    </plugin>
+
+  </model>
+</sdf>

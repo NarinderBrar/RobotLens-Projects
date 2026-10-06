@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+            schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>pr2_pick_place_interfaces</name>
+  <version>0.1.0</version>
+  <description>
+    PickPlace.action for P4 of docs/IMPLEMENTATION_PLAN_PR2_MOVEIT_PICK_PLACE.md
+    -- the pick-and-place task node's own action, kept in a standalone
+    interfaces-only package the way pr2_right_arm_moveit_config keeps its
+    config standalone, since rosidl action generation needs its own
+    ament_cmake package.
+  </description>
+  <maintainer email="nsidhubrar@gmail.com">Narinder Brar</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <depend>geometry_msgs</depend>
+
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

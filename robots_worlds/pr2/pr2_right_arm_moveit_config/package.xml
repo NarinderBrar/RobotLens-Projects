@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd"
+            schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>pr2_right_arm_moveit_config</name>
+  <version>0.1.0</version>
+  <description>
+    MoveIt 2 planning configuration (SRDF, kinematics, planning, controller
+    mapping) for the P2 right-arm/right-gripper groups defined in
+    docs/IMPLEMENTATION_PLAN_PR2_MOVEIT_PICK_PLACE.md. This is example-fixture
+    configuration for robots_worlds/pr2, not robotlens_desktop production
+    code; it is a standalone ROS 2 package by design so its SRDF/YAML source
+    stays reviewable and separate from the C++ desktop application.
+  </description>
+  <maintainer email="nsidhubrar@gmail.com">Narinder Brar</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>moveit_ros_move_group</exec_depend>
+  <exec_depend>moveit_ros_planning_interface</exec_depend>
+  <exec_depend>moveit_planners_ompl</exec_depend>
+  <exec_depend>moveit_kinematics</exec_depend>
+  <exec_depend>moveit_simple_controller_manager</exec_depend>
+  <exec_depend>moveit_configs_utils</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>control_msgs</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

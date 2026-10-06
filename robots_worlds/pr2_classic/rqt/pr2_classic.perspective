@@ -1,0 +1,13 @@
+{
+  "keys": {},
+  "groups": {
+    "pluginmanager": {
+      "keys": {
+        "running-plugins": {
+          "type": "repr",
+          "repr": "{'rqt_console/Console': [0], 'rqt_topic/TopicPlugin': [1]}"
+        }
+      }
+    }
+  }
+}

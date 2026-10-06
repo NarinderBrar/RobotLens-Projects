@@ -1,0 +1,81 @@
+<mujoco model="turtlebot3_burger">
+  <option timestep="0.005" integrator="implicitfast"/>
+
+  <visual>
+    <rgba haze="0.6 0.6 0.6 1"/>
+    <headlight ambient="0.4 0.4 0.4" diffuse="0.6 0.6 0.6" specular="0.2 0.2 0.2"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.6 0.7 0.8" rgb2="0.2 0.2 0.3"
+             width="512" height="512"/>
+    <mesh name="burger_base" file="../meshes/bases/burger_base.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="left_tire" file="../meshes/wheels/left_tire.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="right_tire" file="../meshes/wheels/right_tire.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="lds" file="../meshes/sensors/lds.stl" scale="0.001 0.001 0.001"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 3" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
+    <light pos="2 2 2" dir="-0.5 -0.5 -1" diffuse="0.4 0.4 0.4"/>
+    <geom name="floor" type="plane" size="5 5 0.1" rgba="0.9 0.9 0.9 1"
+          friction="0.05 0.005 0.0001"/>
+
+    <body name="base_link" pos="0 0 0.010">
+      <freejoint name="base_joint"/>
+      <inertial pos="-0.032 0 0.036" mass="1.046"
+                 diaginertia="0.00134 0.00128 0.00213"/>
+      <geom type="box" size="0.07 0.07 0.0715" pos="-0.032 0 0.070"
+            mass="0.5"/>
+      <geom type="mesh" mesh="burger_base" pos="-0.032 0 0.0"
+            rgba="1 1 0.2 1" contype="0" conaffinity="0"/>
+
+      <body name="wheel_left_link" pos="0 0.08 0.023">
+        <joint name="wheel_left_joint" type="hinge" axis="0 1 0"
+               armature="0.01" frictionloss="0.1"/>
+        <inertial pos="0 0 0" mass="0.028"
+                   diaginertia="2.07e-05 1.12e-05 1.12e-05"/>
+        <geom type="cylinder" size="0.033 0.009" zaxis="0 1 0"/>
+        <geom type="mesh" mesh="left_tire" rgba="0.2 0.2 0.2 1"
+              contype="0" conaffinity="0"/>
+      </body>
+
+      <body name="wheel_right_link" pos="0 -0.08 0.023">
+        <joint name="wheel_right_joint" type="hinge" axis="0 1 0"
+               armature="0.01" frictionloss="0.1"/>
+        <inertial pos="0 0 0" mass="0.028"
+                   diaginertia="2.07e-05 1.12e-05 1.12e-05"/>
+        <geom type="cylinder" size="0.033 0.009" zaxis="0 1 0"/>
+        <geom type="mesh" mesh="right_tire" rgba="0.2 0.2 0.2 1"
+              contype="0" conaffinity="0"/>
+      </body>
+
+      <body name="caster_back_link" pos="-0.081 0 0">
+        <inertial pos="0 0 0" mass="0.001"
+                   diaginertia="1e-07 1e-07 1e-07"/>
+        <geom type="sphere" size="0.01" rgba="0.3 0.3 0.3 1"
+              friction="0.0001 0.0001 0.0001" condim="1"/>
+      </body>
+
+      <body name="base_scan" pos="-0.032 0 0.172">
+        <inertial pos="0 0 0" mass="0.1"
+                   diaginertia="1e-05 1e-05 1e-06"/>
+        <geom type="cylinder" size="0.055 0.016"/>
+        <geom type="mesh" mesh="lds" rgba="0.3 0.3 0.3 1"
+              contype="0" conaffinity="0"/>
+      </body>
+    </body>
+
+  </worldbody>
+
+  <actuator>
+    <velocity name="left_motor" joint="wheel_left_joint" kv="0.1" ctrlrange="-20 20" ctrllimited="true"/>
+    <velocity name="right_motor" joint="wheel_right_joint" kv="0.1" ctrlrange="-20 20" ctrllimited="true"/>
+  </actuator>
+
+  <contact>
+    <exclude body1="base_link" body2="wheel_left_link"/>
+    <exclude body1="base_link" body2="wheel_right_link"/>
+    <exclude body1="base_link" body2="caster_back_link"/>
+  </contact>
+</mujoco>

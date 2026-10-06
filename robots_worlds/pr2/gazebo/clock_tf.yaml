@@ -1,0 +1,13 @@
+# ros_gz_bridge config for pr2_world.sdf.
+#
+# Just /clock: pr2_world.sdf has no robot model (see its own header comment),
+# so there is no PosePublisher Pose_V topic to bridge to /tf the way
+# ../../gazebo/bridge/clock_tf.yaml does for double_pendulum.sdf. PR2's own
+# /tf comes entirely from base_node.py + joint_state_publisher_gui in
+# pr2.launch.py, independent of whether this world is running.
+- ros_topic_name: "/clock"
+  gz_topic_name: "/clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "gz.msgs.Clock"
+  direction: GZ_TO_ROS
+  qos_profile: CLOCK

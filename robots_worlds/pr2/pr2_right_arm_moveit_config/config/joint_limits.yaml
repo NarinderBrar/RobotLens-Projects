@@ -1,0 +1,47 @@
+# Velocity limits are copied verbatim from pr2.urdf's <limit> elements for
+# the P0-validated right-arm/gripper joints (see
+# robots_worlds/pr2/gazebo/run_pr2_gazebo.py's RIGHT_ARM_JOINTS /
+# validate_right_arm_model). Acceleration limits have no URDF source, so
+# these are conservative fixture defaults, not derived hardware limits --
+# tune only against bounded controller/planning errors (plan section 5).
+joint_limits:
+  r_shoulder_pan_joint:
+    has_velocity_limits: true
+    max_velocity: 2.088
+    has_acceleration_limits: true
+    max_acceleration: 2.0
+  r_shoulder_lift_joint:
+    has_velocity_limits: true
+    max_velocity: 2.082
+    has_acceleration_limits: true
+    max_acceleration: 2.0
+  r_upper_arm_roll_joint:
+    has_velocity_limits: true
+    max_velocity: 3.27
+    has_acceleration_limits: true
+    max_acceleration: 2.0
+  r_elbow_flex_joint:
+    has_velocity_limits: true
+    max_velocity: 3.3
+    has_acceleration_limits: true
+    max_acceleration: 2.0
+  r_forearm_roll_joint:
+    has_velocity_limits: true
+    max_velocity: 3.6
+    has_acceleration_limits: true
+    max_acceleration: 2.0
+  r_wrist_flex_joint:
+    has_velocity_limits: true
+    max_velocity: 3.078
+    has_acceleration_limits: true
+    max_acceleration: 2.0
+  r_wrist_roll_joint:
+    has_velocity_limits: true
+    max_velocity: 3.6
+    has_acceleration_limits: true
+    max_acceleration: 2.0
+  r_gripper_l_finger_joint:
+    has_velocity_limits: true
+    max_velocity: 0.5
+    has_acceleration_limits: true
+    max_acceleration: 1.0
