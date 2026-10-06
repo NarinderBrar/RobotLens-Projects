@@ -1,0 +1,30 @@
+# Maps move_group's execution layer directly onto the P1 controller adapter
+# (robots_worlds/pr2/pr2_arm_trajectory_controller.py). moveit_simple_
+# controller_manager builds each action name as `<controller name>/<action_ns>`,
+# so these names must stay byte-for-byte in sync with that adapter's
+# ActionServer topics.
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+moveit_simple_controller_manager:
+  controller_names:
+    - pr2_right_arm_controller
+    - pr2_right_gripper_controller
+
+  pr2_right_arm_controller:
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: true
+    joints:
+      - r_shoulder_pan_joint
+      - r_shoulder_lift_joint
+      - r_upper_arm_roll_joint
+      - r_elbow_flex_joint
+      - r_forearm_roll_joint
+      - r_wrist_flex_joint
+      - r_wrist_roll_joint
+
+  pr2_right_gripper_controller:
+    action_ns: gripper_cmd
+    type: GripperCommand
+    default: true
+    joints:
+      - r_gripper_l_finger_joint

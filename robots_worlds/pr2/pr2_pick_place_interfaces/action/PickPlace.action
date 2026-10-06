@@ -1,0 +1,43 @@
+# P4 pick-and-place task action (docs/IMPLEMENTATION_PLAN_PR2_MOVEIT_PICK_PLACE.md).
+#
+# All poses are in the planning frame the P3 grasp controller already uses
+# (PLANNING_FRAME = 'base_footprint' in pr2_grasp_controller.py), not the
+# object's own disconnected open_interior-rooted TF tree.
+
+# Must equal grasp_object.OBJECT_MODEL_NAME ('graspable_object') -- this
+# fixture owns exactly one graspable object; any other value is rejected.
+string object_id
+
+# Candidate palm poses to attempt the grasp from, tried in order until one
+# both plans+executes within tolerance and passes ~/attach's own
+# precondition checks. Empty means: compute one default candidate from the
+# object's known pose (grasp_object.OBJECT_INITIAL_POSE_XYZ) using the same
+# approach reach_and_grasp_demo.py validated live this session.
+geometry_msgs/Pose[] grasp_candidates
+
+# Where to place the object after a successful grasp, as a palm target
+# pose (same convention as grasp_candidates).
+geometry_msgs/Pose placement_pose
+
+# Per-motion-planning-call timeout; <= 0 means use the task's own
+# conservative default (10s).
+float64 planning_timeout
+
+# MoveGroup max_velocity_scaling_factor (and, matched, acceleration
+# scaling); <= 0 means use the task's own conservative default (0.3),
+# per the plan's "make velocity scaling conservative by default".
+float64 velocity_scaling
+---
+bool success
+string message
+# Which state machine state the task was in when it stopped -- populated
+# on both success (VERIFY_PLACEMENT) and failure, so a failure always
+# names the exact step that didn't complete.
+string failed_state
+# The object's actual pose (via TF) when the task ended, whether or not
+# the task succeeded -- lets a caller tell "placed correctly" apart from
+# "released somewhere else" apart from "still attached".
+geometry_msgs/Pose final_object_pose
+---
+string current_state
+float64 elapsed_seconds

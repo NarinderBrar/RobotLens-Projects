@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<robot name="parrot_bebop_2">
+
+  <!-- Root frame. Gazebo's model pose / /odom root is attached here, and
+       base_link hangs just below it (matches the drone's resting height). -->
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.03" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Main body. Inertial/collision values mirror the Parrot Bebop 2 SDF
+       (robots_worlds/explorer_r2/drone/model.sdf before it was folded in here). -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/hull.dae"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="-0.00424 0.00014 -0.00595" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.316618 0.330564 0.089582"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.503"/>
+      <inertia ixx="1.805e-3" ixy="-8.619e-7" ixz="1.555e-5" iyy="1.764e-3" iyz="3.595e-7" izz="3.328e-3"/>
+    </inertial>
+  </link>
+
+  <!-- Four rotor joints, X-config. MulticopterMotorModel/MulticopterVelocityControl
+       (injected by gazebo_runner.py) spin these; the DAE propellers ride on them.
+       Rotation axes are body-local +z; the two CCW rotors (FL, RR) and two CW rotors
+       (FR, RL) cancel reaction yaw at hover. -->
+  <joint name="rotor_fl_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rotor_fl_link"/>
+    <origin xyz="0.08456 0.11463 -0.00501" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="rotor_fl_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/propeller_fl.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="1.0e-7" ixy="0.0" ixz="0.0" iyy="1.0e-7" iyz="0.0" izz="1.0e-7"/>
+    </inertial>
+  </link>
+
+  <joint name="rotor_fr_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rotor_fr_link"/>
+    <origin xyz="0.08456 -0.11435 -0.00501" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="rotor_fr_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/propeller_fr.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="1.0e-7" ixy="0.0" ixz="0.0" iyy="1.0e-7" iyz="0.0" izz="1.0e-7"/>
+    </inertial>
+  </link>
+
+  <joint name="rotor_rl_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rotor_rl_link"/>
+    <origin xyz="-0.09035 0.11452 -0.00501" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="rotor_rl_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/propeller_rl.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="1.0e-7" ixy="0.0" ixz="0.0" iyy="1.0e-7" iyz="0.0" izz="1.0e-7"/>
+    </inertial>
+  </link>
+
+  <joint name="rotor_rr_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rotor_rr_link"/>
+    <origin xyz="-0.09035 -0.11423 -0.00501" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="rotor_rr_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/propeller_rr.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.001"/>
+      <inertia ixx="1.0e-7" ixy="0.0" ixz="0.0" iyy="1.0e-7" iyz="0.0" izz="1.0e-7"/>
+    </inertial>
+  </link>
+
+</robot>

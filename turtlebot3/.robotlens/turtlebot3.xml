@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robotlens_project schemaVersion="20" displayName="turtlebot3">
+    <connectionProfile domainId="0" namespace=""/>
+    <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="true" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
+    <assets>
+        <asset id="urdf-main" originalPath="turtlebot3/robots/turtlebot3_burger.urdf" relativePath="turtlebot3/robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-4650375007"/>
+        <robot id="robot-main" originalPath="turtlebot3/robots/turtlebot3_burger.urdf" relativePath="turtlebot3/robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-355407711"/>
+        <world id="world-main" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-356149192"/>
+    </assets>
+    <sceneModel id="sdf/white_floor" sourceKind="sdf" displayName="white_floor" visible="true">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/white_floor" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4651116488"/>
+    </sceneModel>
+    <sceneModel id="sdf/wall_north" sourceKind="sdf" displayName="wall_north" visible="true">
+        <transform position="0.000000 12.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/wall_north" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4651116488"/>
+    </sceneModel>
+    <sceneModel id="sdf/wall_south" sourceKind="sdf" displayName="wall_south" visible="true">
+        <transform position="0.000000 -12.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/wall_south" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4651116488"/>
+    </sceneModel>
+    <sceneModel id="sdf/wall_east" sourceKind="sdf" displayName="wall_east" visible="true">
+        <transform position="15.000000 0.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/wall_east" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4651116488"/>
+    </sceneModel>
+    <sceneModel id="sdf/wall_west" sourceKind="sdf" displayName="wall_west" visible="true">
+        <transform position="-15.000000 0.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/wall_west" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4651116488"/>
+    </sceneModel>
+    <sceneModel id="sdf/shelf_red" sourceKind="sdf" displayName="shelf_red" visible="true">
+        <transform position="-10.000000 8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/shelf_red" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4651116488"/>
+    </sceneModel>
+    <sceneModel id="sdf/shelf_blue" sourceKind="sdf" displayName="shelf_blue" visible="true">
+        <transform position="10.000000 8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/shelf_blue" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4651116488"/>
+    </sceneModel>
+    <sceneModel id="sdf/shelf_green" sourceKind="sdf" displayName="shelf_green" visible="true">
+        <transform position="-10.000000 -8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/shelf_green" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4651116488"/>
+    </sceneModel>
+    <sceneModel id="sdf/shelf_yellow" sourceKind="sdf" displayName="shelf_yellow" visible="true">
+        <transform position="10.000000 -8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/shelf_yellow" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4651116488"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/turtlebot3_burger" sourceKind="file_urdf" displayName="turtlebot3_burger" visible="true">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/turtlebot3_burger" originalPath="turtlebot3/robots/turtlebot3_burger.urdf" relativePath="turtlebot3/robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-4650375007"/>
+    </sceneModel>
+    <light id="light/local/scene/Directional Light_2" type="directional" name="Directional Light 2" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
+        <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId=""/>
+    </light>
+    <visualOrigin linkName="base_link" visualIndex="0" position="-0.032000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="wheel_left_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="0.707388 0.706825 0.000000 0.000000"/>
+    <visualOrigin linkName="wheel_right_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="0.707388 0.706825 0.000000 0.000000"/>
+    <visualOrigin linkName="base_scan" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="base_joint" position="0.000000 0.000000 0.010000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="wheel_left_joint" position="0.000000 0.080000 0.023000" rotation="0.707388 -0.706825 0.000000 0.000000"/>
+    <jointOrigin jointName="wheel_right_joint" position="0.000000 -0.080000 0.023000" rotation="0.707388 -0.706825 0.000000 0.000000"/>
+    <jointOrigin jointName="caster_back_joint" position="-0.081000 0.000000 -0.004000" rotation="0.707388 -0.706825 0.000000 0.000000"/>
+    <jointOrigin jointName="imu_joint" position="-0.032000 0.000000 0.068000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="scan_joint" position="-0.032000 0.000000 0.172000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <viewport target="0.688884 2.029612 -0.356780" yaw="-91" pitch="34" distance="6.8608108" fov="45" projectionMode="0" showGrid="true"/>
+    <pathIntelligence plannedPathTopic="/plan" odometryTopic="/odom" fixedFrame="map" warningMeters="0.050000000000000003" criticalMeters="0.14999999999999999" maxPathRevisions="64" maxTrajectorySamples="4096"/>
+    <multiRobotNavigation shareFootprints="false"/>
+    <autonomousMission name="Autonomous Mission" behavior="waypoint" routeExecution="whole_route" patrolForever="false" patrolCycles="1" patrolDurationSeconds="0" mode="waypoints">
+        <coverage frameId="map" laneSpacingMeters="0.5"/>
+    </autonomousMission>
+    <behaviorTree>
+        <xml>&lt;?xml version="1.0"?&gt;
+&lt;root main_tree_to_execute="MainTree" BTCPP_format="4"&gt;
+    &lt;BehaviorTree ID="MainTree"&gt;
+        &lt;Sequence name="Navigate"&gt;
+            &lt;ComputePathToPose name="Compute path" goal="{goal_pose}"/&gt;
+            &lt;FollowPath name="Follow path" path="{path}"/&gt;
+        &lt;/Sequence&gt;
+    &lt;/BehaviorTree&gt;
+&lt;/root&gt;
+</xml>
+        <layout>[{"id":"node_2","x":340.0,"y":20.0},{"id":"node_3","x":340.0,"y":150.0},{"id":"node_4","x":600.0,"y":40.0}]</layout>
+    </behaviorTree>
+    <display typeName="robotlens/TF" instanceName="TF" enabled="true" paused="false">
+        <property key="all_enabled" type="bool" value="true"/>
+        <property key="axis_length" type="double" value="0.050000000000000003"/>
+        <property key="frame_name_blacklist" type="string" value=""/>
+        <property key="frame_name_filter" type="string" value=""/>
+        <property key="link_thickness" type="double" value="0.0050000000000000001"/>
+        <property key="show_arrows" type="bool" value="true"/>
+        <property key="show_axes" type="bool" value="true"/>
+        <property key="show_names" type="bool" value="false"/>
+        <property key="show_parent_links" type="bool" value="true"/>
+        <property key="staleness_seconds" type="double" value="1"/>
+        <property key="tree_depth_limit" type="int" value="0"/>
+        <property key="update_interval" type="double" value="0"/>
+        <property key="use_mesh_axes" type="bool" value="true"/>
+        <property key="use_thick_links" type="bool" value="true"/>
+    </display>
+    <display typeName="scene/Primitives" instanceName="Primitives" enabled="true" paused="false"/>
+    <display typeName="scene/ImportedModels" instanceName="Imported Models" enabled="true" paused="false"/>
+    <display typeName="scene/Lights" instanceName="Lights" enabled="true" paused="false"/>
+    <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
+    <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
+    <display typeName="robotlens/Path" instanceName="file_urdf/turtlebot3_burger Navigation plan" enabled="true" paused="false">
+        <property key="message_type" type="string" value="nav_msgs/msg/Path"/>
+        <property key="owner_id" type="string" value="file_urdf/turtlebot3_burger"/>
+        <property key="topic" type="string" value="/plan"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/turtlebot3_burger Global costmap" enabled="true" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/turtlebot3_burger"/>
+        <property key="topic" type="string" value="/global_costmap/costmap"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/turtlebot3_burger Local costmap" enabled="false" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/turtlebot3_burger"/>
+        <property key="topic" type="string" value="/local_costmap/costmap"/>
+    </display>
+    <display typeName="robotlens/LaserScan" instanceName="/virtual_lidar2d/scan" enabled="false" paused="false">
+        <property key="message_type" type="string" value="sensor_msgs/msg/LaserScan"/>
+        <property key="render_style" type="int" value="3"/>
+        <property key="topic" type="string" value="/virtual_lidar2d/scan"/>
+    </display>
+    <workspaceRoot>.</workspaceRoot>
+    <simulation backend="gazebo" executable="" worldFile="/tmp/robotlens_setup_323150.sdf" worldName="open_interior" robotModelName="turtlebot3_burger" attachOnly="false"/>
+    <commsBackend kind="ros2" endpoint=""/>
+    <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
+    <robotCapabilities>
+        <robotCapability ownerId="file_urdf/turtlebot3_burger">
+            <keyboardControl commandEndpoint="/cmd_vel" linearSpeed="0.5" angularSpeed="1"/>
+        </robotCapability>
+    </robotCapabilities>
+</robotlens_project>
+

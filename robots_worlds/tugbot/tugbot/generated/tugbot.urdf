@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<!-- Generated from /home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot by tools/sdf_to_urdf.cpp, see its header comment for known limitations. -->
+<robot name="tugbot">
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/base/tugbot_simp.dae"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/base/movai_logo.dae"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="-0.1 0 0.1945" rpy="0 1.57045 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/light_link/light_led.stl"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="-0.099 0 0.195" rpy="0 1.57045 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/light_link/light.stl" scale="1.02 1.02 1.02"/></geometry>
+    </visual>
+  </link>
+  <link name="imu_link">
+  </link>
+  <link name="warnign_light">
+  </link>
+  <link name="camera_front">
+  </link>
+  <link name="camera_back">
+  </link>
+  <link name="scan_front">
+  </link>
+  <link name="scan_back">
+  </link>
+  <link name="scan_omni">
+    <visual>
+      <origin xyz="0 0 -0.035" rpy="0 -0 0"/>
+      <geometry><cylinder radius="0.06" length="0.0015"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="-0.035 0.035 -0.08" rpy="0 -0 0"/>
+      <geometry><cylinder radius="0.005" length="0.09"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="-0.035 -0.035 -0.08" rpy="0 -0 0"/>
+      <geometry><cylinder radius="0.005" length="0.09"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="0.0495 0 -0.08" rpy="0 -0 0"/>
+      <geometry><cylinder radius="0.005" length="0.09"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 -0.035" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/VLP16_base_1.dae"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 -0.035" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/VLP16_base_2.dae"/></geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 -0.035" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/VLP16_scan.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="gripper">
+    <visual>
+      <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/gripper2/gripper2.dae"/></geometry>
+    </visual>
+  </link>
+  <link name="gripper_hand">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 -0 1.5708"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/gripper2/gripper_hand.stl" scale="0.001 0.001 0.001"/></geometry>
+    </visual>
+  </link>
+  <link name="wheel_front">
+  </link>
+  <link name="wheel_back">
+  </link>
+  <link name="wheel_left">
+    <visual>
+      <origin xyz="0 0 -0.03" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/wheel/wheel.dae" scale="0.98 0.98 1"/></geometry>
+    </visual>
+  </link>
+  <link name="wheel_right">
+    <visual>
+      <origin xyz="0 0 -0.03" rpy="0 -0 0"/>
+      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/tugbot/tugbot/meshes/wheel/wheel.dae" scale="0.98 0.98 1"/></geometry>
+    </visual>
+  </link>
+  <joint name="imu_link_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0.14 0.02 0.25" rpy="0 0 -1.57"/>
+  </joint>
+  <joint name="warnign_light_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="warnign_light"/>
+    <origin xyz="-0.185 0 0.46" rpy="0 -0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="100" velocity="100"/>
+  </joint>
+  <joint name="camera_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_front"/>
+    <origin xyz="0.0553 0 0.4323" rpy="0 -0 0"/>
+  </joint>
+  <joint name="camera_back_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_back"/>
+    <origin xyz="-0.241 0 0.2303" rpy="0 -0 -3.14159"/>
+  </joint>
+  <joint name="scan_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="scan_front"/>
+    <origin xyz="0.221 0 0.1404" rpy="0 -0 0"/>
+  </joint>
+  <joint name="scan_back_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="scan_back"/>
+    <origin xyz="-0.2075 0 0.205" rpy="0 -0 -3.14159"/>
+  </joint>
+  <joint name="scan_omni_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="scan_omni"/>
+    <origin xyz="-0.1855 0 0.5318" rpy="0 -0 0"/>
+  </joint>
+  <joint name="gripper_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="gripper"/>
+    <origin xyz="-0.35 0 0.1" rpy="0 -0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.7" upper="0.7" effort="100" velocity="100"/>
+  </joint>
+  <joint name="gripper_hand_joint" type="revolute">
+    <parent link="gripper"/>
+    <child link="gripper_hand"/>
+    <origin xyz="-0.113 0 0" rpy="0 -0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.35" upper="0.1" effort="100" velocity="100"/>
+  </joint>
+  <joint name="wheel_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="wheel_front"/>
+    <origin xyz="0.145 0 0.0345" rpy="1.5708 -0 0"/>
+  </joint>
+  <joint name="wheel_back_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="wheel_back"/>
+    <origin xyz="-0.225 0 0.035" rpy="1.5708 -0 0"/>
+  </joint>
+  <joint name="wheel_left_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_left"/>
+    <origin xyz="0 0.257 0.195" rpy="-1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="100" velocity="100"/>
+  </joint>
+  <joint name="wheel_right_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_right"/>
+    <origin xyz="0 -0.257 0.195" rpy="1.5708 -0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="100" velocity="100"/>
+  </joint>
+</robot>

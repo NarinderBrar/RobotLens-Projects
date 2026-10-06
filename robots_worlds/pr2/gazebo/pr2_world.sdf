@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<!--
+  pr2's companion Gazebo world: ground plane + sun only, no robot
+  model. PR2 itself stays fully kinematic (see ../README.md's "Option A"
+  note); it is never spawned into Gazebo, so this world exists purely so
+  RobotLens's Simulation source has something to Attach to (a /clock heartbeat)
+  while pr2.launch.py drives the robot via TF/joint_states directly.
+
+  Physics only, no sensors, so it runs headless on any host (mirrors
+  ../../gazebo/worlds/double_pendulum.sdf's boilerplate).
+
+  Run via run_pr2_gazebo.sh up (same directory), or directly with a clean
+  environment (see ../../gazebo/README.md for why gz needs one):
+    env -i HOME=$HOME PATH=/usr/bin:/bin gz sim -s --headless-rendering -r pr2_world.sdf
+-->
+<sdf version="1.6">
+  <world name="pr2_ground">
+
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.5 0.5 0.5 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.8 0.8 0.8 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
