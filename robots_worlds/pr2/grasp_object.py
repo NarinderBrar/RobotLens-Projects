@@ -68,4 +68,7 @@ MOVEIT_TOUCH_LINKS = (
     'r_gripper_r_finger_link',
     'r_gripper_l_finger_tip_link',
     'r_gripper_r_finger_tip_link',
+    'r_wrist_roll_link',
+    'r_wrist_flex_link',
+    'r_forearm_link',
 )
