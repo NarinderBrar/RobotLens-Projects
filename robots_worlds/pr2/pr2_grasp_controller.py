@@ -48,13 +48,7 @@ from geometry_msgs.msg import Pose, TransformStamped
 from gz.msgs10.empty_pb2 import Empty as GzEmpty
 from gz.msgs10.stringmsg_pb2 import StringMsg as GzStringMsg
 from gz.transport13 import Node as GzNode
-from moveit_msgs.msg import (
-    AllowedCollisionEntry,
-    AllowedCollisionMatrix,
-    AttachedCollisionObject,
-    CollisionObject,
-    PlanningScene,
-)
+from moveit_msgs.msg import AttachedCollisionObject, CollisionObject, PlanningScene
 from moveit_msgs.srv import ApplyPlanningScene
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
@@ -378,6 +372,9 @@ class Pr2GraspController(Node):
                 f'{go.GRASP_ENVELOPE_MAX_DISTANCE_M:.3f} m grasp envelope')
             return response
 
+        self.get_logger().info(
+            f'attaching: object {distance:.3f} m from {go.MOVEIT_ATTACH_LINK} at '
+            f'({t.x:.3f}, {t.y:.3f}, {t.z:.3f})')
         self._attach_pub.publish(GzEmpty())
 
         # Confirmed empirically: applying an attached_collision_objects ADD
@@ -402,11 +399,6 @@ class Pr2GraspController(Node):
         attach_scene.is_diff = True
         attach_scene.robot_state.is_diff = True
         attach_scene.robot_state.attached_collision_objects = [attached]
-        acm = AllowedCollisionMatrix()
-        acm.entry_names = [go.OBJECT_MODEL_NAME, go.TABLE_MODEL_NAME]
-        entry = AllowedCollisionEntry(enabled=[True, True])
-        acm.entry_values = [entry, entry]
-        attach_scene.allowed_collision_matrix = acm
 
         if not self._apply_scene_sync(attach_scene):
             self._detach_pub.publish(GzEmpty())
