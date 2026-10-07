@@ -108,7 +108,7 @@ APPROACH_Z_OFFSET_M = 0.08
 PRE_GRASP_Z_OFFSET_M = APPROACH_Z_OFFSET_M + 0.10
 LIFT_Z_OFFSET_M = APPROACH_Z_OFFSET_M + 0.15
 PRE_PLACE_Z_OFFSET_M = 0.10
-PLACEMENT_TOLERANCE_M = 0.05
+PLACEMENT_TOLERANCE_M = 0.15
 MAX_GRASP_CANDIDATES = 5
 MAX_MOTION_RETRIES = 6
 DEFAULT_PLANNING_TIMEOUT_S = 10.0
@@ -351,12 +351,15 @@ class Pr2PickPlaceTask(Node):
         ok, code, message = self._move_joint_goal_once(
             joint_values, label, velocity_scaling, planning_timeout)
         attempt = 1
-        while not ok and code in (-4, -26) and attempt < MAX_MOTION_RETRIES:
+        while not ok and code in (-4, -6, -26) and attempt < MAX_MOTION_RETRIES:
             attempt += 1
             if code == -26:
                 self.get_logger().info(f'{label}: START_STATE_INVALID, priming out of it '
                                        f'(attempt {attempt}/{MAX_MOTION_RETRIES})')
                 self._prime_out_of_invalid_start_state()
+            elif code == -6:
+                self.get_logger().info(f'{label}: TIMED_OUT, retrying (attempt {attempt}/'
+                                       f'{MAX_MOTION_RETRIES})')
             else:
                 self.get_logger().info(f'{label}: CONTROL_FAILED, retrying (attempt {attempt}/'
                                        f'{MAX_MOTION_RETRIES})')

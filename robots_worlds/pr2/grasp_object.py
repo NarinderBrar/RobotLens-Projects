@@ -53,7 +53,7 @@ DETACHABLE_JOINT_STATE_TOPIC = f'/model/pr2/{OBJECT_MODEL_NAME}/state'
 # A real close-on-object attempt stops short of the fully-closed 0.0 rad
 # (nothing to close around otherwise), so this is "closed enough to be
 # gripping something small", not "fully closed".
-GRASP_ENVELOPE_MAX_DISTANCE_M = 0.08
+GRASP_ENVELOPE_MAX_DISTANCE_M = 0.20
 GRIPPER_CLOSED_MAX_POSITION_RAD = 0.35
 
 # MoveIt loads the original pr2.urdf (not the Gazebo-lumped SDF), where

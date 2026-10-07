@@ -1,10 +1,3 @@
-# RobotLens-generated Nav2 params for a robot with no detected lidar.
-# No obstacle/voxel costmap layer -- there is no /scan to feed one -- so
-# navigation relies on the static map plus inflation around it. AMCL is left
-# unconfigured; supply a static map->odom transform (see
-# examples/turtlebot3/nav2/README.md's "Why no AMCL" section) rather than
-# launching AMCL against this file.
-
 amcl:
   ros__parameters:
     use_sim_time: true
@@ -128,12 +121,4 @@ lifecycle_manager_navigation:
   ros__parameters:
     use_sim_time: true
     autostart: true
-    # Matches generateQuickStartLaunch's kLidarFreeLaunchTemplate exactly --
-    # the same minimal node set examples/turtlebot3/launch/nav2_with_sim.launch.py
-    # already drives correctly with no lidar. Deliberately excludes
-    # collision_monitor, velocity_smoother, docking_server, and every other
-    # bringup_launch.py default node: those sit between controller_server
-    # and the final /cmd_vel, and with no real sensor data feeding them can
-    # hold the output back indefinitely -- Nav2 reports success while the
-    # robot never actually receives a nonzero /cmd_vel.
     node_names: ["map_server", "planner_server", "controller_server", "behavior_server", "bt_navigator"]

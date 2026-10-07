@@ -48,7 +48,13 @@ from geometry_msgs.msg import Pose, TransformStamped
 from gz.msgs10.empty_pb2 import Empty as GzEmpty
 from gz.msgs10.stringmsg_pb2 import StringMsg as GzStringMsg
 from gz.transport13 import Node as GzNode
-from moveit_msgs.msg import AttachedCollisionObject, CollisionObject, PlanningScene
+from moveit_msgs.msg import (
+    AllowedCollisionEntry,
+    AllowedCollisionMatrix,
+    AttachedCollisionObject,
+    CollisionObject,
+    PlanningScene,
+)
 from moveit_msgs.srv import ApplyPlanningScene
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
@@ -276,9 +282,12 @@ class Pr2GraspController(Node):
             return
         if not self._apply_scene.service_is_ready():
             return
+        table_z = go.TABLE_SIZE_M[2] - 0.008
         table = box_collision_object(
-            go.TABLE_MODEL_NAME, PLANNING_FRAME, go.TABLE_SIZE_M,
-            identity_pose(go.TABLE_POSE_XYZ), CollisionObject.ADD)
+            go.TABLE_MODEL_NAME, PLANNING_FRAME,
+            (go.TABLE_SIZE_M[0], go.TABLE_SIZE_M[1], table_z),
+            identity_pose((go.TABLE_POSE_XYZ[0], go.TABLE_POSE_XYZ[1], table_z / 2.0)),
+            CollisionObject.ADD)
         obj = box_collision_object(
             go.OBJECT_MODEL_NAME, PLANNING_FRAME, go.OBJECT_SIZE_M,
             identity_pose(go.OBJECT_INITIAL_POSE_XYZ), CollisionObject.ADD)
@@ -393,6 +402,11 @@ class Pr2GraspController(Node):
         attach_scene.is_diff = True
         attach_scene.robot_state.is_diff = True
         attach_scene.robot_state.attached_collision_objects = [attached]
+        acm = AllowedCollisionMatrix()
+        acm.entry_names = [go.OBJECT_MODEL_NAME, go.TABLE_MODEL_NAME]
+        entry = AllowedCollisionEntry(enabled=[True, True])
+        acm.entry_values = [entry, entry]
+        attach_scene.allowed_collision_matrix = acm
 
         if not self._apply_scene_sync(attach_scene):
             self._detach_pub.publish(GzEmpty())

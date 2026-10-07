@@ -80,6 +80,9 @@ def generate_launch_description():
             "publish_robot_description_semantic": True,
             "allow_trajectory_execution": True,
             "moveit_manage_controllers": True,
+            "trajectory_execution.allowed_execution_duration_scaling": 3.0,
+            "trajectory_execution.allowed_goal_duration_margin": 5.0,
+            "trajectory_execution.execution_duration_monitoring": False,
         },
     ]
     return LaunchDescription([
