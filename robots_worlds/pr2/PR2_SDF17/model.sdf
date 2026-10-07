@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.7">
   <!-- A copy of the pr2 model sans sensors and projector -->
-  <model name="pr2_sdf17">
+  <model name="pr2">
     <static>0</static>
     <link name="base_footprint">
       <self_collide>0</self_collide>

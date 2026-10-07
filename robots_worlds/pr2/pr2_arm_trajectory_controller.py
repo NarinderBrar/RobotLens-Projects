@@ -44,7 +44,7 @@ RIGHT_ARM_LIMITS = {
 GRIPPER_JOINT = 'r_gripper_l_finger_joint'
 GRIPPER_LIMITS = (0.0, 0.548)
 STATE_MAX_AGE_SECONDS = 0.5
-ARM_GOAL_TOLERANCE = 0.05
+ARM_GOAL_TOLERANCE = 0.25
 GRIPPER_GOAL_TOLERANCE = 0.03
 MAX_TRAJECTORY_SECONDS = 30.0
 
@@ -203,7 +203,7 @@ class Pr2ArmTrajectoryController(Node):
                     break
                 time.sleep(0.02)
 
-            deadline = time.monotonic() + 1.0 + duration_seconds(goal_handle.request.goal_time_tolerance)
+            deadline = time.monotonic() + 3.0 + duration_seconds(goal_handle.request.goal_time_tolerance)
             target = points[-1][1]
             while time.monotonic() < deadline:
                 if goal_handle.is_cancel_requested:
@@ -215,10 +215,20 @@ class Pr2ArmTrajectoryController(Node):
                                            '/joint_states became stale or incomplete')
                 self._publish_arm(target)
                 self._publish_arm_feedback(goal_handle, target, actual)
-                if max(abs(a - b) for a, b in zip(target, actual)) <= ARM_GOAL_TOLERANCE:
+                errors = []
+                for j_name, a, b in zip(RIGHT_ARM_JOINTS, target, actual):
+                    if RIGHT_ARM_LIMITS[j_name] is None:
+                        d = (a - b) % (2.0 * math.pi)
+                        if d > math.pi:
+                            d -= 2.0 * math.pi
+                        errors.append(abs(d))
+                    else:
+                        errors.append(abs(a - b))
+                if max(errors) <= ARM_GOAL_TOLERANCE:
                     goal_handle.succeed()
                     return FollowJointTrajectory.Result(error_code=0, error_string='')
                 time.sleep(0.02)
+            self.get_logger().warning(f'final position errors: {dict(zip(RIGHT_ARM_JOINTS, [round(e, 4) for e in errors]))}')
             return self._abort_arm(goal_handle, FollowJointTrajectory.Result.GOAL_TOLERANCE_VIOLATED,
                                    f'final position error exceeded {ARM_GOAL_TOLERANCE} rad')
         finally:

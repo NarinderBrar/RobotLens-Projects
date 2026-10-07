@@ -549,6 +549,12 @@ RIGHT_ARM_LIGHT_DAMPING_OVERRIDE_NM_S_PER_RAD = 2.0
 RIGHT_ARM_LIGHT_DAMPING_JOINTS = (
     'r_upper_arm_roll_joint', 'r_forearm_roll_joint',
     'r_wrist_flex_joint', 'r_wrist_roll_joint',
+    'l_upper_arm_roll_joint', 'l_forearm_roll_joint',
+    'l_wrist_flex_joint', 'l_wrist_roll_joint',
+    'r_gripper_l_finger_joint', 'r_gripper_r_finger_joint',
+    'r_gripper_l_finger_tip_joint', 'r_gripper_r_finger_tip_joint',
+    'l_gripper_l_finger_joint', 'l_gripper_r_finger_joint',
+    'l_gripper_l_finger_tip_joint', 'l_gripper_r_finger_tip_joint',
 )
 
 
@@ -748,37 +754,11 @@ def add_right_arm_controllers(model):
     ET.SubElement(gripper, 'joint_name').text = RIGHT_GRIPPER_COMMAND_JOINT
     ET.SubElement(gripper, 'topic').text = '/pr2/right_gripper/position_cmd'
     ET.SubElement(gripper, 'p_gain').text = '5.0'
-    ET.SubElement(gripper, 'd_gain').text = '0.2'
+    ET.SubElement(gripper, 'd_gain').text = '1.0'
     ET.SubElement(gripper, 'cmd_max').text = '5.0'
     ET.SubElement(gripper, 'cmd_min').text = '-5.0'
+    ET.SubElement(gripper, 'initial_position').text = '0.548'
 
-    # UNRESOLVED-turned-ROOT-CAUSE, 2026-08-12: r_wrist_roll_joint's
-    # intermittent tracking failures (see the r_wrist_roll_joint FOLLOW-UP
-    # note above -- left there for history, but this is the actual fix)
-    # traced to three OTHER joints, not wrist_roll itself.
-    # r_gripper_r_finger_joint, r_gripper_l_finger_tip_joint, and
-    # r_gripper_r_finger_tip_joint are each declared in pr2.urdf as
-    # <mimic joint="r_gripper_l_finger_joint" multiplier="1" offset="0"/>
-    # -- but gz-sim's DART backend does not implement mimic constraints at
-    # all (it logs "the chosen physics engine does not support mimic
-    # constraints, so no constraint will be created" and silently drops
-    # it). That leaves all three completely unactuated and unsynchronized
-    # with the one joint this fixture actually commands, so they free-swing
-    # under gravity/contact -- confirmed empirically: r_gripper_r_finger_
-    # joint/r_gripper_r_finger_tip_joint's velocity was seen oscillating
-    # +/-0.3-0.5 rad/s every /joint_states sample (never settling), while
-    # the untouched, uncommanded left gripper's equivalent joints sat
-    # perfectly still. r_wrist_roll_joint is simply the nearest actuated
-    # joint with the least torque authority (10 N*m, the lowest of any
-    # right-arm joint) to absorb that disturbance, so it was the one
-    # visibly failing tolerance -- raising *its* effort never addressed the
-    # real source and was the wrong joint to chase.
-    #
-    # Fix: give each mimic-in-name-only joint its own JointPositionController
-    # subscribed to the SAME command topic as the real commanded joint, with
-    # multiplier=1/offset=0 (matching the URDF's own mimic parameters
-    # exactly) -- so it tracks the same target the mimic constraint would
-    # have enforced, manually, since gz-sim can't do it natively.
     for mimic_joint in ('r_gripper_r_finger_joint', 'r_gripper_l_finger_tip_joint',
                         'r_gripper_r_finger_tip_joint'):
         mimic_controller = ET.SubElement(model, 'plugin', {
@@ -788,9 +768,10 @@ def add_right_arm_controllers(model):
         ET.SubElement(mimic_controller, 'joint_name').text = mimic_joint
         ET.SubElement(mimic_controller, 'topic').text = '/pr2/right_gripper/position_cmd'
         ET.SubElement(mimic_controller, 'p_gain').text = '5.0'
-        ET.SubElement(mimic_controller, 'd_gain').text = '0.2'
+        ET.SubElement(mimic_controller, 'd_gain').text = '1.0'
         ET.SubElement(mimic_controller, 'cmd_max').text = '5.0'
         ET.SubElement(mimic_controller, 'cmd_min').text = '-5.0'
+        ET.SubElement(mimic_controller, 'initial_position').text = '0.548'
 
 
 def add_left_arm_static_pose(model):
@@ -846,6 +827,20 @@ def add_left_arm_static_pose(model):
         # plugin-load time instead, before physics ever steps, so the arm
         # never passes through the plugin's own 0.0 default at all.
         ET.SubElement(controller, 'initial_position').text = str(LEFT_ARM_STATIC_POSE[joint_name])
+
+    for l_gripper_joint in ('l_gripper_l_finger_joint', 'l_gripper_r_finger_joint',
+                           'l_gripper_l_finger_tip_joint', 'l_gripper_r_finger_tip_joint'):
+        gripper_ctrl = ET.SubElement(model, 'plugin', {
+            'filename': 'gz-sim-joint-position-controller-system',
+            'name': 'gz::sim::systems::JointPositionController',
+        })
+        ET.SubElement(gripper_ctrl, 'joint_name').text = l_gripper_joint
+        ET.SubElement(gripper_ctrl, 'topic').text = f'/pr2/left_gripper/{l_gripper_joint}/position_cmd'
+        ET.SubElement(gripper_ctrl, 'p_gain').text = '5.0'
+        ET.SubElement(gripper_ctrl, 'd_gain').text = '1.0'
+        ET.SubElement(gripper_ctrl, 'cmd_max').text = '5.0'
+        ET.SubElement(gripper_ctrl, 'cmd_min').text = '-5.0'
+        ET.SubElement(gripper_ctrl, 'initial_position').text = '0.548'
 
 
 def add_head_static_pose(model):
