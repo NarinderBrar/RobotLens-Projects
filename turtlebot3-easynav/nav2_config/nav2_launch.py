@@ -7,7 +7,7 @@ controller_server and the final /cmd_vel. Without a lidar feeding real
 observation data, that chain can hold the smoothed/checked velocity back
 indefinitely -- Nav2 reports the navigate action as succeeding while the
 robot never receives a nonzero /cmd_vel. This mirrors
-robots_worlds/turtlebot3/launch/nav2_with_sim.launch.py's exact minimal node set,
+examples/turtlebot3/launch/nav2_with_sim.launch.py's exact minimal node set,
 which already drives correctly with no lidar.
 """
 
