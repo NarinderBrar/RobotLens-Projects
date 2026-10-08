@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robotlens_project schemaVersion="20" displayName="turtlebot3">
+<robotlens_project schemaVersion="21" displayName="turtlebot3">
     <connectionProfile domainId="0" namespace=""/>
     <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="true" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
     <assets>
@@ -84,15 +84,19 @@
         <asset id="sdf/shelf_yellow" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/turtlebot3-easynav/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="file_urdf/turtlebot3_burger" sourceKind="file_urdf" displayName="turtlebot3_burger" visible="true">
-        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <transform position="3.415966 -8.226748 0.000061" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
         <asset id="file_urdf/turtlebot3_burger" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/turtlebot3-easynav/turtlebot3/robots/turtlebot3_burger.urdf" relativePath="turtlebot3/robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
-    <light id="light/local/scene/Directional Light_2" type="directional" name="Directional Light 2" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
+    <primitive id="primitive/local/scene/Box_1" shape="box" name="Box 1" alpha="1" metallic="0" roughness="0.85000002" materialId="" smoothShading="false" rigidBodyEnabled="false" rigidBodyType="static" mass="1" size="0.500000 0.500000 0.500000" color="0.620000 0.660000 0.740000">
+        <transform position="-4.817375 -1.006143 0.509456" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+    </primitive>
+    <material id="material/local/scene/material_1" name="Material 1" metallic="0" roughness="1" alpha="1" baseColor="0.000000 0.000000 0.000000"/>
+    <light id="light/local/scene/Directional Light_2" type="directional" name="Directional Light 2" intensity="3.05" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="false" sunSky="false" color="1.000000 1.000000 1.000000">
         <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId=""/>
     </light>
     <virtualSensor id="sensor/local/scene/sensor_1" type="lidar_2d" name="2D LiDAR 1" frameId="sensor_1" enabled="true" topic="/virtual_lidar2d/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
-        <transform position="0.035811 -0.007384 0.189415" rotation="0.000000 1.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/turtlebot3_burger/base_link"/>
-        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="360" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+        <transform position="-0.026195 -0.003105 0.189738" rotation="0.000000 1.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/turtlebot3_burger/base_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="360" verticalFovDegrees="30" horizontalSamples="180" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
     </virtualSensor>
     <visualOrigin linkName="base_link" visualIndex="0" position="-0.032000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
     <visualOrigin linkName="wheel_left_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="0.707388 0.706825 0.000000 0.000000"/>
@@ -104,7 +108,24 @@
     <jointOrigin jointName="caster_back_joint" position="-0.081000 0.000000 -0.004000" rotation="0.707388 -0.706825 0.000000 0.000000"/>
     <jointOrigin jointName="imu_joint" position="-0.032000 0.000000 0.068000" rotation="1.000000 0.000000 0.000000 0.000000"/>
     <jointOrigin jointName="scan_joint" position="-0.032000 0.000000 0.172000" rotation="1.000000 0.000000 0.000000 0.000000"/>
-    <viewport target="0.110027 -0.125805 0.205357" yaw="-146" pitch="43.5" distance="2.2270238" fov="45" projectionMode="0" showGrid="true"/>
+    <linkMaterial linkName="floor_link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/white_floor"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/wall_north"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/wall_south"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/wall_east"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/wall_west"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/mid_wall_left"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/mid_wall_right"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/mid_vertical_top"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/mid_vertical_upper"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/mid_vertical_lower"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/mid_vertical_bottom"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/blocker_tl"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/blocker_tr"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/blocker_bl"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="sdf/blocker_br"/>
+    <linkMaterial linkName="floor_link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="file_urdf/turtlebot3_burger"/>
+    <linkMaterial linkName="link" submeshIndex="0" materialId="material/local/scene/material_1" sceneModelId="file_urdf/turtlebot3_burger"/>
+    <viewport target="-3.352314 -6.657986 -0.211124" yaw="-314.5" pitch="89" distance="1.5535221" fov="45" projectionMode="1" showGrid="true"/>
     <pathIntelligence plannedPathTopic="/plan" odometryTopic="/odom" fixedFrame="map" warningMeters="0.050000000000000003" criticalMeters="0.14999999999999999" maxPathRevisions="64" maxTrajectorySamples="4096"/>
     <multiRobotNavigation shareFootprints="false"/>
     <autonomousMission name="Autonomous Mission" behavior="waypoint" routeExecution="whole_route" patrolForever="false" patrolCycles="1" patrolDurationSeconds="0" mode="waypoints">
@@ -123,12 +144,12 @@
 </xml>
         <layout>[{"id":"node_2","x":340.0,"y":20.0},{"id":"node_3","x":340.0,"y":150.0},{"id":"node_4","x":600.0,"y":40.0}]</layout>
     </behaviorTree>
-    <display typeName="robotlens/TF" instanceName="TF" enabled="true" paused="false">
+    <display typeName="robotlens/TF" instanceName="TF" enabled="false" paused="false">
         <property key="all_enabled" type="bool" value="true"/>
         <property key="axis_length" type="double" value="0.050000000000000003"/>
         <property key="frame_name_blacklist" type="string" value=""/>
         <property key="frame_name_filter" type="string" value=""/>
-        <property key="link_thickness" type="double" value="0.0050000000000000001"/>
+        <property key="link_thickness" type="double" value="0.0020000000949949026"/>
         <property key="show_arrows" type="bool" value="true"/>
         <property key="show_axes" type="bool" value="true"/>
         <property key="show_names" type="bool" value="false"/>
@@ -144,7 +165,8 @@
     <display typeName="scene/Lights" instanceName="Lights" enabled="true" paused="false"/>
     <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
     <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
-    <display typeName="robotlens/Path" instanceName="file_urdf/turtlebot3_burger Navigation plan" enabled="true" paused="false">
+    <display typeName="robotlens/Path" instanceName="file_urdf/turtlebot3_burger Navigation plan" enabled="false" paused="false">
+        <property key="line_style" type="int" value="0"/>
         <property key="message_type" type="string" value="nav_msgs/msg/Path"/>
         <property key="owner_id" type="string" value="file_urdf/turtlebot3_burger"/>
         <property key="topic" type="string" value="/plan"/>
@@ -162,12 +184,19 @@
         <property key="topic" type="string" value="/local_costmap/costmap"/>
     </display>
     <display typeName="robotlens/LaserScan" instanceName="/virtual_lidar2d/scan" enabled="true" paused="false">
+        <property key="alpha" type="double" value="0.32300001382827759"/>
+        <property key="color_transformer" type="int" value="3"/>
+        <property key="line_width" type="double" value="0.0010000000474974513"/>
         <property key="message_type" type="string" value="sensor_msgs/msg/LaserScan"/>
         <property key="render_style" type="int" value="3"/>
         <property key="topic" type="string" value="/virtual_lidar2d/scan"/>
     </display>
+    <display typeName="robotlens/PoseWithCovariance" instanceName="/amcl_pose" enabled="true" paused="false">
+        <property key="message_type" type="string" value="geometry_msgs/msg/PoseWithCovarianceStamped"/>
+        <property key="topic" type="string" value="/amcl_pose"/>
+    </display>
     <workspaceRoot>.</workspaceRoot>
-    <simulation backend="gazebo" executable="" worldFile="/tmp/robotlens_setup_104974.sdf" worldName="open_interior" robotModelName="turtlebot3_burger" attachOnly="false"/>
+    <simulation backend="gazebo" executable="" worldFile="/tmp/robotlens_setup_204664.sdf" worldName="open_interior" robotModelName="turtlebot3_burger" attachOnly="false"/>
     <commsBackend kind="ros2" endpoint=""/>
     <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
     <robotCapabilities>
