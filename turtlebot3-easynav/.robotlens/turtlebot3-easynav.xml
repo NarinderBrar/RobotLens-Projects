@@ -104,7 +104,7 @@
     <jointOrigin jointName="caster_back_joint" position="-0.081000 0.000000 -0.004000" rotation="0.707388 -0.706825 0.000000 0.000000"/>
     <jointOrigin jointName="imu_joint" position="-0.032000 0.000000 0.068000" rotation="1.000000 0.000000 0.000000 0.000000"/>
     <jointOrigin jointName="scan_joint" position="-0.032000 0.000000 0.172000" rotation="1.000000 0.000000 0.000000 0.000000"/>
-    <viewport target="0.769193 -0.463976 0.581947" yaw="-146" pitch="43.5" distance="0.76450366" fov="45" projectionMode="0" showGrid="true"/>
+    <viewport target="0.110027 -0.125805 0.205357" yaw="-146" pitch="43.5" distance="2.2270238" fov="45" projectionMode="0" showGrid="true"/>
     <pathIntelligence plannedPathTopic="/plan" odometryTopic="/odom" fixedFrame="map" warningMeters="0.050000000000000003" criticalMeters="0.14999999999999999" maxPathRevisions="64" maxTrajectorySamples="4096"/>
     <multiRobotNavigation shareFootprints="false"/>
     <autonomousMission name="Autonomous Mission" behavior="waypoint" routeExecution="whole_route" patrolForever="false" patrolCycles="1" patrolDurationSeconds="0" mode="waypoints">
@@ -167,7 +167,7 @@
         <property key="topic" type="string" value="/virtual_lidar2d/scan"/>
     </display>
     <workspaceRoot>.</workspaceRoot>
-    <simulation backend="gazebo" executable="" worldFile="/tmp/robotlens_setup_153019.sdf" worldName="open_interior" robotModelName="turtlebot3_burger" attachOnly="false"/>
+    <simulation backend="gazebo" executable="" worldFile="/tmp/robotlens_setup_104974.sdf" worldName="open_interior" robotModelName="turtlebot3_burger" attachOnly="false"/>
     <commsBackend kind="ros2" endpoint=""/>
     <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
     <robotCapabilities>
