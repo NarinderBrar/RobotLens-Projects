@@ -275,9 +275,9 @@ def main() -> int:
         if "python_rng_state" in checkpoint:
             random.setstate(checkpoint["python_rng_state"])
         if "torch_rng_state" in checkpoint:
-            torch.set_rng_state(checkpoint["torch_rng_state"])
+            torch.set_rng_state(checkpoint["torch_rng_state"].cpu())
         if "cuda_rng_state" in checkpoint:
-            torch.cuda.set_rng_state_all(checkpoint["cuda_rng_state"])
+            torch.cuda.set_rng_state_all([state.cpu() for state in checkpoint["cuda_rng_state"]])
     if args.evaluate:
         checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
         if checkpoint.get("task") != "microduck-standing-balance-zenoh":
