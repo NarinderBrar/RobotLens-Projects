@@ -22,12 +22,13 @@ The `.robotlens` project file was created and opened through RobotLens MCP. Keep
 In the open RobotLens session, use `robotlens.run` with these commands in order:
 
 ```json
-{"command":"model.import","args":{"path":"src/microduck/mujoco/real/microduck_hybrid.xml"}}
 {"command":"comms.start"}
 {"command":"training.load_task","args":{"path":"/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/training/microduck/external.task.json"}}
 ```
 
-Wait for `model.status` to report the hybrid model loaded and `comms.status` to report Zenoh connected. Import replaces the previous MJCF source. Load the task manifest again so it selects the hybrid model. Run `training.preflight`, then inspect `robotlens.inspect_learning_runtime`. The recommended starting configuration is external Zenoh execution, a 4 by 4 grid, GPU physics, 500 transitions per environment per iteration, and 100 iterations. The 4 by 4 GPU preflight was admitted in the current RobotLens session at an estimated 243 MiB for learning environments.
+Use `model.list` to confirm that the saved hybrid model is loaded, and `comms.status` to confirm Zenoh is connected. Run `training.preflight`, then inspect `robotlens.inspect_learning_runtime`. The previous full-training setup used external Zenoh execution, a 4 by 4 grid, GPU physics, 500 transitions per environment per iteration, and 100 iterations.
+
+For single-robot balance training, set the Training panel's Robot to `world-main`, Grid Side to `1`, Execution to `external`, Device to `gpu`, and Viewport Preview to `grid`. The project's `world-main` asset points to `microduck_hybrid.xml`; confirm that exact path in `robotlens.inspect_learning_runtime.grid_preview.model_path` before starting. The current `robot-main` asset points to `microduck_real.xml`, whose joint and actuator order places the head before the right leg. The trainer expects left leg, right leg, then head, so using `robot-main` sends some controls to the wrong joints. Training runs their own MuJoCo physics pool; the interactive Simulation panel can remain stopped.
 
 ## Start training over MCP
 
@@ -53,6 +54,8 @@ Wait for the process to be ready, then start training. For another stage, use th
 
 Keep `--steps` equal to the Training panel's iterations multiplied by its effective transitions per iteration. For example, 20 iterations at 500 transitions means `--steps 10000` and `--rollout-steps 500`.
 
+Use `--disturbance-scale 1` for the original reset difficulty or up to `--disturbance-scale 3` to increase starting body tilt, angular velocity, and hip-roll offsets. The training log records this scale, mean completed episode length, and success rate. An episode succeeds by remaining upright for the 500-step limit. Compare those measures and mean reward across new checkpoints instead of judging a single fall in the viewport.
+
 ## Evaluate on new disturbances
 
 After training, configure the external task for 10 iterations and 500 transitions, keep the 4 by 4 GPU grid, run preflight, then launch the same managed trainer in deterministic evaluation mode before `training.start`:
@@ -66,3 +69,13 @@ The evaluation report records the success rate, mean episode return, and mean ep
 ## Task
 
 The policy observes the trunk orientation and motion plus all 14 joint positions and velocities. It controls the 14 position servos around the standing pose. Resets include small, randomized body and joint disturbances. The reward favors upright posture, trunk height, and low joint motion; falls end an episode. PPO optimizes the policy using CUDA.
+
+## Balance on a rolling ball
+
+`src/microduck/mujoco/real/microduck_ball_balance.xml` places both feet on a freely rolling 7.2 cm radius ball, 40% smaller in diameter than the initial ball model. The ball has its own free joint and collides with the floor and feet. `training/microduck/ball_balance.task.json` selects that model and keeps the 14 actuator order of the hybrid robot. The ball trainer observes its position and velocity relative to the robot and rewards upright posture, staying centered over the ball, and completing 500-step episodes. This is a separate task and requires a separate checkpoint.
+
+In RobotLens, import the ball model, load the ball task, then select `world-main` as the Training panel's Robot and World. Confirm `robotlens.inspect_learning_runtime.grid_preview.model_path` ends in `microduck_ball_balance.xml`. Configure external Zenoh execution, GPU, grid side 1, 500 transitions, and a short iteration count. Keep viewport preview off while idle; turn on grid preview after training starts. Run preflight before starting.
+
+Launch `training/microduck/run_external_trainer.sh` through `process.launch` with `--ball-balance`, `--steps` equal to iterations times 500, `--rollout-steps 500`, and a new `--checkpoint` path. To start from the learned flat-ground actor, add `--initialize-from` with a compatible standing checkpoint such as `training/runs/microduck-balance-grid1-live-stage-02/policy.pt`. That copies the actor and starts a new critic and optimizer; later ball stages use `--resume-from` with the preceding ball checkpoint. Wait for the trainer's readiness file before `training.start`.
+
+The saved training metrics include mean reward, completed episode length, and success rate. A full ball-balance success requires 500 transitions. The smaller ball has both feet in contact at the starting pose, and RobotLens GPU preflight admits the task. The first 10,000-transition stage averaged about 37 transitions per episode; the next 20,000-transition stage, after stiffening ball contact, averaged about 39. Neither stage completed a 500-transition episode. Their checkpoints are in `training/runs/microduck-ball-grid1-stage-01/` and `training/runs/microduck-ball-grid1-stage-02/`. The next stage can resume from stage 02 on a 2 by 2 GPU grid.
