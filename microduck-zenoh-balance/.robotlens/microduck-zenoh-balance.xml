@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robotlens_project schemaVersion="21" displayName="microduck-zenoh-balance">
+    <connectionProfile domainId="0" namespace=""/>
+    <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="false" topicInspector="true" jointControl="false" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
+    <assets>
+        <robot id="robot-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/src/microduck/mujoco/real/microduck_real.xml" relativePath="src/microduck/mujoco/real/microduck_real.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="32220" lastWriteTimeUnix="-351158618"/>
+        <world id="world-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-4646121942"/>
+    </assets>
+    <sceneModel id="mjcf/world" sourceKind="mjcf" displayName="world" visible="true">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="mjcf/world" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-4646121942"/>
+    </sceneModel>
+    <sceneModel id="mjcf/trunk_base" sourceKind="mjcf" displayName="trunk_base" visible="true">
+        <transform position="0.000000 0.000000 0.120000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="mjcf/trunk_base" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-4646121942"/>
+    </sceneModel>
+    <light id="light/local/scene/Directional Light_3" type="directional" name="Directional Light 3" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
+        <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId=""/>
+    </light>
+    <viewport target="-0.103950 -0.019939 0.127819" yaw="34.5" pitch="-2" distance="0.64573407" fov="45" projectionMode="0" showGrid="true"/>
+    <pathIntelligence plannedPathTopic="/plan" odometryTopic="/odom" fixedFrame="map" warningMeters="0.050000000000000003" criticalMeters="0.14999999999999999" maxPathRevisions="64" maxTrajectorySamples="4096"/>
+    <multiRobotNavigation shareFootprints="false"/>
+    <autonomousMission name="Autonomous Mission" behavior="waypoint" routeExecution="whole_route" patrolForever="false" patrolCycles="1" patrolDurationSeconds="0" mode="waypoints">
+        <coverage frameId="map" laneSpacingMeters="0.5"/>
+    </autonomousMission>
+    <behaviorTree>
+        <xml>&lt;?xml version="1.0"?&gt;
+&lt;root main_tree_to_execute="MainTree" BTCPP_format="4"&gt;
+    &lt;BehaviorTree ID="MainTree"&gt;
+        &lt;Sequence name="Navigate"&gt;
+            &lt;ComputePathToPose name="Compute path" goal="{goal_pose}"/&gt;
+            &lt;FollowPath name="Follow path" path="{path}"/&gt;
+        &lt;/Sequence&gt;
+    &lt;/BehaviorTree&gt;
+&lt;/root&gt;
+</xml>
+        <layout>[{"id":"node_2","x":340.0,"y":20.0},{"id":"node_3","x":340.0,"y":150.0},{"id":"node_4","x":600.0,"y":40.0}]</layout>
+    </behaviorTree>
+    <display typeName="robotlens/TF" instanceName="TF" enabled="false" paused="false">
+        <property key="all_enabled" type="bool" value="true"/>
+        <property key="axis_length" type="double" value="0.050000000000000003"/>
+        <property key="frame_name_blacklist" type="string" value=""/>
+        <property key="frame_name_filter" type="string" value=""/>
+        <property key="link_thickness" type="double" value="0.0050000000000000001"/>
+        <property key="show_arrows" type="bool" value="true"/>
+        <property key="show_axes" type="bool" value="true"/>
+        <property key="show_names" type="bool" value="true"/>
+        <property key="show_parent_links" type="bool" value="true"/>
+        <property key="staleness_seconds" type="double" value="1"/>
+        <property key="tree_depth_limit" type="int" value="0"/>
+        <property key="update_interval" type="double" value="0"/>
+        <property key="use_mesh_axes" type="bool" value="true"/>
+        <property key="use_thick_links" type="bool" value="true"/>
+    </display>
+    <display typeName="scene/Primitives" instanceName="Primitives" enabled="true" paused="false"/>
+    <display typeName="scene/ImportedModels" instanceName="Imported Models" enabled="true" paused="false"/>
+    <display typeName="scene/Lights" instanceName="Lights" enabled="true" paused="false"/>
+    <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
+    <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
+    <workspaceRoot>.</workspaceRoot>
+    <simulation backend="mujoco" executable="" worldFile="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/src/microduck/mujoco/real/microduck_hybrid.xml" worldName="default" robotModelName="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/src/microduck/mujoco/real/microduck_real.xml" attachOnly="false"/>
+    <commsBackend kind="zenoh" endpoint=""/>
+    <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
+</robotlens_project>
+
