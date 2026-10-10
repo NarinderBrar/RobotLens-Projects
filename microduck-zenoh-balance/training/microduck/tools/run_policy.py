@@ -27,7 +27,7 @@ def main():
     run_dir = args.checkpoint.rsplit("/", 1)[0]
     mode = ["--seesaw-roller", "--roller-radius"] if args.mode == "roller" else ["--seesaw-balance", "--ball-radius"]
     trainer_args = mode + [str(args.radius), "--steps", str(args.iterations * 500), "--rollout-steps", "500", "--seed", str(args.seed),
-                           "--checkpoint", args.checkpoint, "--evaluation-report", f"{run_dir}/evaluation.json", "--evaluate"]
+                           "--checkpoint", args.checkpoint, "--evaluation-report", f"{run_dir}/run_policy.json", "--evaluate"]
     process = f"seesaw_policy_{int(time.time())}"
     if not launch_trainer(process, trainer_args, f"{run_dir}/eval-ready"):
         raise SystemExit(3)

@@ -4,10 +4,9 @@ This project trains a policy to keep the Microduck standing in RobotLens' in-pro
 
 ## Environment
 
-Create a project-local environment and install the dependencies:
+From the project root, create a project-local environment and install the dependencies:
 
 ```bash
-cd /home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
 .venv/bin/python -m pip install -r training/requirements.txt
@@ -23,7 +22,7 @@ In the open RobotLens session, use `robotlens.run` with these commands in order:
 
 ```json
 {"command":"comms.start"}
-{"command":"training.load_task","args":{"path":"/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/training/microduck/external.task.json"}}
+{"command":"training.load_task","args":{"path":"training/microduck/external.task.json"}}
 ```
 
 Use `model.list` to confirm that the saved hybrid model is loaded, and `comms.status` to confirm Zenoh is connected. Run `training.preflight`, then inspect `robotlens.inspect_learning_runtime`. The previous full-training setup used external Zenoh execution, a 4 by 4 grid, GPU physics, 500 transitions per environment per iteration, and 100 iterations.
@@ -120,7 +119,7 @@ After the roller, the robot learns the ball seesaw in two more curricula, resumi
 1. A fixed ball welded to the floor, so the plank can tip in any direction but the ball cannot roll: `microduck_seesaw_dome_r25.xml`, `_r16`, `_r10`, and `_r05`, with matching `seesaw_dome_rNN.task.json` manifests. These use `--seesaw-balance` with `--ball-radius` matching the model.
 2. A free rolling ball: `microduck_seesaw_ball_r25.xml`, `_r16`, `_r10`, and `_r06`, then the 4 cm `microduck_seesaw_balance.xml`.
 
-On a 4 by 4 GPU grid, the dome stages took 30 to 190 updates each and the ball stages 130 to 390. The final 4 cm checkpoint is `training/runs/microduck-seesaw-ball-r04/policy.pt`. In deterministic evaluation with a new seed it balanced in all 160 episodes for the full 500 transitions.
+On a 4 by 4 GPU grid, the dome stages took 30 to 190 updates each and the ball stages 130 to 390. The final 4 cm checkpoint is `training/runs/microduck-seesaw-ball-r04/policy.pt`, kept in git with its `evaluation.json`; other runs are ignored. In deterministic evaluation with a new seed it balanced in all 160 episodes for the full 500 transitions.
 
 ## Seesaw tools
 
@@ -146,7 +145,7 @@ Run the trained 4 cm policy in a loop on an 8 by 8 grid, with deterministic acti
 python3 training/microduck/tools/run_policy.py
 ```
 
-Press Ctrl+C to stop it, or stop it from another terminal:
+It writes its report to `run_policy.json` beside the checkpoint, leaving `evaluation.json` unchanged. Press Ctrl+C to stop it, or stop it from another terminal:
 
 ```bash
 python3 training/microduck/tools/run_policy.py --stop

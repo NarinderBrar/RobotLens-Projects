@@ -777,7 +777,10 @@ def main() -> int:
                     report_path.parent.mkdir(parents=True, exist_ok=True)
                     report = {
                         "task": task_name,
-                        "checkpoint": str(checkpoint_path),
+                        "checkpoint": (
+                            checkpoint_path.relative_to(project_root).as_posix()
+                            if checkpoint_path.is_relative_to(project_root) else str(checkpoint_path)
+                        ),
                         "device": str(device),
                         "seed": args.seed,
                         "physics_steps": step_count,

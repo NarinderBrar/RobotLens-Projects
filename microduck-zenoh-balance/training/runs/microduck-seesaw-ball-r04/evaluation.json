@@ -1,0 +1,12 @@
+{
+  "task": "microduck-seesaw-balance-zenoh",
+  "checkpoint": "training/runs/microduck-seesaw-ball-r04/policy.pt",
+  "device": "cuda",
+  "seed": 31415,
+  "physics_steps": 5000,
+  "episodes": 160,
+  "successful_episodes": 160,
+  "success_rate": 1.0,
+  "mean_episode_return": 4208.87809562071,
+  "mean_episode_length": 500.0
+}
