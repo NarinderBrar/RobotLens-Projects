@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "taskName": "microduck-seesaw-balance-zenoh",
+  "modelPath": "../../src/microduck/mujoco/real/microduck_seesaw_dome_r10.xml",
+  "resetKeyframeName": "STAND",
+  "physicsStepsPerTransition": 4,
+  "policyActionDimension": 14,
+  "episodeStepLimit": 500,
+  "actuators": [
+    {"name": "left_hip_yaw"}, {"name": "left_hip_roll"}, {"name": "left_hip_pitch"},
+    {"name": "left_knee"}, {"name": "left_ankle"}, {"name": "right_hip_yaw"},
+    {"name": "right_hip_roll"}, {"name": "right_hip_pitch"}, {"name": "right_knee"},
+    {"name": "right_ankle"}, {"name": "neck_pitch"}, {"name": "head_pitch"},
+    {"name": "head_yaw"}, {"name": "head_roll"}
+  ],
+  "observations": []
+}

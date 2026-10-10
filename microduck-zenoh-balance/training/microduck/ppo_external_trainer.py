@@ -36,6 +36,25 @@ BALL_RADIUS = 0.072
 BALL_STAND_HEIGHT = 0.258
 FLAT_TASK = "microduck-standing-balance-zenoh"
 BALL_TASK = "microduck-ball-balance-zenoh"
+SEESAW_TASK = "microduck-seesaw-balance-zenoh"
+ROLLER_TASK = "microduck-seesaw-roller-zenoh"
+SEESAW_BALL_RADIUS = 0.04
+SEESAW_MODES = {
+    "roller": {
+        "plank_height": 0.105, "stand_height": 0.230, "support": "seesaw_roller",
+        "support_pose": (0.0, 0.0, 0.05, 1.0, 0.0, 0.0, 0.0),
+    },
+    "seesaw": {
+        "plank_height": 0.085, "stand_height": 0.207, "support": "seesaw_ball",
+        "support_pose": (0.0, 0.0, SEESAW_BALL_RADIUS, 1.0, 0.0, 0.0, 0.0),
+    },
+}
+TASKS = {
+    "flat": {"name": FLAT_TASK, "positions": 21, "velocities": 20, "observations": 38},
+    "ball": {"name": BALL_TASK, "positions": 28, "velocities": 26, "observations": 47},
+    "seesaw": {"name": SEESAW_TASK, "positions": 35, "velocities": 32, "observations": 56},
+    "roller": {"name": ROLLER_TASK, "positions": 35, "velocities": 32, "observations": 56},
+}
 OBSERVATION_SCALE = torch.tensor(
     [0.25] * 14 + [5.0] * 14 + [1.0] * 4 + [10.0] * 3 + [10.0] * 3,
     dtype=torch.float32,
@@ -44,6 +63,22 @@ BALL_OBSERVATION_SCALE = torch.cat((
     OBSERVATION_SCALE,
     torch.tensor([0.072, 0.072, 0.072, 1.0, 1.0, 1.0, 5.0, 5.0, 5.0]),
 ))
+SEESAW_OBSERVATION_SCALE = torch.cat((
+    OBSERVATION_SCALE,
+    torch.tensor([0.05, 0.05, 0.05] + [1.0] * 4 + [5.0] * 3 + [1.0] * 3 + [0.05, 0.05] + [1.0] * 3),
+))
+
+
+def body_pose(environment: dict, name: str) -> dict:
+    body = next((body for body in environment["bodyPoses"] if body["name"] == name), None)
+    if body is None:
+        raise ValueError(f"physics state is missing the {name} body pose")
+    return body
+
+
+def tilt_cosine(quaternion) -> float:
+    x, y = float(quaternion[1]), float(quaternion[2])
+    return 1.0 - 2.0 * (x * x + y * y)
 
 
 class ActorCritic(nn.Module):
@@ -79,11 +114,11 @@ def payload_text(sample) -> str:
     return bytes(payload).decode("utf-8")
 
 
-def observe(environment: dict, ball_balance: bool = False) -> list[float]:
+def observe(environment: dict, mode: str = "flat") -> list[float]:
     positions = environment["positions"]
     velocities = environment["velocities"]
-    expected_positions = 28 if ball_balance else 21
-    expected_velocities = 26 if ball_balance else 20
+    expected_positions = TASKS[mode]["positions"]
+    expected_velocities = TASKS[mode]["velocities"]
     if len(positions) != expected_positions or len(velocities) != expected_velocities:
         raise ValueError(
             f"Microduck state dimensions are {len(positions)} positions and "
@@ -102,12 +137,26 @@ def observe(environment: dict, ball_balance: bool = False) -> list[float]:
         + list(trunk["angularVelocity"])
         + list(trunk["linearVelocity"])
     )
-    if ball_balance:
-        ball = next(
-            (body for body in environment["bodyPoses"] if body["name"] == "balance_ball"), None
-        )
-        if ball is None:
-            raise ValueError("physics state is missing the balance_ball body pose")
+    if mode in SEESAW_MODES:
+        config = SEESAW_MODES[mode]
+        plank = body_pose(environment, "seesaw_plank")
+        support = body_pose(environment, config["support"])
+        support_x, support_y = support["position"][0], support["position"][1]
+        support_velocity = support["linearVelocity"]
+        values.extend([
+            trunk["position"][0] - plank["position"][0],
+            trunk["position"][1] - plank["position"][1],
+            trunk["position"][2] - plank["position"][2]
+            - (config["stand_height"] - config["plank_height"]),
+            *plank["quaternion"],
+            *plank["angularVelocity"],
+            *plank["linearVelocity"],
+            support_x - plank["position"][0],
+            support_y - plank["position"][1],
+            *support_velocity,
+        ])
+    if mode == "ball":
+        ball = body_pose(environment, "balance_ball")
         values.extend([
             trunk["position"][0] - ball["position"][0],
             trunk["position"][1] - ball["position"][1],
@@ -115,28 +164,50 @@ def observe(environment: dict, ball_balance: bool = False) -> list[float]:
             *ball["linearVelocity"],
             *ball["angularVelocity"],
         ])
-    scales = (BALL_OBSERVATION_SCALE if ball_balance else OBSERVATION_SCALE).tolist()
+    scales = {
+        "flat": OBSERVATION_SCALE, "ball": BALL_OBSERVATION_SCALE, "seesaw": SEESAW_OBSERVATION_SCALE,
+        "roller": SEESAW_OBSERVATION_SCALE,
+    }[mode].tolist()
     return [max(-10.0, min(10.0, value / scale)) for value, scale in zip(values, scales)]
 
 
 def reset_state(
     environment: dict, seed: int, episode: int, disturbance_scale: float,
-    ball_balance: bool = False,
+    mode: str = "flat",
 ) -> tuple[list[float], list[float]]:
     rng = random.Random(seed + int(environment["environmentIndex"]) * 1000003 + episode * 9176)
     curriculum = min(1.0, 0.35 + episode / 200.0) * disturbance_scale
+    if mode in SEESAW_MODES:
+        curriculum *= 0.5
     roll = rng.uniform(-0.12, 0.12) * curriculum
     pitch = rng.uniform(-0.12, 0.12) * curriculum
     cr, sr = math.cos(roll * 0.5), math.sin(roll * 0.5)
     cp, sp = math.cos(pitch * 0.5), math.sin(pitch * 0.5)
     quaternion = [cr * cp, sr * cp, cr * sp, -sr * sp]
-    positions = [0.0, 0.0, BALL_STAND_HEIGHT if ball_balance else STAND_HEIGHT, *quaternion, *HOME]
+    height = (
+        SEESAW_MODES[mode]["stand_height"] if mode in SEESAW_MODES
+        else BALL_STAND_HEIGHT if mode == "ball" else STAND_HEIGHT
+    )
+    positions = [0.0, 0.0, height, *quaternion, *HOME]
     positions[7 + ACTUATOR_INDEX["left_hip_roll"]] += rng.uniform(-0.04, 0.04) * curriculum
     positions[7 + ACTUATOR_INDEX["right_hip_roll"]] -= rng.uniform(-0.04, 0.04) * curriculum
     velocities = [0.0] * 20
     velocities[4] = rng.uniform(-0.15, 0.15) * curriculum
     velocities[5] = rng.uniform(-0.15, 0.15) * curriculum
-    if ball_balance:
+    if mode in SEESAW_MODES:
+        config = SEESAW_MODES[mode]
+        positions[0] = rng.uniform(-0.006, 0.006) * curriculum
+        positions[1] = rng.uniform(-0.006, 0.006) * curriculum
+        positions.extend(config["support_pose"])
+        velocities.extend([0.0] * 6)
+        positions.extend([0.0, 0.0, config["plank_height"], 1.0, 0.0, 0.0, 0.0])
+        velocities.extend([
+            0.0, 0.0, 0.0,
+            rng.uniform(-0.1, 0.1) * curriculum,
+            rng.uniform(-0.1, 0.1) * curriculum,
+            0.0,
+        ])
+    if mode == "ball":
         positions[0] = rng.uniform(-0.006, 0.006) * curriculum
         positions[1] = rng.uniform(-0.006, 0.006) * curriculum
         positions.extend([0.0, 0.0, BALL_RADIUS, 1.0, 0.0, 0.0, 0.0])
@@ -153,7 +224,7 @@ def reset_state(
 
 def outcome(
     environment: dict, controls: list[float], episode_steps: int,
-    ball_balance: bool = False,
+    mode: str = "flat",
 ) -> dict:
     trunk = next(body for body in environment["bodyPoses"] if body["name"] == "trunk_base")
     x, y = float(trunk["quaternion"][1]), float(trunk["quaternion"][2])
@@ -175,12 +246,35 @@ def outcome(
     truncated = episode_steps >= EPISODE_LIMIT
     reward = 2.0 * upright + 2.0 * min(height / 0.12, 1.0)
     reward -= 0.35 * joint_error + 0.015 * joint_speed + 0.04 * body_speed + 0.01 * effort
-    if ball_balance:
-        ball = next(
-            (body for body in environment["bodyPoses"] if body["name"] == "balance_ball"), None
+    if mode in SEESAW_MODES:
+        config = SEESAW_MODES[mode]
+        trunk_above_plank = config["stand_height"] - config["plank_height"]
+        plank = body_pose(environment, "seesaw_plank")
+        support = body_pose(environment, config["support"])
+        support_x, support_y = float(support["position"][0]), float(support["position"][1])
+        ball_speed = sum(float(value) ** 2 for value in support["linearVelocity"])
+        plank_level = tilt_cosine(plank["quaternion"])
+        plank_tilt = math.acos(max(-1.0, min(1.0, plank_level)))
+        dx = float(trunk["position"][0]) - float(plank["position"][0])
+        dy = float(trunk["position"][1]) - float(plank["position"][1])
+        trunk_offset = math.hypot(dx, dy)
+        relative_height = height - float(plank["position"][2])
+        ball_offset = math.hypot(
+            support_x - float(plank["position"][0]), support_y - float(plank["position"][1])
         )
-        if ball is None:
-            raise ValueError("physics state is missing the balance_ball body pose")
+        plank_spin = sum(float(value) ** 2 for value in plank["angularVelocity"])
+        fallen = (
+            fallen or relative_height < 0.09 or plank_tilt > 0.35
+            or abs(dx) > 0.06 or abs(dy) > 0.1 or ball_offset > 0.1
+        )
+        reward -= 2.0 * min(height / STAND_HEIGHT, 1.0)
+        reward += 2.0 * max(0.0, min(relative_height / trunk_above_plank, 1.0))
+        reward += 2.0 * math.exp(-((plank_tilt / 0.1) ** 2))
+        reward += 1.0 * math.exp(-((trunk_offset / 0.06) ** 2))
+        reward += 1.5 * math.exp(-((ball_offset / 0.05) ** 2))
+        reward -= 0.2 * ball_speed + 0.05 * plank_spin
+    if mode == "ball":
+        ball = body_pose(environment, "balance_ball")
         dx = float(trunk["position"][0]) - float(ball["position"][0])
         dy = float(trunk["position"][1]) - float(ball["position"][1])
         radial = math.hypot(dx, dy)
@@ -225,6 +319,7 @@ def update_policy(
     device: torch.device,
     update_epochs: int,
     minibatch_size: int,
+    train_actor: bool = True,
 ) -> dict:
     if not rewards:
         return {"mean_reward": 0.0, "mean_episode_return": 0.0, "policy_loss": 0.0, "value_loss": 0.0}
@@ -261,10 +356,11 @@ def update_policy(
             policy_loss = -torch.minimum(unclipped, clipped).mean()
             value_loss = 0.5 * (model.value(flat_obs[indices]) - flat_returns[indices]).square().mean()
             entropy = distribution.entropy().sum(-1).mean()
-            loss = policy_loss + value_loss - 0.01 * entropy
+            loss = policy_loss + value_loss - 0.01 * entropy if train_actor else value_loss
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
-            nn.utils.clip_grad_norm_(model.parameters(), 0.5)
+            nn.utils.clip_grad_norm_([*model.actor.parameters(), model.log_std], 0.5)
+            nn.utils.clip_grad_norm_(model.critic.parameters(), 0.5)
             optimizer.step()
             losses.append((policy_loss.detach(), value_loss.detach()))
     return {
@@ -283,6 +379,11 @@ def main() -> int:
     parser.add_argument("--resume-from", type=Path)
     parser.add_argument("--initialize-from", type=Path)
     parser.add_argument("--ball-balance", action="store_true")
+    parser.add_argument("--seesaw-balance", action="store_true")
+    parser.add_argument("--seesaw-roller", action="store_true")
+    parser.add_argument("--roller-radius", type=float, default=0.05)
+    parser.add_argument("--ball-radius", type=float, default=SEESAW_BALL_RADIUS)
+    parser.add_argument("--critic-warmup", type=int, default=0)
     parser.add_argument("--ready-file", type=Path)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--disturbance-scale", type=float, default=1.0)
@@ -298,8 +399,30 @@ def main() -> int:
         parser.error("disturbance scale must be between 0.1 and 3.0")
     if args.resume_from and args.initialize_from:
         parser.error("--resume-from and --initialize-from cannot be combined")
-    if args.initialize_from and not args.ball_balance:
-        parser.error("--initialize-from requires --ball-balance")
+    if sum((args.ball_balance, args.seesaw_balance, args.seesaw_roller)) > 1:
+        parser.error("--ball-balance, --seesaw-balance, and --seesaw-roller cannot be combined")
+    mode = (
+        "seesaw" if args.seesaw_balance else "roller" if args.seesaw_roller
+        else "ball" if args.ball_balance else "flat"
+    )
+    if not 0.02 <= args.roller_radius <= 0.3:
+        parser.error("roller radius must be between 0.02 and 0.3 meters")
+    if not 0.02 <= args.ball_radius <= 0.3:
+        parser.error("ball radius must be between 0.02 and 0.3 meters")
+    if mode == "seesaw":
+        SEESAW_MODES["seesaw"].update({
+            "plank_height": 2.0 * args.ball_radius + 0.005,
+            "stand_height": 2.0 * args.ball_radius + 0.127,
+            "support_pose": (0.0, 0.0, args.ball_radius, 1.0, 0.0, 0.0, 0.0),
+        })
+    if mode == "roller":
+        SEESAW_MODES["roller"].update({
+            "plank_height": 2.0 * args.roller_radius + 0.005,
+            "stand_height": 2.0 * args.roller_radius + 0.130,
+            "support_pose": (0.0, 0.0, args.roller_radius, 1.0, 0.0, 0.0, 0.0),
+        })
+    if args.initialize_from and mode == "flat":
+        parser.error("--initialize-from requires a ball, seesaw, or roller task")
     if not torch.cuda.is_available():
         print("CUDA is required for Microduck PPO training; no CPU fallback is enabled.", file=sys.stderr)
         return 2
@@ -307,8 +430,8 @@ def main() -> int:
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed_all(args.seed)
     device = torch.device("cuda")
-    task_name = BALL_TASK if args.ball_balance else FLAT_TASK
-    observation_dim = 47 if args.ball_balance else 38
+    task_name = TASKS[mode]["name"]
+    observation_dim = TASKS[mode]["observations"]
     model = ActorCritic(observation_dim, len(ACTUATORS)).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=3e-4, eps=1e-5)
     project_root = Path(__file__).resolve().parents[2]
@@ -329,15 +452,22 @@ def main() -> int:
             initialize_path = project_root / initialize_path
         initialize_path = initialize_path.resolve()
         source = torch.load(initialize_path, map_location=device, weights_only=False)
-        if (source.get("task") != FLAT_TASK or source.get("observation_dim") != 38
+        from_flat = source.get("task") == FLAT_TASK and source.get("observation_dim") == 38
+        from_seesaw = (
+            mode in SEESAW_MODES and source.get("task") in (SEESAW_TASK, ROLLER_TASK)
+            and source.get("observation_dim") == observation_dim
+        )
+        if (not (from_flat or from_seesaw)
                 or source.get("action_dim") != len(ACTUATORS)
                 or source.get("actuators") != list(ACTUATORS)
                 or source.get("home_controls") != list(HOME)
                 or source.get("action_scale") != ACTION_SCALE):
-            raise ValueError("initial policy is incompatible with the Microduck ball-balance task")
+            raise ValueError(f"initial policy is incompatible with the Microduck {mode}-balance task")
         initialized = model.state_dict()
         for name, target in initialized.items():
-            if name == "actor.0.weight":
+            if name == "actor.0.weight" and from_seesaw:
+                target.copy_(source["model"][name])
+            elif name == "actor.0.weight":
                 target[:, :38] = source["model"][name]
                 target[:, 38:] = 0
             elif name.startswith("actor.") or name == "log_std":
@@ -478,8 +608,8 @@ def main() -> int:
             ready_path.parent.mkdir(parents=True, exist_ok=True)
             ready_path.write_text("ready\n")
         state = next_state()
-        expected_positions = 28 if args.ball_balance else 21
-        expected_velocities = 26 if args.ball_balance else 20
+        expected_positions = TASKS[mode]["positions"]
+        expected_velocities = TASKS[mode]["velocities"]
         if (state.get("positionDimension") != expected_positions
                 or state.get("velocityDimension") != expected_velocities):
             raise ValueError(
@@ -494,7 +624,7 @@ def main() -> int:
         for environment in environments:
             positions, velocities = reset_state(
                 environment, args.seed, int(environment["episodeIndex"]),
-                args.disturbance_scale, args.ball_balance,
+                args.disturbance_scale, mode,
             )
             resets.append({
                 "environmentIndex": environment["environmentIndex"],
@@ -513,6 +643,9 @@ def main() -> int:
         completed_episodes: list[float] = []
         completed_episode_lengths: list[int] = []
         successful_episodes = 0
+        recent_lengths: list[int] = []
+        update_count = 0
+        recent_successes = 0
         rollout = {name: [] for name in (
             "observations", "latents", "log_probs", "values", "rewards",
             "next_values", "terminated", "done",
@@ -524,7 +657,7 @@ def main() -> int:
 
         while step_count < args.steps:
             observations = [
-                observe(environment, args.ball_balance) for environment in state["environments"]
+                observe(environment, mode) for environment in state["environments"]
             ]
             observation_tensor = normalize_observations(observations, device)
             with torch.no_grad():
@@ -550,7 +683,7 @@ def main() -> int:
             for index, environment in enumerate(next_environments):
                 episode_steps[index] += 1
                 result = outcome(
-                    environment, controls[index], episode_steps[index], args.ball_balance
+                    environment, controls[index], episode_steps[index], mode
                 )
                 if not environment.get("stepOk", True):
                     result = {"reward": -10.0, "terminated": True, "truncated": False, "success": False}
@@ -558,7 +691,7 @@ def main() -> int:
                 episode_returns[index] += result["reward"]
             if not args.evaluate:
                 next_observations = [
-                    observe(environment, args.ball_balance) for environment in next_environments
+                    observe(environment, mode) for environment in next_environments
                 ]
                 next_tensor = normalize_observations(next_observations, device)
                 with torch.no_grad():
@@ -578,12 +711,14 @@ def main() -> int:
                     completed_episodes.append(episode_returns[index])
                     completed_episode_lengths.append(episode_steps[index])
                     successful_episodes += int(result["success"])
+                    recent_lengths.append(episode_steps[index])
+                    recent_successes += int(result["success"])
                     episode_returns[index] = 0.0
                     episode_steps[index] = 0
                     positions, velocities = reset_state(
                         next_environments[index], args.seed,
                         int(next_environments[index]["episodeIndex"]) + 1,
-                        args.disturbance_scale, args.ball_balance,
+                        args.disturbance_scale, mode,
                     )
                     reset_rows.append({
                         "environmentIndex": index,
@@ -599,7 +734,9 @@ def main() -> int:
                     rollout["log_probs"], rollout["values"], rollout["rewards"],
                     rollout["next_values"], rollout["terminated"], rollout["done"],
                     device, args.update_epochs, args.minibatch_size,
+                    train_actor=update_count >= args.critic_warmup,
                 )
+                update_count += 1
                 update_record.update({
                     "step": global_step_offset + step_count,
                     "completed_episodes": len(completed_episodes),
@@ -613,8 +750,17 @@ def main() -> int:
                     "success_rate": (
                         successful_episodes / len(completed_episodes) if completed_episodes else None
                     ),
+                    "recent_episodes": len(recent_lengths),
+                    "recent_episode_length": (
+                        sum(recent_lengths) / len(recent_lengths) if recent_lengths else None
+                    ),
+                    "recent_success_rate": (
+                        recent_successes / len(recent_lengths) if recent_lengths else None
+                    ),
                     "elapsed_seconds": time.monotonic() - started,
                 })
+                recent_lengths = []
+                recent_successes = 0
                 save_checkpoint(step_count, update_record)
                 print(json.dumps(update_record), flush=True)
                 rollout = {name: [] for name in rollout}
