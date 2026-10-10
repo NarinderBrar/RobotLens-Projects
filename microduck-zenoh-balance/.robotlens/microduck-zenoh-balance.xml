@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robotlens_project schemaVersion="21" displayName="microduck-zenoh-balance">
     <connectionProfile domainId="0" namespace=""/>
-    <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="false" topicInspector="true" jointControl="false" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
+    <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="false" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
     <assets>
         <robot id="robot-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/src/microduck/mujoco/real/microduck_real.xml" relativePath="src/microduck/mujoco/real/microduck_real.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="32220" lastWriteTimeUnix="-351158618"/>
-        <world id="world-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-4646121942"/>
+        <world id="world-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/microduck-zenoh-balance/src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-351154646"/>
     </assets>
     <sceneModel id="mjcf/world" sourceKind="mjcf" displayName="world" visible="true">
         <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
