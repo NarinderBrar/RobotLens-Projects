@@ -13,5 +13,6 @@
     {"name": "right_ankle"}, {"name": "neck_pitch"}, {"name": "head_pitch"},
     {"name": "head_yaw"}, {"name": "head_roll"}
   ],
-  "observations": []
+  "observations": [],
+  "externalState": {"encoding": "binary", "bodies": ["trunk_base", "seesaw_plank", "seesaw_roller"]}
 }

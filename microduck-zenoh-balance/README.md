@@ -151,4 +151,6 @@ It writes its report to `run_policy.json` beside the checkpoint, leaving `evalua
 python3 training/microduck/tools/run_policy.py --stop
 ```
 
+The seesaw task files set `"externalState": {"encoding": "binary", "bodies": [...]}`, so RobotLens sends each physics step as one packed binary message with only the trunk, plank, and support bodies, and the trainer handles every robot at once with NumPy. A 32 by 32 grid runs at about 57 steps per second on GPU physics, faster than real time; the earlier JSON messages managed about 4.
+
 `--grid` changes the number of robots; 16 by 16 is noticeably slower to draw. `--checkpoint`, `--model`, `--task`, `--mode`, and `--radius` run an earlier stage's policy, for example `--mode roller --radius 0.05 --model src/microduck/mujoco/real/microduck_seesaw_roller.xml --task training/microduck/seesaw_roller.task.json --checkpoint training/runs/microduck-roller-r05/policy.pt`. `--stop` stops every running managed process in the session.

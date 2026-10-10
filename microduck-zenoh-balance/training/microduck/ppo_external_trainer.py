@@ -8,10 +8,12 @@ import math
 import os
 import queue
 import random
+import struct
 import sys
 import time
 from pathlib import Path
 
+import numpy as np
 import torch
 from torch import nn
 from torch.distributions import Normal
@@ -107,11 +109,200 @@ class ActorCritic(nn.Module):
         return self.critic(observations).squeeze(-1)
 
 
-def payload_text(sample) -> str:
+BINARY_STATE_MAGIC = b"RLPS"
+BINARY_COMMAND_MAGIC = b"RLPC"
+BINARY_VERSION = 1
+BODY_POSE_VALUES = 13
+
+
+def payload_bytes(sample) -> bytes:
     payload = sample.payload
     if hasattr(payload, "to_bytes"):
         payload = payload.to_bytes()
-    return bytes(payload).decode("utf-8")
+    return bytes(payload)
+
+
+def decode_binary_state(data: bytes) -> dict:
+    header = struct.Struct("<4sIQIIIIIII")
+    (_, version, sequence, count, control_dimension, position_dimension, velocity_dimension,
+     physics_steps, finished, body_count) = header.unpack_from(data, 0)
+    if version != BINARY_VERSION:
+        raise RuntimeError(f"unsupported binary physics state version {version}")
+    offset = header.size
+
+    def text() -> str:
+        nonlocal offset
+        (length,) = struct.unpack_from("<I", data, offset)
+        offset += 4
+        value = data[offset:offset + length].decode("utf-8")
+        offset += length
+        return value
+
+    run_id = text()
+    names = [text() for _ in range(body_count)]
+    offset = (offset + 7) // 8 * 8
+
+    def array(dtype, length):
+        nonlocal offset
+        values = np.frombuffer(data, dtype=dtype, count=length, offset=offset)
+        offset += values.nbytes
+        return values
+
+    episodes = array("<u8", count).tolist()
+    transitions = array("<u8", count).tolist()
+    times = array("<f8", count).tolist()
+    positions = array("<f4", count * position_dimension).reshape(count, position_dimension)
+    velocities = array("<f4", count * velocity_dimension).reshape(count, velocity_dimension)
+    bodies = array("<f4", count * body_count * BODY_POSE_VALUES).reshape(
+        count, body_count, BODY_POSE_VALUES).astype(np.float64)
+    step_ok = array("u1", count).astype(bool)
+    if offset != len(data):
+        raise RuntimeError("binary physics state has an unexpected size")
+    arrays = {
+        "positions": positions.astype(np.float64),
+        "velocities": velocities.astype(np.float64),
+        "bodies": {name: bodies[:, slot, :] for slot, name in enumerate(names)},
+        "stepOk": step_ok,
+    }
+    step_ok_list = step_ok.tolist()
+    environments = [
+        {"environmentIndex": index, "episodeIndex": episodes[index],
+         "transitionIndex": transitions[index], "simulationTime": times[index],
+         "stepOk": step_ok_list[index]}
+        for index in range(count)
+    ]
+    return {
+        "schema": 2, "kind": "state", "binary": True, "runId": run_id, "sequence": sequence,
+        "controlDimension": control_dimension, "positionDimension": position_dimension,
+        "velocityDimension": velocity_dimension, "physicsSteps": physics_steps,
+        "finished": bool(finished), "environments": environments, "arrays": arrays,
+    }
+
+
+HOME_ARRAY = np.asarray(HOME, dtype=np.float64)
+
+
+def required_body(arrays: dict, name: str) -> np.ndarray:
+    body = arrays["bodies"].get(name)
+    if body is None:
+        raise ValueError(f"physics state is missing the {name} body pose")
+    return body
+
+
+def observe_batch(arrays: dict, mode: str = "flat") -> np.ndarray:
+    positions = arrays["positions"]
+    velocities = arrays["velocities"]
+    if (positions.shape[1] != TASKS[mode]["positions"]
+            or velocities.shape[1] != TASKS[mode]["velocities"]):
+        raise ValueError(
+            f"Microduck state dimensions are {positions.shape[1]} positions and "
+            f"{velocities.shape[1]} velocities; expected {TASKS[mode]['positions']} and "
+            f"{TASKS[mode]['velocities']}"
+        )
+    trunk = required_body(arrays, "trunk_base")
+    columns = [positions[:, 7:21] - HOME_ARRAY, velocities[:, 6:20], trunk[:, 3:13]]
+    if mode in SEESAW_MODES:
+        config = SEESAW_MODES[mode]
+        plank = required_body(arrays, "seesaw_plank")
+        support = required_body(arrays, config["support"])
+        offset = trunk[:, 0:3] - plank[:, 0:3]
+        offset[:, 2] -= config["stand_height"] - config["plank_height"]
+        columns += [offset, plank[:, 3:13], support[:, 0:2] - plank[:, 0:2], support[:, 10:13]]
+    if mode == "ball":
+        ball = required_body(arrays, "balance_ball")
+        offset = trunk[:, 0:3] - ball[:, 0:3]
+        offset[:, 2] -= BALL_STAND_HEIGHT - BALL_RADIUS
+        columns += [offset, ball[:, 10:13], ball[:, 7:10]]
+    scales = {
+        "flat": OBSERVATION_SCALE, "ball": BALL_OBSERVATION_SCALE, "seesaw": SEESAW_OBSERVATION_SCALE,
+        "roller": SEESAW_OBSERVATION_SCALE,
+    }[mode].numpy().astype(np.float64)
+    values = np.concatenate(columns, axis=1)
+    return np.clip(values / scales, -10.0, 10.0).astype(np.float32)
+
+
+def outcome_batch(arrays: dict, controls: np.ndarray, episode_steps: np.ndarray,
+                  mode: str = "flat") -> dict:
+    positions = arrays["positions"]
+    velocities = arrays["velocities"]
+    trunk = required_body(arrays, "trunk_base")
+    upright = 1.0 - 2.0 * (trunk[:, 4] ** 2 + trunk[:, 5] ** 2)
+    height = trunk[:, 2]
+    with np.errstate(invalid="ignore", over="ignore"):
+        joint_error = np.mean((positions[:, 7:21] - HOME_ARRAY) ** 2, axis=1)
+        joint_speed = np.sum(velocities[:, 6:20] ** 2, axis=1) / len(HOME)
+        body_speed = np.sum(trunk[:, 7:13] ** 2, axis=1)
+        effort = np.mean((controls - HOME_ARRAY) ** 2, axis=1)
+        finite = (np.isfinite(positions).all(axis=1) & np.isfinite(velocities).all(axis=1)
+                  & np.isfinite(controls).all(axis=1))
+        fallen = ~finite | (height < 0.075) | (upright < 0.45)
+        truncated = episode_steps >= EPISODE_LIMIT
+        reward = 2.0 * upright + 2.0 * np.minimum(height / 0.12, 1.0)
+        reward -= 0.35 * joint_error + 0.015 * joint_speed + 0.04 * body_speed + 0.01 * effort
+        if mode in SEESAW_MODES:
+            config = SEESAW_MODES[mode]
+            trunk_above_plank = config["stand_height"] - config["plank_height"]
+            plank = required_body(arrays, "seesaw_plank")
+            support = required_body(arrays, config["support"])
+            ball_speed = np.sum(support[:, 10:13] ** 2, axis=1)
+            plank_level = 1.0 - 2.0 * (plank[:, 4] ** 2 + plank[:, 5] ** 2)
+            plank_tilt = np.arccos(np.clip(plank_level, -1.0, 1.0))
+            dx = trunk[:, 0] - plank[:, 0]
+            dy = trunk[:, 1] - plank[:, 1]
+            trunk_offset = np.hypot(dx, dy)
+            relative_height = height - plank[:, 2]
+            ball_offset = np.hypot(support[:, 0] - plank[:, 0], support[:, 1] - plank[:, 1])
+            plank_spin = np.sum(plank[:, 7:10] ** 2, axis=1)
+            fallen = (fallen | (relative_height < 0.09) | (plank_tilt > 0.35)
+                      | (np.abs(dx) > 0.06) | (np.abs(dy) > 0.1) | (ball_offset > 0.1))
+            reward -= 2.0 * np.minimum(height / STAND_HEIGHT, 1.0)
+            reward += 2.0 * np.clip(relative_height / trunk_above_plank, 0.0, 1.0)
+            reward += 2.0 * np.exp(-((plank_tilt / 0.1) ** 2))
+            reward += 1.0 * np.exp(-((trunk_offset / 0.06) ** 2))
+            reward += 1.5 * np.exp(-((ball_offset / 0.05) ** 2))
+            reward -= 0.2 * ball_speed + 0.05 * plank_spin
+        if mode == "ball":
+            ball = required_body(arrays, "balance_ball")
+            dx = trunk[:, 0] - ball[:, 0]
+            dy = trunk[:, 1] - ball[:, 1]
+            radial = np.hypot(dx, dy)
+            relative_height = height - ball[:, 2]
+            ball_speed = np.sum(ball[:, 10:13] ** 2, axis=1)
+            ball_speed += 0.01 * np.sum(ball[:, 7:10] ** 2, axis=1)
+            fallen = fallen | (relative_height < 0.12) | (radial > 0.11)
+            reward -= 2.0 * np.minimum(height / STAND_HEIGHT, 1.0)
+            reward += 2.0 * np.clip(relative_height / (BALL_STAND_HEIGHT - BALL_RADIUS), 0.0, 1.0)
+            reward += 1.5 * np.exp(-((radial / 0.05) ** 2))
+            reward -= 0.2 * ball_speed
+        reward = np.where(fallen, reward - 5.0, reward)
+        reward = np.where(finite, reward, -10.0)
+    step_ok = arrays["stepOk"]
+    reward = np.where(step_ok, reward, -10.0)
+    terminated = fallen | ~step_ok
+    succeeded = truncated & ~terminated
+    return {"reward": reward, "terminated": terminated, "truncated": succeeded,
+            "success": succeeded}
+
+
+def encode_binary_step(run_id: str, sequence: int, controls, outcomes) -> bytes:
+    control_array = np.asarray(controls, dtype="<f4")
+    count, control_dimension = control_array.shape
+    run_bytes = run_id.encode("utf-8")
+    parts = [struct.pack("<4sIQIII", BINARY_COMMAND_MAGIC, BINARY_VERSION, sequence, count,
+                         control_dimension, 1 if outcomes is not None else 0),
+             struct.pack("<I", len(run_bytes)), run_bytes]
+    header_length = sum(len(part) for part in parts)
+    parts.append(b"\0" * ((4 - header_length % 4) % 4))
+    parts.append(control_array.tobytes())
+    if outcomes is not None:
+        parts.append(np.asarray([item["reward"] for item in outcomes], dtype="<f4").tobytes())
+        flags = [
+            (1 if item["terminated"] else 0) | (2 if item["truncated"] else 0)
+            | (4 if item["success"] else 0)
+            for item in outcomes
+        ]
+        parts.append(np.asarray(flags, dtype="u1").tobytes())
+    return b"".join(parts)
 
 
 def observe(environment: dict, mode: str = "flat") -> list[float]:
@@ -533,7 +724,11 @@ def main() -> int:
 
     def receive(sample) -> None:
         try:
-            payload = json.loads(payload_text(sample))
+            raw = payload_bytes(sample)
+            if raw[:4] == BINARY_STATE_MAGIC:
+                payload = decode_binary_state(raw)
+            else:
+                payload = json.loads(raw.decode("utf-8"))
             states.put_nowait(payload)
         except queue.Full:
             try:
@@ -549,8 +744,10 @@ def main() -> int:
     subscriber = session.declare_subscriber("training/*/external/physics/state", receive)
     expected_sequence = 0
     run_id = None
+    binary_commands = False
 
     def next_state() -> dict:
+        nonlocal binary_commands
         try:
             error = callback_errors.get_nowait()
             raise RuntimeError(error)
@@ -568,12 +765,19 @@ def main() -> int:
             raise RuntimeError(
                 f"physics sequence mismatch: got {state.get('sequence')}, expected {expected_sequence}"
             )
+        binary_commands = bool(state.get("binary"))
         return state
 
     def send(command: dict) -> None:
         nonlocal expected_sequence
-        command.update({"schema": 2, "runId": run_id, "sequence": expected_sequence})
-        publisher.put(json.dumps(command, separators=(",", ":")))
+        if binary_commands and command.get("kind") == "step":
+            publisher.put(encode_binary_step(run_id, expected_sequence, command["controls"],
+                                             command.get("outcomes")))
+        else:
+            if isinstance(command.get("controls"), np.ndarray):
+                command["controls"] = command["controls"].tolist()
+            command.update({"schema": 2, "runId": run_id, "sequence": expected_sequence})
+            publisher.put(json.dumps(command, separators=(",", ":")))
         expected_sequence += 1
 
     def save_checkpoint(step_count: int, update_record: dict) -> None:
@@ -656,21 +860,24 @@ def main() -> int:
         started = time.monotonic()
 
         while step_count < args.steps:
-            observations = [
-                observe(environment, mode) for environment in state["environments"]
-            ]
-            observation_tensor = normalize_observations(observations, device)
+            arrays = state.get("arrays")
+            if arrays is not None:
+                observation_array = observe_batch(arrays, mode)
+                observation_tensor = torch.as_tensor(observation_array, device=device)
+                observations = None if args.evaluate else observation_array.tolist()
+            else:
+                observations = [
+                    observe(environment, mode) for environment in state["environments"]
+                ]
+                observation_tensor = normalize_observations(observations, device)
             with torch.no_grad():
                 distribution = model.distribution(observation_tensor)
                 latent = distribution.mean if args.evaluate else distribution.sample()
                 actions = torch.tanh(latent)
                 log_probs = action_log_prob(distribution, latent)
                 values = model.value(observation_tensor)
-            action_values = actions.clamp(-1.0, 1.0).cpu().tolist()
-            controls = [
-                [home + ACTION_SCALE * action for home, action in zip(HOME, row)]
-                for row in action_values
-            ]
+            controls = HOME_ARRAY + ACTION_SCALE * actions.clamp(-1.0, 1.0).cpu().numpy().astype(
+                np.float64)
             command = {"kind": "step", "controls": controls}
             if pending_outcomes is not None:
                 command["outcomes"] = pending_outcomes
@@ -678,22 +885,41 @@ def main() -> int:
             send(command)
             next_physics_state = next_state()
             next_environments = next_physics_state["environments"]
+            next_arrays = next_physics_state.get("arrays")
             outcomes = []
             reset_rows = []
-            for index, environment in enumerate(next_environments):
-                episode_steps[index] += 1
-                result = outcome(
-                    environment, controls[index], episode_steps[index], mode
-                )
-                if not environment.get("stepOk", True):
-                    result = {"reward": -10.0, "terminated": True, "truncated": False, "success": False}
-                outcomes.append(result)
-                episode_returns[index] += result["reward"]
-            if not args.evaluate:
-                next_observations = [
-                    observe(environment, mode) for environment in next_environments
+            if next_arrays is not None:
+                episode_steps = [steps + 1 for steps in episode_steps]
+                batch = outcome_batch(next_arrays, controls, np.asarray(episode_steps), mode)
+                outcomes = [
+                    {"reward": float(reward), "terminated": bool(terminated),
+                     "truncated": bool(truncated), "success": bool(success)}
+                    for reward, terminated, truncated, success in zip(
+                        batch["reward"].tolist(), batch["terminated"].tolist(),
+                        batch["truncated"].tolist(), batch["success"].tolist())
                 ]
-                next_tensor = normalize_observations(next_observations, device)
+                for index, result in enumerate(outcomes):
+                    episode_returns[index] += result["reward"]
+            else:
+                control_rows = controls.tolist()
+                for index, environment in enumerate(next_environments):
+                    episode_steps[index] += 1
+                    result = outcome(
+                        environment, control_rows[index], episode_steps[index], mode
+                    )
+                    if not environment.get("stepOk", True):
+                        result = {"reward": -10.0, "terminated": True, "truncated": False,
+                                  "success": False}
+                    outcomes.append(result)
+                    episode_returns[index] += result["reward"]
+            if not args.evaluate:
+                if next_arrays is not None:
+                    next_tensor = torch.as_tensor(observe_batch(next_arrays, mode), device=device)
+                else:
+                    next_observations = [
+                        observe(environment, mode) for environment in next_environments
+                    ]
+                    next_tensor = normalize_observations(next_observations, device)
                 with torch.no_grad():
                     next_values = model.value(next_tensor)
                 rollout["observations"].append(observations)
