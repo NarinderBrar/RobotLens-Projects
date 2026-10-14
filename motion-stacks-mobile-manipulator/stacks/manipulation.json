@@ -8,5 +8,26 @@
   "state_timeout_s": 1.0,
   "tracking_error": 0.5,
   "position_tolerance": 0.05,
-  "max_acceleration": 1.0
+  "max_acceleration": 1.0,
+  "planning": {
+    "max_time_s": 3.0,
+    "collision_padding": 0.01,
+    "settle_timeout_s": 3.0,
+    "environment": [
+      {
+        "name": "table",
+        "type": "box",
+        "size": [
+          0.5,
+          0.8,
+          0.05
+        ],
+        "position": [
+          0.85,
+          0.0,
+          0.3
+        ]
+      }
+    ]
+  }
 }

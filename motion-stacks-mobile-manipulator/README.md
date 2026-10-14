@@ -10,6 +10,7 @@ RobotLens project `.robotlens/motion-stacks-mobile-manipulator.xml` (Zenoh, in-p
 | `robots/Mobile_manipulator.urdf` | Generated `mobile_manipulator` robot (seed 20), finished to URDF: 4 wheels, 6-joint arm, 2 fingers |
 | `stacks/navigation.json`, `stacks/manipulation.json` | Stack configurations; empty `robot_prefix` matches RobotLens's unprefixed keys |
 | `scripts/mcp.py` | Runs a RobotLens MCP command or tool against the newest live session |
+| `scripts/fk.py` | Forward kinematics from the URDF: prints the tool pose for given joint positions, for building pose targets |
 | `scripts/run_stacks.sh` | Validates both configurations, then runs both stacks; logs go to `evidence/logs/` |
 | `tools/zenoh_probe` | Lists live Zenoh keys (`zenoh_probe <seconds> [key]`) or publishes (`zenoh_probe put <key> <json> <seconds> <hz>`) |
 | `evidence/` | Screenshots and logs from the last run |
@@ -55,7 +56,21 @@ Fixes behind the final run:
 
 The arm target `upper_arm_joint -0.6, forearm_joint 1.0` puts the forearm into the chassis and cannot be reached; use a collision-free pose.
 
+Second live run (motion-stacks `2e47c14`, manipulation 0.2.0):
+
+| Check | Result |
+| --- | --- |
+| Pose target from `scripts/fk.py` for joints `0.8,0.3,0.5,0.5,0.4,0.3` | IK chose `0.8,0.3,0.501,0.5,0.4,0.299`; succeeded in 2 s; reached tool pose within 1.0 cm and 0.03 rad |
+| Joint target `0,-1.9,-2.0,0,0,0` | Rejected `invalid_target`: base_link collides with forearm |
+| Pose inside the configured table | Rejected `unreachable` |
+| Pose 3 m away | Rejected `unreachable` |
+| Upper arm beyond its limit | Rejected `invalid_target` |
+| Navigation goals out to (1.2, 0.8, 90°) and back | Both succeeded (8 s, 12 s); the return ended 0.15 m from the goal, within the final-turn hysteresis of twice `position_tolerance` |
+
+Obstacle avoidance cannot be checked in this project: RobotLens virtual LiDAR sensors publish only over ROS 2, so a Zenoh project has no `scan`. It is covered by the motion-stacks integration test with the mock robot.
+
 ## Open findings
 
 - The simulation bridge switches (Publish states, Accept commands) are not saved with the project and must be ticked after every launch.
 - The 2D LiDAR and IMU virtual sensors appear twice on the robot links after reopening the project.
+- RobotLens virtual sensors do not publish on Zenoh, so the navigation stack gets no `scan` in Zenoh projects.
