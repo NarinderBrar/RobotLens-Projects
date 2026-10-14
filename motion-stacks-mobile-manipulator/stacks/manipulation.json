@@ -29,5 +29,19 @@
         ]
       }
     ]
+  },
+  "gripper": {
+    "joints": [
+      "left_finger_joint",
+      "right_finger_joint"
+    ],
+    "open": [
+      0.035,
+      0.035
+    ],
+    "closed": [
+      0.0,
+      0.0
+    ]
   }
 }

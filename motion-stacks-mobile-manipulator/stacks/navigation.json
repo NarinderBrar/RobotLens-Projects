@@ -13,5 +13,14 @@
     "position_tolerance": 0.1,
     "yaw_tolerance": 0.15,
     "lookahead_distance": 0.4
-  }
+  },
+  "avoidance": {
+    "enabled": true
+  },
+  "scan_offset": {
+    "x": 0.32,
+    "y": 0.0,
+    "yaw": 0.0
+  },
+  "scan_ignore_radius": 0.3
 }

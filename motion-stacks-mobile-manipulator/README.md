@@ -12,7 +12,7 @@ RobotLens project `.robotlens/motion-stacks-mobile-manipulator.xml` (Zenoh, in-p
 | `scripts/mcp.py` | Runs a RobotLens MCP command or tool against the newest live session |
 | `scripts/fk.py` | Forward kinematics from the URDF: prints the tool pose for given joint positions, for building pose targets |
 | `scripts/run_stacks.sh` | Validates both configurations, then runs both stacks; logs go to `evidence/logs/` |
-| `tools/zenoh_probe` | Lists live Zenoh keys (`zenoh_probe <seconds> [key]`) or publishes (`zenoh_probe put <key> <json> <seconds> <hz>`) |
+| `tools/zenoh_probe` | Lists live Zenoh keys (`zenoh_probe <seconds> [key]`), prints every sample with a timestamp (`zenoh_probe watch <seconds> <key>`), or publishes (`zenoh_probe put <key> <json> <seconds> <hz>`) |
 | `evidence/` | Screenshots and logs from the last run |
 
 Build the probe with `cmake -S tools/zenoh_probe -B tools/zenoh_probe/build -G Ninja && cmake --build tools/zenoh_probe/build`. Build `motion-stacks` with its `system` preset; `run_stacks.sh` looks for it at `../../motion-stacks/build/system` unless `ZMS_BIN` is set.
@@ -67,10 +67,26 @@ Second live run (motion-stacks `2e47c14`, manipulation 0.2.0):
 | Upper arm beyond its limit | Rejected `invalid_target` |
 | Navigation goals out to (1.2, 0.8, 90°) and back | Both succeeded (8 s, 12 s); the return ended 0.15 m from the goal, within the final-turn hysteresis of twice `position_tolerance` |
 
-Obstacle avoidance cannot be checked in this project: RobotLens virtual LiDAR sensors publish only over ROS 2, so a Zenoh project has no `scan`. It is covered by the motion-stacks integration test with the mock robot.
+Third live run (RobotLens Zenoh `scan` and motion-stack commands, motion-stacks avoidance and Cartesian fixes):
+
+The 2D LiDAR `2D LiDAR 1` on `lidar_link` publishes `scan` over Zenoh. It is mounted 4 cm above the link origin so its rays clear the chassis top face, with a level orientation. `stacks/navigation.json` sets `scan_offset` to the LiDAR position, enables avoidance, and ignores returns within 0.3 m of the base centre (the arm base). `stacks/manipulation.json` configures the two finger joints as the gripper.
+
+| Check | Result |
+| --- | --- |
+| `scan` with a 0.5 m box 2 m ahead, then 1.2 m to the left | 0° at 1.42 m, then +77° to +106° at 0.95 m, for both LiDAR simulation backends |
+| Goal (3.5, 0) with the box at (2, 0) | Detoured to y = -1.06 m, passed the box, succeeded in 17 s at (3.44, -0.08) |
+| Gripper open, close, open from `motion_stack.gripper` | Fingers 0.035, 0.0, 0.035 m; all succeeded |
+| Cartesian move up 7 cm | Succeeded; 1.0 cm from the goal, at most 0.35 cm off the straight line |
+| Cartesian move forward 6 cm | Succeeded; 1.3 cm from the goal, at most 1.5 cm off the line |
+| Cartesian sideways move with fixed orientation | Rejected `unreachable`; the arm needs base yaw to move sideways |
+| `motion_stack.status`, `goal`, `cancel`, `target`, `initial_pose`, `find` | Work; status lists both stacks at 0.2.0 with their features |
+
+Fixes behind this run: RobotLens Zenoh laser scans, depth LiDAR bearings, ray-cast LiDAR geometry and minimum-range start; motion-stacks self-hit filtering, obstacle memory, real detours, and per-shape collision padding for Cartesian paths.
 
 ## Open findings
 
 - The simulation bridge switches (Publish states, Accept commands) are not saved with the project and must be ticked after every launch.
 - The 2D LiDAR and IMU virtual sensors appear twice on the robot links after reopening the project.
-- RobotLens virtual sensors do not publish on Zenoh, so the navigation stack gets no `scan` in Zenoh projects.
+- Only the 2D LiDAR publishes on Zenoh; other virtual sensors stay ROS 2 only.
+- A primitive added while the simulation plays has no collision; the robot drove through one.
+- Localization was not checked live; it needs a map on `map`.
