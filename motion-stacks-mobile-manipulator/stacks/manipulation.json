@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "robot_prefix": "",
+  "urdf_path": "../robots/Mobile_manipulator.urdf",
+  "base_frame": "base_link",
+  "eef_frame": "tool_flange",
+  "control_rate_hz": 20,
+  "state_timeout_s": 1.0,
+  "tracking_error": 0.5,
+  "position_tolerance": 0.05,
+  "max_acceleration": 1.0
+}
