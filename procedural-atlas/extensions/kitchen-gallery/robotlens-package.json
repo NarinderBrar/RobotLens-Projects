@@ -1,0 +1,284 @@
+{
+  "manifest_version": 1,
+  "package_id": "local.kitchen-gallery",
+  "version": "0.1.0",
+  "host_api_version": 1,
+  "contributions": [
+    {
+      "type": "local.kitchen-gallery/kitchen",
+      "kind": "object_generator",
+      "module": "modules/kitchen.wasm",
+      "run": "on_demand",
+      "title": "Kitchen",
+      "configuration": {
+        "fields": [
+          {
+            "name": "layout",
+            "type": "enum",
+            "label": "Layout",
+            "options": [
+              "single_wall",
+              "galley",
+              "l_shaped",
+              "u_shaped",
+              "peninsula",
+              "island"
+            ],
+            "default": "l_shaped"
+          },
+          {
+            "name": "room_width",
+            "type": "number",
+            "label": "Room width",
+            "unit": "m",
+            "min": 3,
+            "max": 20,
+            "default": 5
+          },
+          {
+            "name": "room_depth",
+            "type": "number",
+            "label": "Room depth",
+            "unit": "m",
+            "min": 3,
+            "max": 20,
+            "default": 6
+          },
+          {
+            "name": "spacing",
+            "type": "enum",
+            "label": "Spacing in a larger room",
+            "description": "spread centres the runs and shares spare floor between the walkways; compact keeps runs in the corner and the walkway at its minimum",
+            "options": [
+              "spread",
+              "compact"
+            ],
+            "default": "spread"
+          },
+          {
+            "name": "main_run_length",
+            "type": "number",
+            "label": "Main run length (0 = full wall)",
+            "unit": "m",
+            "min": 0,
+            "max": 20,
+            "default": 3.6
+          },
+          {
+            "name": "room_height",
+            "type": "number",
+            "label": "Ceiling height",
+            "unit": "m",
+            "min": 2.2,
+            "max": 5,
+            "default": 2.7
+          },
+          {
+            "name": "second_run_length",
+            "type": "number",
+            "label": "Second run length",
+            "unit": "m",
+            "min": 0.8,
+            "max": 10,
+            "default": 2.4
+          },
+          {
+            "name": "walkway",
+            "type": "number",
+            "label": "Minimum walkway (island, peninsula)",
+            "unit": "m",
+            "min": 0.6,
+            "max": 3,
+            "default": 1.2
+          },
+          {
+            "name": "front_style",
+            "type": "enum",
+            "label": "Cabinet fronts",
+            "options": [
+              "mixed",
+              "doors",
+              "drawers"
+            ],
+            "default": "mixed"
+          },
+          {
+            "name": "counter_height",
+            "type": "number",
+            "label": "Counter height",
+            "unit": "m",
+            "min": 0.7,
+            "max": 1.1,
+            "default": 0.9
+          },
+          {
+            "name": "wall_cabinets",
+            "type": "boolean",
+            "label": "Wall cabinets",
+            "default": true
+          },
+          {
+            "name": "room",
+            "type": "boolean",
+            "label": "Walls and floor",
+            "default": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.kitchen-gallery/cabinet",
+      "kind": "object_generator",
+      "module": "modules/cabinet.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Cabinet",
+      "configuration": {
+        "fields": [
+          {
+            "name": "type",
+            "type": "enum",
+            "label": "Type",
+            "options": [
+              "base",
+              "wall",
+              "sink"
+            ],
+            "default": "base"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Width",
+            "unit": "m",
+            "min": 0.3,
+            "max": 1.2,
+            "default": 0.6
+          },
+          {
+            "name": "front_style",
+            "type": "enum",
+            "label": "Fronts",
+            "options": [
+              "mixed",
+              "doors",
+              "drawers"
+            ],
+            "default": "mixed"
+          },
+          {
+            "name": "counter",
+            "type": "boolean",
+            "label": "Countertop",
+            "default": true
+          },
+          {
+            "name": "counter_height",
+            "type": "number",
+            "label": "Counter height",
+            "unit": "m",
+            "min": 0.7,
+            "max": 1.1,
+            "default": 0.9
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 2
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.kitchen-gallery/appliance",
+      "kind": "object_generator",
+      "module": "modules/appliance.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Appliance",
+      "configuration": {
+        "fields": [
+          {
+            "name": "kind",
+            "type": "enum",
+            "label": "Kind",
+            "options": [
+              "refrigerator",
+              "range",
+              "dishwasher",
+              "microwave"
+            ],
+            "default": "refrigerator"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Width",
+            "unit": "m",
+            "min": 0.4,
+            "max": 1.2,
+            "default": 0.76
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Height (refrigerator)",
+            "unit": "m",
+            "min": 1.2,
+            "max": 2.2,
+            "default": 1.75
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 2
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    }
+  ]
+}

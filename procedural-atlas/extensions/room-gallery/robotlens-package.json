@@ -1,0 +1,717 @@
+{
+  "manifest_version": 1,
+  "package_id": "local.room-gallery",
+  "version": "0.1.0",
+  "host_api_version": 1,
+  "contributions": [
+    {
+      "type": "local.room-gallery/room",
+      "kind": "object_generator",
+      "module": "modules/room.wasm",
+      "run": "on_demand",
+      "title": "Room",
+      "configuration": {
+        "fields": [
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Width",
+            "unit": "m",
+            "min": 1,
+            "max": 100,
+            "default": 12
+          },
+          {
+            "name": "depth",
+            "type": "number",
+            "label": "Depth",
+            "unit": "m",
+            "min": 1,
+            "max": 100,
+            "default": 8
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Wall height",
+            "unit": "m",
+            "min": 1,
+            "max": 10,
+            "default": 3
+          },
+          {
+            "name": "wall_thickness",
+            "type": "number",
+            "label": "Wall thickness",
+            "unit": "m",
+            "min": 0.05,
+            "max": 1,
+            "default": 0.15
+          },
+          {
+            "name": "doorway_side",
+            "type": "enum",
+            "label": "Doorway wall",
+            "options": [
+              "south",
+              "north",
+              "east",
+              "west",
+              "none"
+            ],
+            "default": "south"
+          },
+          {
+            "name": "doorway_width",
+            "type": "number",
+            "label": "Doorway width",
+            "unit": "m",
+            "min": 0.5,
+            "max": 10,
+            "default": 1.0
+          },
+          {
+            "name": "doorway_height",
+            "type": "number",
+            "label": "Doorway height",
+            "unit": "m",
+            "min": 1,
+            "max": 5,
+            "default": 2.1
+          },
+          {
+            "name": "doorway_offset",
+            "type": "number",
+            "label": "Doorway offset",
+            "unit": "m",
+            "min": -50,
+            "max": 50,
+            "default": 0
+          },
+          {
+            "name": "floor_color",
+            "type": "color",
+            "label": "Floor color",
+            "default": [
+              0.55,
+              0.55,
+              0.52
+            ]
+          },
+          {
+            "name": "wall_color",
+            "type": "color",
+            "label": "Wall color",
+            "default": [
+              0.86,
+              0.85,
+              0.8
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.room-gallery/wall",
+      "kind": "object_generator",
+      "module": "modules/wall.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Wall",
+      "configuration": {
+        "fields": [
+          {
+            "name": "length",
+            "type": "number",
+            "label": "Length",
+            "unit": "m",
+            "min": 0.2,
+            "max": 100,
+            "default": 4
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Height",
+            "unit": "m",
+            "min": 0.2,
+            "max": 10,
+            "default": 2.5
+          },
+          {
+            "name": "thickness",
+            "type": "number",
+            "label": "Thickness",
+            "unit": "m",
+            "min": 0.02,
+            "max": 1,
+            "default": 0.15
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 3
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          },
+          {
+            "name": "doorway_width",
+            "type": "number",
+            "label": "Doorway width (0 = none)",
+            "unit": "m",
+            "min": 0,
+            "max": 10,
+            "default": 0
+          },
+          {
+            "name": "doorway_height",
+            "type": "number",
+            "label": "Doorway height",
+            "unit": "m",
+            "min": 0.5,
+            "max": 5,
+            "default": 2.1
+          },
+          {
+            "name": "doorway_offset",
+            "type": "number",
+            "label": "Doorway offset",
+            "unit": "m",
+            "min": -50,
+            "max": 50,
+            "default": 0
+          },
+          {
+            "name": "color",
+            "type": "color",
+            "label": "Color",
+            "default": [
+              0.86,
+              0.85,
+              0.8
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.room-gallery/doorway",
+      "kind": "object_generator",
+      "module": "modules/doorway.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Doorway",
+      "configuration": {
+        "fields": [
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Opening width",
+            "unit": "m",
+            "min": 0.5,
+            "max": 5,
+            "default": 1.0
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Opening height",
+            "unit": "m",
+            "min": 1,
+            "max": 5,
+            "default": 2.1
+          },
+          {
+            "name": "frame",
+            "type": "number",
+            "label": "Frame size",
+            "unit": "m",
+            "min": 0.02,
+            "max": 0.5,
+            "default": 0.1
+          },
+          {
+            "name": "depth",
+            "type": "number",
+            "label": "Frame depth",
+            "unit": "m",
+            "min": 0.02,
+            "max": 1,
+            "default": 0.15
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 3
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.room-gallery/table",
+      "kind": "object_generator",
+      "module": "modules/table.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Table",
+      "configuration": {
+        "fields": [
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Width",
+            "unit": "m",
+            "min": 0.2,
+            "max": 5,
+            "default": 1.2
+          },
+          {
+            "name": "depth",
+            "type": "number",
+            "label": "Depth",
+            "unit": "m",
+            "min": 0.2,
+            "max": 5,
+            "default": 0.8
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Height",
+            "unit": "m",
+            "min": 0.2,
+            "max": 2,
+            "default": 0.75
+          },
+          {
+            "name": "top_thickness",
+            "type": "number",
+            "label": "Top thickness",
+            "unit": "m",
+            "min": 0.01,
+            "max": 0.2,
+            "default": 0.04
+          },
+          {
+            "name": "leg_thickness",
+            "type": "number",
+            "label": "Leg thickness",
+            "unit": "m",
+            "min": 0.01,
+            "max": 0.3,
+            "default": 0.05
+          },
+          {
+            "name": "leg_margin",
+            "type": "number",
+            "label": "Leg inset (fraction)",
+            "min": 0,
+            "max": 0.4,
+            "default": 0.05
+          },
+          {
+            "name": "cylindrical_legs",
+            "type": "boolean",
+            "label": "Round legs",
+            "default": false
+          },
+          {
+            "name": "bevel",
+            "type": "number",
+            "label": "Top edge bevel (visual)",
+            "unit": "m",
+            "min": 0,
+            "max": 0.2,
+            "default": 0
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 2
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 2
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.room-gallery/obstacle",
+      "kind": "object_generator",
+      "module": "modules/obstacle.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Obstacles",
+      "configuration": {
+        "fields": [
+          {
+            "name": "shape",
+            "type": "enum",
+            "label": "Shape",
+            "options": [
+              "box",
+              "cylinder",
+              "l_shape"
+            ],
+            "default": "box"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Width",
+            "unit": "m",
+            "min": 0.05,
+            "max": 10,
+            "default": 0.5
+          },
+          {
+            "name": "depth",
+            "type": "number",
+            "label": "Depth",
+            "unit": "m",
+            "min": 0.05,
+            "max": 10,
+            "default": 0.5
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Height",
+            "unit": "m",
+            "min": 0.05,
+            "max": 5,
+            "default": 0.8
+          },
+          {
+            "name": "count",
+            "type": "integer",
+            "label": "Count",
+            "min": 1,
+            "max": 200,
+            "default": 5
+          },
+          {
+            "name": "area_width",
+            "type": "number",
+            "label": "Scatter area width",
+            "unit": "m",
+            "min": 0.1,
+            "max": 100,
+            "default": 8
+          },
+          {
+            "name": "area_depth",
+            "type": "number",
+            "label": "Scatter area depth",
+            "unit": "m",
+            "min": 0.1,
+            "max": 100,
+            "default": 6
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "Area centre X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Area centre Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "clear_radius",
+            "type": "number",
+            "label": "Keep origin clear radius",
+            "unit": "m",
+            "min": 0,
+            "max": 10,
+            "default": 1.0
+          },
+          {
+            "name": "spacing",
+            "type": "number",
+            "label": "Minimum gap",
+            "unit": "m",
+            "min": 0,
+            "max": 5,
+            "default": 0.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.room-gallery/door",
+      "kind": "object_generator",
+      "module": "modules/door.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Door",
+      "configuration": {
+        "fields": [
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Width",
+            "unit": "m",
+            "min": 0.5,
+            "max": 3,
+            "default": 0.9
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Height",
+            "unit": "m",
+            "min": 1.5,
+            "max": 3,
+            "default": 2.05
+          },
+          {
+            "name": "thickness",
+            "type": "number",
+            "label": "Leaf thickness",
+            "unit": "m",
+            "min": 0.02,
+            "max": 0.1,
+            "default": 0.04
+          },
+          {
+            "name": "frame",
+            "type": "number",
+            "label": "Frame size",
+            "unit": "m",
+            "min": 0.03,
+            "max": 0.3,
+            "default": 0.08
+          },
+          {
+            "name": "frame_depth",
+            "type": "number",
+            "label": "Frame depth",
+            "unit": "m",
+            "min": 0.05,
+            "max": 0.5,
+            "default": 0.12
+          },
+          {
+            "name": "hinge_side",
+            "type": "enum",
+            "label": "Hinge side",
+            "options": [
+              "left",
+              "right"
+            ],
+            "default": "left"
+          },
+          {
+            "name": "open_angle",
+            "type": "number",
+            "label": "Opening angle",
+            "unit": "deg",
+            "min": 10,
+            "max": 180,
+            "default": 100
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 3
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.room-gallery/window",
+      "kind": "object_generator",
+      "module": "modules/window.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Wall with window",
+      "configuration": {
+        "fields": [
+          {
+            "name": "length",
+            "type": "number",
+            "label": "Wall length",
+            "unit": "m",
+            "min": 0.5,
+            "max": 50,
+            "default": 3
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Wall height",
+            "unit": "m",
+            "min": 1,
+            "max": 10,
+            "default": 2.5
+          },
+          {
+            "name": "thickness",
+            "type": "number",
+            "label": "Wall thickness",
+            "unit": "m",
+            "min": 0.05,
+            "max": 1,
+            "default": 0.15
+          },
+          {
+            "name": "window_width",
+            "type": "number",
+            "label": "Window width",
+            "unit": "m",
+            "min": 0.2,
+            "max": 10,
+            "default": 1.2
+          },
+          {
+            "name": "window_height",
+            "type": "number",
+            "label": "Window height",
+            "unit": "m",
+            "min": 0.2,
+            "max": 5,
+            "default": 1.0
+          },
+          {
+            "name": "sill_height",
+            "type": "number",
+            "label": "Sill height",
+            "unit": "m",
+            "min": 0,
+            "max": 5,
+            "default": 0.9
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "label": "Window offset",
+            "unit": "m",
+            "min": -25,
+            "max": 25,
+            "default": 0
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 3
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    }
+  ]
+}

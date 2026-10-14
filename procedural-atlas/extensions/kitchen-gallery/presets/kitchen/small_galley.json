@@ -1,0 +1,9 @@
+{
+  "title": "Small galley kitchen",
+  "description": "Two facing runs with a 1.2 m aisle",
+  "values": {
+    "layout": "galley",
+    "room_width": 4,
+    "room_depth": 3.6
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "format": "RobotLens procedural environment atlas",
+  "version": 1,
+  "entries": [
+    {"name": "small_galley", "file": "01_small_galley.xml", "package": "local.kitchen-gallery", "preset": "small_galley", "seed": 1001, "objects": 295},
+    {"name": "l_shaped", "file": "02_l_shaped.xml", "package": "local.kitchen-gallery", "preset": "l_shaped", "seed": 1002, "objects": 200},
+    {"name": "family_island", "file": "03_family_island.xml", "package": "local.kitchen-gallery", "preset": "family_island", "seed": 1003, "objects": 175},
+    {"name": "small_warehouse", "file": "04_small_warehouse.xml", "package": "local.warehouse-gallery", "preset": "small_warehouse", "seed": 2001, "objects": 164},
+    {"name": "pallet_warehouse", "file": "05_pallet_warehouse.xml", "package": "local.warehouse-gallery", "preset": "pallet_warehouse", "seed": 2002, "objects": 358},
+    {"name": "retail_aisle", "file": "06_retail_aisle.xml", "package": "local.warehouse-gallery", "preset": "retail_aisle", "seed": 2003, "objects": 413},
+    {"name": "cluttered_warehouse", "file": "07_cluttered_warehouse.xml", "package": "local.warehouse-gallery", "preset": "cluttered_warehouse", "seed": 2004, "objects": 521},
+    {"name": "office", "file": "08_office.xml", "package": "local.room-gallery", "preset": "office", "seed": 3001, "objects": 7},
+    {"name": "corridor", "file": "09_corridor.xml", "package": "local.room-gallery", "preset": "corridor", "seed": 3002, "objects": 7},
+    {"name": "atrium", "file": "10_atrium.xml", "package": "local.room-gallery", "configuration": {"width": 14, "depth": 10, "height": 5, "doorway_side": "north", "doorway_width": 2.4, "doorway_height": 3.2, "wall_color": [0.74, 0.8, 0.88], "floor_color": [0.3, 0.36, 0.42]}, "seed": 3003, "objects": 7}
+  ]
+}

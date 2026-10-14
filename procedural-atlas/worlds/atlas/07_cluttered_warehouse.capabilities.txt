@@ -1,0 +1,5 @@
+mjcf: static geometry — exported. Objects without joints are exported as static bodies welded to the world
+mjcf: mass — approximated. 286 objects have mass; only parts moved by joints use it, the rest are exported static
+mjcf: semantic labels — dropped. Labels stay in the RobotLens project; mjcf has no field for them
+mjcf: collision filtering — exported. Generated geoms use contype=2 conaffinity=1: they collide with robots but not with each other
+mjcf: support surfaces and regions — dropped. Not represented in mjcf

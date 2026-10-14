@@ -1,0 +1,293 @@
+{
+  "manifest_version": 1,
+  "package_id": "local.robot-gallery",
+  "version": "0.1.0",
+  "host_api_version": 1,
+  "contributions": [
+    {
+      "type": "local.robot-gallery/robot",
+      "kind": "robot_generator",
+      "module": "modules/robot.wasm",
+      "run": "on_demand",
+      "title": "Robot builder",
+      "configuration": {
+        "fields": [
+          {
+            "name": "family",
+            "type": "enum",
+            "label": "Robot family",
+            "options": [
+              "articulated",
+              "scara",
+              "delta",
+              "cartesian",
+              "cobot",
+              "amr",
+              "agv",
+              "drone",
+              "ugv",
+              "auv",
+              "quadruped",
+              "hexapod",
+              "snake",
+              "humanoid",
+              "soft_arm",
+              "surgical",
+              "domestic",
+              "companion",
+              "exoskeleton",
+              "mobile_manipulator",
+              "arm_7dof",
+              "dual_arm",
+              "palletizer",
+              "desktop_arm",
+              "pan_tilt",
+              "linear_rig",
+              "gantry_picker",
+              "hand",
+              "forklift",
+              "tugger",
+              "omni_base",
+              "tracked",
+              "six_wheel",
+              "lawn_mower",
+              "vacuum",
+              "delivery",
+              "telepresence",
+              "warehouse_picker",
+              "inspection_crawler",
+              "pipe_crawler",
+              "wall_climber",
+              "biped",
+              "spider",
+              "wheel_legged",
+              "quadruped_arm",
+              "wheeled_humanoid",
+              "hexacopter",
+              "fixed_wing",
+              "rov",
+              "boat"
+            ],
+            "default": "articulated"
+          },
+          {
+            "name": "scale",
+            "type": "number",
+            "label": "Scale",
+            "min": 0.25,
+            "max": 3.0,
+            "default": 1.0,
+            "description": "Multiplies every length, prismatic travel, and effort limit."
+          },
+          {
+            "name": "variation",
+            "type": "number",
+            "label": "Seed variation",
+            "min": 0,
+            "max": 0.3,
+            "default": 0.12,
+            "description": "How much the seed changes lengths and proportions; 0 disables variation."
+          },
+          {
+            "name": "reach",
+            "type": "number",
+            "label": "Arm reach",
+            "min": 0,
+            "max": 2.5,
+            "default": 0,
+            "unit": "m",
+            "description": "Arm families only; 0 uses the family default."
+          },
+          {
+            "name": "limb_length",
+            "type": "number",
+            "label": "Limb length",
+            "min": 0.5,
+            "max": 2.0,
+            "default": 1.0,
+            "description": "Multiplier for legs of quadrupeds, hexapods, humanoids, and exoskeletons."
+          },
+          {
+            "name": "segments",
+            "type": "integer",
+            "label": "Segments",
+            "min": 0,
+            "max": 60,
+            "default": 0,
+            "description": "Snake and continuum arm segment count; 0 lets the seed choose."
+          },
+          {
+            "name": "chassis_length",
+            "type": "number",
+            "label": "Chassis length",
+            "min": 0,
+            "max": 3,
+            "default": 0,
+            "unit": "m",
+            "description": "Mobile bases only; 0 uses the family default."
+          },
+          {
+            "name": "chassis_width",
+            "type": "number",
+            "label": "Chassis width",
+            "min": 0,
+            "max": 2,
+            "default": 0,
+            "unit": "m",
+            "description": "Mobile bases only; 0 uses the family default."
+          },
+          {
+            "name": "chassis_height",
+            "type": "number",
+            "label": "Chassis height",
+            "min": 0,
+            "max": 1,
+            "default": 0,
+            "unit": "m",
+            "description": "Mobile bases only; 0 uses the family default."
+          },
+          {
+            "name": "wheel_radius",
+            "type": "number",
+            "label": "Wheel radius",
+            "min": 0,
+            "max": 0.5,
+            "default": 0,
+            "unit": "m",
+            "description": "Mobile bases only; 0 uses the family default."
+          },
+          {
+            "name": "ground_clearance",
+            "type": "number",
+            "label": "Ground clearance",
+            "min": 0,
+            "max": 0.5,
+            "default": 0,
+            "unit": "m",
+            "description": "Mobile bases only; 0 uses the family default."
+          },
+          {
+            "name": "joint_limit_scale",
+            "type": "number",
+            "label": "Joint limit scale",
+            "min": 0.1,
+            "max": 1.0,
+            "default": 1.0,
+            "description": "Shrinks every revolute joint range toward zero."
+          },
+          {
+            "name": "effort_scale",
+            "type": "number",
+            "label": "Effort scale",
+            "min": 0.1,
+            "max": 10,
+            "default": 1.0,
+            "description": "Multiplies every actuator effort limit."
+          },
+          {
+            "name": "gripper",
+            "type": "boolean",
+            "label": "Gripper",
+            "default": true,
+            "description": "Adds a two-finger gripper to arms that support one."
+          },
+          {
+            "name": "gripper_opening",
+            "type": "number",
+            "label": "Gripper opening",
+            "min": 0.005,
+            "max": 0.15,
+            "default": 0.035,
+            "unit": "m",
+            "description": "Travel of each finger."
+          },
+          {
+            "name": "lidar",
+            "type": "boolean",
+            "label": "LiDAR",
+            "default": true
+          },
+          {
+            "name": "camera",
+            "type": "boolean",
+            "label": "Camera",
+            "default": true
+          },
+          {
+            "name": "imu",
+            "type": "boolean",
+            "label": "IMU",
+            "default": true
+          },
+          {
+            "name": "custom_colors",
+            "type": "boolean",
+            "label": "Custom colors",
+            "default": false,
+            "description": "Use the colors below instead of the family colors."
+          },
+          {
+            "name": "body_color",
+            "type": "color",
+            "label": "Body color",
+            "default": [
+              0.2,
+              0.22,
+              0.25
+            ]
+          },
+          {
+            "name": "accent_color",
+            "type": "color",
+            "label": "Accent color",
+            "default": [
+              0.12,
+              0.45,
+              0.85
+            ]
+          },
+          {
+            "name": "arm_color",
+            "type": "color",
+            "label": "Arm color",
+            "default": [
+              0.95,
+              0.45,
+              0.1
+            ]
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "Position X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Position Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    }
+  ],
+  "assets": [
+    "robot_catalog.json"
+  ]
+}

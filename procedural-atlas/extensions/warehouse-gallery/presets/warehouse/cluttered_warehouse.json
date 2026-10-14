@@ -1,0 +1,14 @@
+{
+  "title": "Cluttered warehouse (hard)",
+  "description": "Clutter in the aisles and tall boxes that block the view",
+  "values": {
+    "rack_preset": "wire_rack",
+    "rows": 4,
+    "racks_per_row": 6,
+    "aisle_width": 1.8,
+    "box_density": 0.5,
+    "clutter_count": 12,
+    "min_passage": 0.9,
+    "tall_box_share": 0.4
+  }
+}

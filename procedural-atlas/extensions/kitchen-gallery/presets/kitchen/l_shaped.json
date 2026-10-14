@@ -1,0 +1,9 @@
+{
+  "title": "L-shaped kitchen",
+  "description": "Main run and a side run along the west wall",
+  "values": {
+    "layout": "l_shaped",
+    "room_width": 5,
+    "room_depth": 6
+  }
+}
