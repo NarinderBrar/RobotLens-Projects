@@ -15,7 +15,7 @@ RobotLens project `.robotlens/motion-stacks-mobile-manipulator.xml` (Zenoh, in-p
 | `tools/zenoh_probe` | Lists live Zenoh keys (`zenoh_probe <seconds> [key]`), prints every sample with a timestamp (`zenoh_probe watch <seconds> <key>`), or publishes (`zenoh_probe put <key> <json> <seconds> <hz>`) |
 | `evidence/` | Screenshots and logs from the last run |
 
-Build the probe with `cmake -S tools/zenoh_probe -B tools/zenoh_probe/build -G Ninja && cmake --build tools/zenoh_probe/build`. Build `motion-stacks` with its `system` preset; `run_stacks.sh` looks for it at `../../motion-stacks/build/system` unless `ZMS_BIN` is set.
+Build the probe with `cmake -S tools/zenoh_probe -B tools/zenoh_probe/build -G Ninja && cmake --build tools/zenoh_probe/build`. Build `Zenoh-motion-stacks` with its `system` preset; `run_stacks.sh` looks for it at `../../Zenoh-motion-stacks/build/system` unless `ZMS_BIN` is set.
 
 ## Running the test
 
@@ -23,7 +23,7 @@ Build the probe with `cmake -S tools/zenoh_probe -B tools/zenoh_probe/build -G N
 2. Select the robot, add the Joint Control capability, and tick **Publish states** and **Accept commands** in its Simulation Bridge section. Zenoh Joint Control needs the RobotLens change from 2026-10-14.
 3. Check `tools/zenoh_probe/build/zenoh_probe 2` lists `joint_states` and `odom`.
 4. Run `scripts/run_stacks.sh`.
-5. Drive with `../../motion-stacks/build/system/zms_cli "" <client-id> goal|joint-target|status|watch ...`.
+5. Drive with `../../Zenoh-motion-stacks/build/system/zms_cli "" <client-id> goal|joint-target|status|watch ...`.
 
 ## Results, 2026-10-14
 

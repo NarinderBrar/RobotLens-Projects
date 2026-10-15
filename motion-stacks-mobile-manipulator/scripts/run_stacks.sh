@@ -2,7 +2,7 @@
 set -euo pipefail
 
 project_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-stack_bin=${ZMS_BIN:-$project_dir/../../motion-stacks/build/system}
+stack_bin=${ZMS_BIN:-$project_dir/../../Zenoh-motion-stacks/build/system}
 log_dir=$project_dir/evidence/logs
 mkdir -p "$log_dir"
 
