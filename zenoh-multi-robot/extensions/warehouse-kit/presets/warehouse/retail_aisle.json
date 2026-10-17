@@ -1,0 +1,14 @@
+{
+  "title": "Retail aisles",
+  "description": "Gondola shelving with shopping aisles",
+  "values": {
+    "rack_preset": "gondola",
+    "rows": 4,
+    "racks_per_row": 6,
+    "aisle_width": 1.4,
+    "end_aisle_width": 1.6,
+    "box_density": 0.6,
+    "wall_height": 3.5,
+    "doorway_width": 2.0
+  }
+}
