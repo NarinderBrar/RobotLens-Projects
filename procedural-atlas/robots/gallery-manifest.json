@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "extension": "local.robot-gallery/robot",
+  "robots": [
+    {
+      "id": "gallery-articulated",
+      "family": "articulated",
+      "seed": 1,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-scara",
+      "family": "scara",
+      "seed": 2,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-delta",
+      "family": "delta",
+      "seed": 3,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-cartesian",
+      "family": "cartesian",
+      "seed": 4,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-cobot",
+      "family": "cobot",
+      "seed": 5,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-amr",
+      "family": "amr",
+      "seed": 6,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-agv",
+      "family": "agv",
+      "seed": 7,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-drone",
+      "family": "drone",
+      "seed": 8,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-ugv",
+      "family": "ugv",
+      "seed": 9,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-auv",
+      "family": "auv",
+      "seed": 10,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-quadruped",
+      "family": "quadruped",
+      "seed": 11,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-hexapod",
+      "family": "hexapod",
+      "seed": 12,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-snake",
+      "family": "snake",
+      "seed": 13,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-humanoid",
+      "family": "humanoid",
+      "seed": 14,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-soft-arm",
+      "family": "soft_arm",
+      "seed": 15,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-surgical",
+      "family": "surgical",
+      "seed": 16,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-domestic",
+      "family": "domestic",
+      "seed": 17,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-companion",
+      "family": "companion",
+      "seed": 18,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-exoskeleton",
+      "family": "exoskeleton",
+      "seed": 19,
+      "scale": 1.0
+    },
+    {
+      "id": "gallery-mobile-manipulator",
+      "family": "mobile_manipulator",
+      "seed": 20,
+      "scale": 1.0
+    }
+  ]
+}

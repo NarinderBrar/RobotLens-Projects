@@ -1,0 +1,11 @@
+{
+  "title": "Corridor",
+  "description": "A long narrow room with doors at one end",
+  "values": {
+    "width": 15,
+    "depth": 2.2,
+    "height": 2.7,
+    "doorway_side": "east",
+    "doorway_width": 1.2
+  }
+}

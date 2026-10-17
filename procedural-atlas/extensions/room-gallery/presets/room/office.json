@@ -1,0 +1,11 @@
+{
+  "title": "Office",
+  "description": "A medium room with a doorway on the south wall",
+  "values": {
+    "width": 8,
+    "depth": 6,
+    "height": 2.8,
+    "doorway_side": "south",
+    "doorway_width": 1.0
+  }
+}

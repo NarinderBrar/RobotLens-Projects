@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "field": "family",
+  "robots": [
+    {
+      "family": "articulated",
+      "title": "Articulated arm",
+      "category": "Arm",
+      "description": "Six-axis industrial arm on a pedestal."
+    },
+    {
+      "family": "scara",
+      "title": "SCARA arm",
+      "category": "Arm",
+      "description": "Four-axis SCARA with a vertical quill."
+    },
+    {
+      "family": "delta",
+      "title": "Delta robot",
+      "category": "Arm",
+      "description": "Parallel delta picker on a three-post frame (tree approximation)."
+    },
+    {
+      "family": "cartesian",
+      "title": "Cartesian gantry",
+      "category": "Industrial",
+      "description": "Three-axis gantry on a four-post frame."
+    },
+    {
+      "family": "cobot",
+      "title": "Collaborative arm",
+      "category": "Arm",
+      "description": "Collaborative six-axis arm with a status ring and gripper."
+    },
+    {
+      "family": "amr",
+      "title": "Autonomous mobile robot",
+      "category": "Mobile",
+      "description": "Differential-drive base with casters, LiDAR, and camera."
+    },
+    {
+      "family": "agv",
+      "title": "Guided vehicle",
+      "category": "Mobile",
+      "description": "Low guided vehicle with a lifting deck and tow pin."
+    },
+    {
+      "family": "drone",
+      "title": "Quadrotor",
+      "category": "Aerial",
+      "description": "Quadrotor with landing skids and camera."
+    },
+    {
+      "family": "ugv",
+      "title": "Rocker rover",
+      "category": "Mobile",
+      "description": "Four-wheel rover with passive rocker suspension."
+    },
+    {
+      "family": "auv",
+      "title": "Underwater vehicle",
+      "category": "Marine",
+      "description": "Torpedo AUV with thruster, dive planes, and rudder."
+    },
+    {
+      "family": "quadruped",
+      "title": "Quadruped",
+      "category": "Legged",
+      "description": "Four legs with hip, thigh, and knee joints."
+    },
+    {
+      "family": "hexapod",
+      "title": "Hexapod",
+      "category": "Legged",
+      "description": "Six legs with coxa, femur, and tibia joints."
+    },
+    {
+      "family": "snake",
+      "title": "Serpentine robot",
+      "category": "Special",
+      "description": "Serpentine chain with alternating yaw and pitch joints."
+    },
+    {
+      "family": "humanoid",
+      "title": "Humanoid",
+      "category": "Humanoid",
+      "description": "Full-size humanoid with arms, legs, and head camera."
+    },
+    {
+      "family": "soft_arm",
+      "title": "Segmented continuum arm",
+      "category": "Special",
+      "description": "Tapered segmented arm approximating a continuum robot."
+    },
+    {
+      "family": "surgical",
+      "title": "Surgical cart",
+      "category": "Medical",
+      "description": "Surgical cart with a six-axis arm, instrument, and endoscope."
+    },
+    {
+      "family": "domestic",
+      "title": "Domestic robot",
+      "category": "Service",
+      "description": "Home robot with a lifting mast and pan-tilt head."
+    },
+    {
+      "family": "companion",
+      "title": "Companion robot",
+      "category": "Service",
+      "description": "Small wheeled companion with head, antennae, and flippers."
+    },
+    {
+      "family": "exoskeleton",
+      "title": "Lower-limb exoskeleton",
+      "category": "Wearable",
+      "description": "Powered hip and knee frame with back brace."
+    },
+    {
+      "family": "mobile_manipulator",
+      "title": "Mobile manipulator",
+      "category": "Mobile manipulator",
+      "description": "Four-wheel base with a six-axis arm, gripper, LiDAR, and camera mast."
+    },
+    {
+      "family": "arm_7dof",
+      "title": "7-DOF arm",
+      "category": "Arm",
+      "description": "Redundant seven-axis arm with gripper."
+    },
+    {
+      "family": "dual_arm",
+      "title": "Dual-arm torso",
+      "category": "Arm",
+      "description": "Rotating torso with two six-axis arms and a head camera."
+    },
+    {
+      "family": "palletizer",
+      "title": "Palletizer",
+      "category": "Industrial",
+      "description": "Heavy four-axis palletizing arm with a suction plate."
+    },
+    {
+      "family": "desktop_arm",
+      "title": "Desktop arm",
+      "category": "Arm",
+      "description": "Small six-axis desktop arm with gripper."
+    },
+    {
+      "family": "pan_tilt",
+      "title": "Pan-tilt unit",
+      "category": "Sensor",
+      "description": "Pan-tilt head carrying a camera and LiDAR."
+    },
+    {
+      "family": "linear_rig",
+      "title": "Linear actuator rig",
+      "category": "Industrial",
+      "description": "Linear rail with a vertical slide and suction cup."
+    },
+    {
+      "family": "gantry_picker",
+      "title": "Gantry picker",
+      "category": "Industrial",
+      "description": "Cartesian gantry with a rotating suction tool."
+    },
+    {
+      "family": "hand",
+      "title": "Robotic hand",
+      "category": "Hand",
+      "description": "Four-finger hand with an opposable thumb."
+    },
+    {
+      "family": "forklift",
+      "title": "Forklift AGV",
+      "category": "Mobile",
+      "description": "Autonomous forklift with mast, lifting forks, and overhead guard."
+    },
+    {
+      "family": "tugger",
+      "title": "Tugger",
+      "category": "Mobile",
+      "description": "Compact tugger with tow hitch and beacon."
+    },
+    {
+      "family": "omni_base",
+      "title": "Omnidirectional base",
+      "category": "Mobile",
+      "description": "Four-wheel omnidirectional base."
+    },
+    {
+      "family": "tracked",
+      "title": "Tracked rover",
+      "category": "Mobile",
+      "description": "Tracked rover with drive sprockets."
+    },
+    {
+      "family": "six_wheel",
+      "title": "Six-wheel rover",
+      "category": "Mobile",
+      "description": "Six-wheel rover with sensor mast."
+    },
+    {
+      "family": "lawn_mower",
+      "title": "Lawn mower",
+      "category": "Service",
+      "description": "Robotic mower with spinning blade and GPS antenna."
+    },
+    {
+      "family": "vacuum",
+      "title": "Robot vacuum",
+      "category": "Service",
+      "description": "Disc vacuum robot with side brush and LiDAR turret."
+    },
+    {
+      "family": "delivery",
+      "title": "Delivery robot",
+      "category": "Mobile",
+      "description": "Six-wheel sidewalk delivery robot with cargo lid."
+    },
+    {
+      "family": "telepresence",
+      "title": "Telepresence robot",
+      "category": "Service",
+      "description": "Two-wheel telepresence robot with tilting screen."
+    },
+    {
+      "family": "warehouse_picker",
+      "title": "Warehouse picker",
+      "category": "Mobile manipulator",
+      "description": "Base with tote shelves, lift column, and arm."
+    },
+    {
+      "family": "inspection_crawler",
+      "title": "Inspection crawler",
+      "category": "Mobile",
+      "description": "Small tracked crawler with telescoping pan-tilt camera."
+    },
+    {
+      "family": "pipe_crawler",
+      "title": "Pipe crawler",
+      "category": "Special",
+      "description": "In-pipe crawler with three-way wheel modules."
+    },
+    {
+      "family": "wall_climber",
+      "title": "Wall climber",
+      "category": "Special",
+      "description": "Flat climber with drive wheels and suction cups."
+    },
+    {
+      "family": "biped",
+      "title": "Biped walker",
+      "category": "Legged",
+      "description": "Two-legged walker with sensor head."
+    },
+    {
+      "family": "spider",
+      "title": "Spider robot",
+      "category": "Legged",
+      "description": "Eight-legged walker."
+    },
+    {
+      "family": "wheel_legged",
+      "title": "Wheel-legged robot",
+      "category": "Legged",
+      "description": "Balancing robot with legs ending in wheels."
+    },
+    {
+      "family": "quadruped_arm",
+      "title": "Quadruped with arm",
+      "category": "Mobile manipulator",
+      "description": "Quadruped with a back-mounted arm and gripper."
+    },
+    {
+      "family": "wheeled_humanoid",
+      "title": "Wheeled humanoid",
+      "category": "Humanoid",
+      "description": "Humanoid torso and arms on a wheeled base with lift."
+    },
+    {
+      "family": "hexacopter",
+      "title": "Hexacopter",
+      "category": "Aerial",
+      "description": "Six-rotor multicopter."
+    },
+    {
+      "family": "fixed_wing",
+      "title": "Fixed-wing drone",
+      "category": "Aerial",
+      "description": "Fixed-wing drone with control surfaces and propeller."
+    },
+    {
+      "family": "rov",
+      "title": "Underwater ROV",
+      "category": "Marine",
+      "description": "Underwater ROV with six thrusters and a manipulator."
+    },
+    {
+      "family": "boat",
+      "title": "Autonomous boat",
+      "category": "Marine",
+      "description": "Twin-hull autonomous boat with propellers and LiDAR mast."
+    }
+  ]
+}

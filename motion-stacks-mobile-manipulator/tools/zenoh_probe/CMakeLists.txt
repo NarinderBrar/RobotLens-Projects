@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.22)
+project(zenoh_probe LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 20)
+find_package(zenohc REQUIRED)
+find_package(zenohcxx REQUIRED)
+add_executable(zenoh_probe main.cpp)
+target_link_libraries(zenoh_probe PRIVATE zenohcxx::zenohc)

@@ -1,0 +1,14 @@
+{
+  "title": "Pallet warehouse",
+  "description": "Pallet racks with wide forklift aisles",
+  "values": {
+    "rack_preset": "pallet_rack",
+    "rows": 3,
+    "racks_per_row": 4,
+    "aisle_width": 3.0,
+    "end_aisle_width": 3.0,
+    "box_density": 0.3,
+    "wall_height": 6.0,
+    "doorway_width": 3.0
+  }
+}

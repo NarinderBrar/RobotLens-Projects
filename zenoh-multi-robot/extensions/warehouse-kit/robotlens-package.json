@@ -1,0 +1,679 @@
+{
+  "manifest_version": 1,
+  "package_id": "local.warehouse-kit",
+  "version": "0.1.0",
+  "host_api_version": 1,
+  "contributions": [
+    {
+      "type": "local.warehouse-kit/warehouse",
+      "kind": "object_generator",
+      "module": "modules/warehouse.wasm",
+      "run": "on_demand",
+      "title": "Warehouse",
+      "configuration": {
+        "fields": [
+          {
+            "name": "rack_preset",
+            "type": "enum",
+            "label": "Rack type",
+            "options": [
+              "wire_rack",
+              "pallet_rack",
+              "cubby",
+              "gondola"
+            ],
+            "default": "wire_rack"
+          },
+          {
+            "name": "rows",
+            "type": "integer",
+            "label": "Rack rows",
+            "min": 1,
+            "max": 12,
+            "default": 2
+          },
+          {
+            "name": "racks_per_row",
+            "type": "integer",
+            "label": "Racks per row",
+            "min": 1,
+            "max": 30,
+            "default": 4
+          },
+          {
+            "name": "rack_levels",
+            "type": "integer",
+            "label": "Rack levels",
+            "min": 1,
+            "max": 12,
+            "default": 2
+          },
+          {
+            "name": "rack_height",
+            "type": "number",
+            "label": "Rack height",
+            "unit": "m",
+            "min": 0.3,
+            "max": 12,
+            "default": 0.9
+          },
+          {
+            "name": "aisle_width",
+            "type": "number",
+            "label": "Minimum aisle width",
+            "unit": "m",
+            "min": 0.3,
+            "max": 8,
+            "default": 1.6
+          },
+          {
+            "name": "end_aisle_width",
+            "type": "number",
+            "label": "Minimum cross aisle width",
+            "unit": "m",
+            "min": 0.3,
+            "max": 8,
+            "default": 1.5
+          },
+          {
+            "name": "box_density",
+            "type": "number",
+            "label": "Shelf fill",
+            "description": "Fraction of each shelf covered by boxes",
+            "min": 0,
+            "max": 0.9,
+            "default": 0.35
+          },
+          {
+            "name": "room_width",
+            "type": "number",
+            "label": "Room width (0 = fit)",
+            "unit": "m",
+            "min": 0,
+            "max": 200,
+            "default": 16.7
+          },
+          {
+            "name": "room_depth",
+            "type": "number",
+            "label": "Room depth (0 = fit)",
+            "unit": "m",
+            "min": 0,
+            "max": 200,
+            "default": 12.8
+          },
+          {
+            "name": "spacing",
+            "type": "enum",
+            "label": "Spacing in a larger room",
+            "description": "spread shares spare room between the aisles and rack gaps; compact keeps the minimum aisles and leaves the rest at the walls",
+            "options": [
+              "spread",
+              "compact"
+            ],
+            "default": "spread"
+          },
+          {
+            "name": "wall_height",
+            "type": "number",
+            "label": "Wall height",
+            "unit": "m",
+            "min": 1,
+            "max": 15,
+            "default": 4
+          },
+          {
+            "name": "doorway_width",
+            "type": "number",
+            "label": "Doorway width (0 = none)",
+            "unit": "m",
+            "min": 0,
+            "max": 10,
+            "default": 2
+          },
+          {
+            "name": "tall_box_share",
+            "type": "number",
+            "label": "Tall box share (occlusion)",
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          {
+            "name": "clutter_count",
+            "type": "integer",
+            "label": "Clutter in aisles",
+            "min": 0,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "min_passage",
+            "type": "number",
+            "label": "Minimum passage with clutter",
+            "unit": "m",
+            "min": 0.3,
+            "max": 4,
+            "default": 0.9
+          },
+          {
+            "name": "room",
+            "type": "boolean",
+            "label": "Walls and floor",
+            "default": true
+          },
+          {
+            "name": "offset_x",
+            "type": "number",
+            "label": "Layout offset X",
+            "unit": "m",
+            "min": -200,
+            "max": 200,
+            "default": 0
+          },
+          {
+            "name": "offset_y",
+            "type": "number",
+            "label": "Layout offset Y",
+            "unit": "m",
+            "min": -200,
+            "max": 200,
+            "default": 0
+          },
+          {
+            "name": "wear",
+            "type": "number",
+            "label": "Wear (visual)",
+            "description": "Darker, rougher surfaces; collision is unchanged",
+            "min": 0,
+            "max": 1,
+            "default": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.warehouse-kit/rack",
+      "kind": "object_generator",
+      "module": "modules/rack.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Rack",
+      "configuration": {
+        "fields": [
+          {
+            "name": "preset",
+            "type": "enum",
+            "label": "Preset",
+            "description": "custom uses the size fields below",
+            "options": [
+              "wire_rack",
+              "pallet_rack",
+              "cubby",
+              "gondola",
+              "custom"
+            ],
+            "default": "wire_rack"
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Width",
+            "unit": "m",
+            "min": 0.3,
+            "max": 6,
+            "default": 1.2
+          },
+          {
+            "name": "depth",
+            "type": "number",
+            "label": "Depth",
+            "unit": "m",
+            "min": 0.2,
+            "max": 3,
+            "default": 0.6
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Height",
+            "unit": "m",
+            "min": 0.3,
+            "max": 12,
+            "default": 1.8
+          },
+          {
+            "name": "levels",
+            "type": "integer",
+            "label": "Levels",
+            "min": 1,
+            "max": 12,
+            "default": 5
+          },
+          {
+            "name": "box_density",
+            "type": "number",
+            "label": "Shelf fill",
+            "min": 0,
+            "max": 0.9,
+            "default": 0.4
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 2
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 2
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.warehouse-kit/pallet",
+      "kind": "object_generator",
+      "module": "modules/pallet.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Pallets",
+      "configuration": {
+        "fields": [
+          {
+            "name": "standard",
+            "type": "enum",
+            "label": "Standard",
+            "options": [
+              "euro",
+              "us"
+            ],
+            "default": "euro"
+          },
+          {
+            "name": "count",
+            "type": "integer",
+            "label": "Count",
+            "min": 1,
+            "max": 50,
+            "default": 2
+          },
+          {
+            "name": "load_density",
+            "type": "number",
+            "label": "Load fill",
+            "min": 0,
+            "max": 0.9,
+            "default": 0.5
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "First pallet X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": -3
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "First pallet Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 2
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          },
+          {
+            "name": "spacing",
+            "type": "number",
+            "label": "Gap between pallets",
+            "unit": "m",
+            "min": 0,
+            "max": 5,
+            "default": 0.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.warehouse-kit/bin",
+      "kind": "object_generator",
+      "module": "modules/bin.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Bin",
+      "configuration": {
+        "fields": [
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Width",
+            "unit": "m",
+            "min": 0.1,
+            "max": 3,
+            "default": 0.6
+          },
+          {
+            "name": "depth",
+            "type": "number",
+            "label": "Depth",
+            "unit": "m",
+            "min": 0.1,
+            "max": 3,
+            "default": 0.4
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Height",
+            "unit": "m",
+            "min": 0.05,
+            "max": 2,
+            "default": 0.3
+          },
+          {
+            "name": "thickness",
+            "type": "number",
+            "label": "Wall thickness",
+            "unit": "m",
+            "min": 0.002,
+            "max": 0.1,
+            "default": 0.01
+          },
+          {
+            "name": "items",
+            "type": "integer",
+            "label": "Items inside",
+            "min": 0,
+            "max": 50,
+            "default": 3
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": -2
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": -2
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.warehouse-kit/box",
+      "kind": "object_generator",
+      "module": "modules/box.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Box stack",
+      "configuration": {
+        "fields": [
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Width",
+            "unit": "m",
+            "min": 0.05,
+            "max": 3,
+            "default": 0.4
+          },
+          {
+            "name": "depth",
+            "type": "number",
+            "label": "Depth",
+            "unit": "m",
+            "min": 0.05,
+            "max": 3,
+            "default": 0.3
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Height",
+            "unit": "m",
+            "min": 0.05,
+            "max": 3,
+            "default": 0.3
+          },
+          {
+            "name": "columns",
+            "type": "integer",
+            "label": "Columns",
+            "min": 1,
+            "max": 10,
+            "default": 2
+          },
+          {
+            "name": "rows",
+            "type": "integer",
+            "label": "Rows",
+            "min": 1,
+            "max": 10,
+            "default": 1
+          },
+          {
+            "name": "layers",
+            "type": "integer",
+            "label": "Layers",
+            "min": 1,
+            "max": 10,
+            "default": 2
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 3
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": -2
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.warehouse-kit/conveyor",
+      "kind": "object_generator",
+      "module": "modules/conveyor.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Conveyor",
+      "configuration": {
+        "fields": [
+          {
+            "name": "length",
+            "type": "number",
+            "label": "Length",
+            "unit": "m",
+            "min": 0.5,
+            "max": 30,
+            "default": 4
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "label": "Belt width",
+            "unit": "m",
+            "min": 0.2,
+            "max": 2,
+            "default": 0.6
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Belt height",
+            "unit": "m",
+            "min": 0.2,
+            "max": 2,
+            "default": 0.8
+          },
+          {
+            "name": "items",
+            "type": "integer",
+            "label": "Items on belt",
+            "min": 0,
+            "max": 60,
+            "default": 4
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": -3
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": -2
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "local.warehouse-kit/safety_barrier",
+      "kind": "object_generator",
+      "module": "modules/safety_barrier.wasm",
+      "run": "on_demand",
+      "part": true,
+      "title": "Safety barrier",
+      "configuration": {
+        "fields": [
+          {
+            "name": "length",
+            "type": "number",
+            "label": "Length",
+            "unit": "m",
+            "min": 0.5,
+            "max": 100,
+            "default": 5
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "label": "Height",
+            "unit": "m",
+            "min": 0.3,
+            "max": 3,
+            "default": 1.0
+          },
+          {
+            "name": "post_spacing",
+            "type": "number",
+            "label": "Post spacing",
+            "unit": "m",
+            "min": 0.3,
+            "max": 10,
+            "default": 1.5
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "label": "X",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": 0
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "label": "Y",
+            "unit": "m",
+            "min": -100,
+            "max": 100,
+            "default": -3
+          },
+          {
+            "name": "yaw",
+            "type": "number",
+            "label": "Yaw",
+            "unit": "deg",
+            "min": -180,
+            "max": 180,
+            "default": 0
+          }
+        ]
+      }
+    }
+  ]
+}

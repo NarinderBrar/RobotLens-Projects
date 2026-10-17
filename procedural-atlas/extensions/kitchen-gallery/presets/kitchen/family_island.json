@@ -1,0 +1,10 @@
+{
+  "title": "Family kitchen with island",
+  "description": "Long main run and a central island",
+  "values": {
+    "layout": "island",
+    "room_width": 6,
+    "room_depth": 6.5,
+    "walkway": 1.2
+  }
+}

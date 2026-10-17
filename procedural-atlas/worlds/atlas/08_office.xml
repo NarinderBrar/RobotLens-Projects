@@ -1,0 +1,28 @@
+<mujoco model="room">
+    <option gravity="0 0 -9.81"/>
+    <asset>
+        <material name="material_0" rgba="0.55 0.55 0.52 1" metallic="0" roughness="0.75" specular="0.2" shininess="0.25"/>
+        <material name="material_1" rgba="0.86 0.85 0.8 1" metallic="0" roughness="0.9" specular="0.2" shininess="0.100000024"/>
+    </asset>
+    <worldbody>
+        <body name="room">
+            <geom name="room__floor_visual" type="box" size="4.15 3.15 0.05" pos="0 0 -0.05" quat="1 0 0 0" rgba="0.55 0.55 0.52 1" material="material_0" contype="0" conaffinity="0" group="2"/>
+            <geom name="room__floor_collision" type="box" size="4.15 3.15 0.05" pos="0 0 -0.05" quat="1 0 0 0" rgba="0.8 0.3 0.3 0" contype="2" conaffinity="1" group="3"/>
+            <geom name="room__wall_south_left_visual" type="box" size="1.825 0.075 1.4" pos="-2.325 -3.075 1.4" quat="1 0 0 0" rgba="0.86 0.85 0.8 1" material="material_1" contype="0" conaffinity="0" group="2"/>
+            <geom name="room__wall_south_left_collision" type="box" size="1.825 0.075 1.4" pos="-2.325 -3.075 1.4" quat="1 0 0 0" rgba="0.8 0.3 0.3 0" contype="2" conaffinity="1" group="3"/>
+            <geom name="room__wall_south_right_visual" type="box" size="1.825 0.075 1.4" pos="2.325 -3.075 1.4" quat="1 0 0 0" rgba="0.86 0.85 0.8 1" material="material_1" contype="0" conaffinity="0" group="2"/>
+            <geom name="room__wall_south_right_collision" type="box" size="1.825 0.075 1.4" pos="2.325 -3.075 1.4" quat="1 0 0 0" rgba="0.8 0.3 0.3 0" contype="2" conaffinity="1" group="3"/>
+            <geom name="room__wall_south_header_visual" type="box" size="0.5 0.075 0.35" pos="0 -3.075 2.45" quat="1 0 0 0" rgba="0.86 0.85 0.8 1" material="material_1" contype="0" conaffinity="0" group="2"/>
+            <geom name="room__wall_south_header_collision" type="box" size="0.5 0.075 0.35" pos="0 -3.075 2.45" quat="1 0 0 0" rgba="0.8 0.3 0.3 0" contype="2" conaffinity="1" group="3"/>
+            <geom name="room__wall_north_visual" type="box" size="4.15 0.075 1.4" pos="0 3.075 1.4" quat="6.123234e-17 0 0 1" rgba="0.86 0.85 0.8 1" material="material_1" contype="0" conaffinity="0" group="2"/>
+            <geom name="room__wall_north_collision" type="box" size="4.15 0.075 1.4" pos="0 3.075 1.4" quat="6.123234e-17 0 0 1" rgba="0.8 0.3 0.3 0" contype="2" conaffinity="1" group="3"/>
+            <geom name="room__wall_east_visual" type="box" size="3 0.075 1.4" pos="4.075 0 1.4" quat="0.7071068 0 0 0.7071068" rgba="0.86 0.85 0.8 1" material="material_1" contype="0" conaffinity="0" group="2"/>
+            <geom name="room__wall_east_collision" type="box" size="3 0.075 1.4" pos="4.075 0 1.4" quat="0.7071068 0 0 0.7071068" rgba="0.8 0.3 0.3 0" contype="2" conaffinity="1" group="3"/>
+            <geom name="room__wall_west_visual" type="box" size="3 0.075 1.4" pos="-4.075 0 1.4" quat="0.7071068 0 0 -0.7071068" rgba="0.86 0.85 0.8 1" material="material_1" contype="0" conaffinity="0" group="2"/>
+            <geom name="room__wall_west_collision" type="box" size="3 0.075 1.4" pos="-4.075 0 1.4" quat="0.7071068 0 0 -0.7071068" rgba="0.8 0.3 0.3 0" contype="2" conaffinity="1" group="3"/>
+        </body>
+    </worldbody>
+    <custom>
+        <text name="robotlens.role" data="scenery"/>
+    </custom>
+</mujoco>
