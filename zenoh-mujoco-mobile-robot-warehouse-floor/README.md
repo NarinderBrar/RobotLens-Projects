@@ -5,6 +5,31 @@ A single four-wheel skid-steer mobile robot in the warehouse from
 native Zenoh. The mobile base is derived from the reference robot with its
 arm, gripper, camera, and IMU removed. No external model assets are required.
 
+## Quick start
+
+From this project folder:
+
+```bash
+python3 scripts/quickstart.py setup   # check prerequisites and prepare the project
+python3 scripts/quickstart.py test    # smoke test in RobotLens
+python3 scripts/quickstart.py         # setup, then test
+```
+
+The test does not start `stacks/run_navigation.sh`; use the run steps below for navigation.
+
+`test` uses the running RobotLens session if there is one. Otherwise it starts RobotLens from
+`../../RobotLens` (build it first with `./build.sh`) and closes it at the end, keeping its log
+in `evidence/quickstart-robotlens.log`. The test checks that:
+
+- the project opens
+- communication starts and connects
+- the simulation starts and reaches Running
+- the robots are loaded: `Mobile_robot`
+- a viewport screenshot is saved to `evidence/quickstart.png`
+
+It then stops navigation, the simulation, and communication, in that order. `--keep-running` leaves the simulation and RobotLens running for a look.
+The shared code is in `../tools/quickstart.py`.
+
 ## Files
 
 | Path | Purpose |

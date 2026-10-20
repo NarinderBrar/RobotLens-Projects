@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robotlens_project schemaVersion="23" displayName="ros-mujoco-5mobile-manipulator-warehouse-fleet">
+    <connectionProfile domainId="0" namespace=""/>
+    <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="true" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
+    <assets>
+        <asset id="urdf-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645590027"/>
+        <robot id="robot-main" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="0"/>
+        <robot id="robot-2" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros2-multi-robot/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-350622731"/>
+        <world id="world-main" originalPath="worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="0"/>
+    </assets>
+    <sceneModel id="file_urdf/Mobile_manipulator" sourceKind="file_urdf" displayName="Mobile_manipulator" visible="true">
+        <transform position="-6.500000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_manipulator" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645590027"/>
+    </sceneModel>
+    <sceneModel id="mjcf/warehouse" sourceKind="mjcf" displayName="warehouse" visible="true">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="mjcf/warehouse" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-5mobile-manipulator-warehouse-fleet/worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="-4645590027"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/Mobile_manipulator_copy" sourceKind="file_urdf" displayName="Mobile_manipulator_copy" visible="true">
+        <transform position="-3.600000 -4.500000 0.000000" rotation="0.707107 0.000000 0.000000 0.707107" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_manipulator_copy" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645590027"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/Mobile_manipulator_copy_2" sourceKind="file_urdf" displayName="Mobile_manipulator_copy_2" visible="true">
+        <transform position="3.600000 4.500000 0.000000" rotation="0.707107 0.000000 0.000000 -0.707107" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_manipulator_copy_2" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645590027"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/Mobile_manipulator_copy_3" sourceKind="file_urdf" displayName="Mobile_manipulator_copy_3" visible="true">
+        <transform position="-6.500000 4.500000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_manipulator_copy_3" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645590027"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/Mobile_manipulator_copy_4" sourceKind="file_urdf" displayName="Mobile_manipulator_copy_4" visible="true">
+        <transform position="6.500000 -4.500000 0.000000" rotation="-0.000000 -0.000000 0.000000 1.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_manipulator_copy_4" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645590027"/>
+    </sceneModel>
+    <virtualSensor id="sensor/local/scene/sensor_2" type="lidar_2d" name="2D LiDAR 2" frameId="sensor_2" enabled="true" topic="/robot1/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator/lidar_link"/>
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_3" type="imu" name="IMU 3" frameId="sensor_3" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_4" type="lidar_2d" name="2D LiDAR 4" frameId="sensor_4" enabled="true" topic="/robot2/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy/lidar_link"/>
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_5" type="imu" name="IMU 5" frameId="sensor_5" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_6" type="lidar_2d" name="2D LiDAR 6" frameId="sensor_6" enabled="true" topic="/robot3/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_2/lidar_link"/>
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_7" type="imu" name="IMU 7" frameId="sensor_7" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_2/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_8" type="lidar_2d" name="2D LiDAR 8" frameId="sensor_8" enabled="true" topic="/robot4/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_3/lidar_link"/>
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_9" type="imu" name="IMU 9" frameId="sensor_9" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_3/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_10" type="lidar_2d" name="2D LiDAR 10" frameId="sensor_10" enabled="true" topic="/robot5/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_4/lidar_link"/>
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_11" type="imu" name="IMU 11" frameId="sensor_11" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_4/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_13" type="imu" name="IMU 13" frameId="sensor_13" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_15" type="imu" name="IMU 15" frameId="sensor_15" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_17" type="imu" name="IMU 17" frameId="sensor_17" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_2/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_19" type="imu" name="IMU 19" frameId="sensor_19" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_3/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_21" type="imu" name="IMU 21" frameId="sensor_21" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_4/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_23" type="imu" name="IMU 23" frameId="sensor_23" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_25" type="imu" name="IMU 25" frameId="sensor_25" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_27" type="imu" name="IMU 27" frameId="sensor_27" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_2/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_29" type="imu" name="IMU 29" frameId="sensor_29" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_3/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_31" type="imu" name="IMU 31" frameId="sensor_31" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_4/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_33" type="imu" name="IMU 33" frameId="sensor_33" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_35" type="imu" name="IMU 35" frameId="sensor_35" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_37" type="imu" name="IMU 37" frameId="sensor_37" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_2/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_39" type="imu" name="IMU 39" frameId="sensor_39" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_3/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_41" type="imu" name="IMU 41" frameId="sensor_41" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_4/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_43" type="imu" name="IMU 43" frameId="sensor_43" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_45" type="imu" name="IMU 45" frameId="sensor_45" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_47" type="imu" name="IMU 47" frameId="sensor_47" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_2/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_49" type="imu" name="IMU 49" frameId="sensor_49" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_3/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_51" type="imu" name="IMU 51" frameId="sensor_51" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_4/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_53" type="imu" name="IMU 53" frameId="sensor_53" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_55" type="imu" name="IMU 55" frameId="sensor_55" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_57" type="imu" name="IMU 57" frameId="sensor_57" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_2/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_59" type="imu" name="IMU 59" frameId="sensor_59" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_3/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_61" type="imu" name="IMU 61" frameId="sensor_61" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_4/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_63" type="imu" name="IMU 63" frameId="sensor_63" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_65" type="imu" name="IMU 65" frameId="sensor_65" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_67" type="imu" name="IMU 67" frameId="sensor_67" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_2/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_69" type="imu" name="IMU 69" frameId="sensor_69" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_3/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_71" type="imu" name="IMU 71" frameId="sensor_71" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_4/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_72" type="lidar_2d" name="2D LiDAR 72" frameId="sensor_72" enabled="false" topic="Mobile_manipulator/lidar_link" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="0.500000 0.500000 0.500000 0.500000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator/lidar_link"/>
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_73" type="imu" name="IMU 73" frameId="sensor_73" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_74" type="lidar_2d" name="2D LiDAR 74" frameId="sensor_74" enabled="false" topic="Mobile_manipulator/lidar_link" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="0.500000 0.500000 0.500000 0.500000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy/lidar_link"/>
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_75" type="imu" name="IMU 75" frameId="sensor_75" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_76" type="lidar_2d" name="2D LiDAR 76" frameId="sensor_76" enabled="false" topic="Mobile_manipulator/lidar_link" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="0.500000 0.500000 0.500000 0.500000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_2/lidar_link"/>
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_77" type="imu" name="IMU 77" frameId="sensor_77" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_2/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_78" type="lidar_2d" name="2D LiDAR 78" frameId="sensor_78" enabled="false" topic="Mobile_manipulator/lidar_link" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="0.500000 0.500000 0.500000 0.500000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_3/lidar_link"/>
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_79" type="imu" name="IMU 79" frameId="sensor_79" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_3/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_80" type="lidar_2d" name="2D LiDAR 80" frameId="sensor_80" enabled="false" topic="Mobile_manipulator/lidar_link" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="0.500000 0.500000 0.500000 0.500000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_4/lidar_link"/>
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_81" type="imu" name="IMU 81" frameId="sensor_81" enabled="false" topic="Mobile_manipulator/imu_link" updateRateHz="100" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="10" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_manipulator_copy_4/imu_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="60" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <visualOrigin linkName="base_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="left_front_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="right_front_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="left_rear_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="right_rear_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="lidar_link" visualIndex="0" position="0.000000 0.000000 0.010000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="imu_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="arm_base" visualIndex="0" position="0.000000 0.000000 0.060000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="upper_arm" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="forearm" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="wrist_roll" visualIndex="0" position="-nan -nan -nan" rotation="nan nan nan nan"/>
+    <visualOrigin linkName="wrist_pitch" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="tool_flange" visualIndex="0" position="-nan -nan -nan" rotation="nan nan nan nan"/>
+    <visualOrigin linkName="gripper_palm" visualIndex="0" position="0.020000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="left_finger" visualIndex="0" position="0.035000 0.006000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="right_finger" visualIndex="0" position="0.035000 -0.006000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="camera_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="base_footprint_joint" position="0.000000 0.000000 0.225000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="left_front_wheel_joint" position="0.250000 0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="right_front_wheel_joint" position="0.250000 -0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="left_rear_wheel_joint" position="-0.250000 0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="right_rear_wheel_joint" position="-0.250000 -0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="lidar_link_joint" position="0.320000 0.000000 0.125000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="imu_link_joint" position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="arm_base_joint" position="0.000000 0.000000 0.125000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="upper_arm_joint" position="0.000000 0.000000 0.120000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="forearm_joint" position="0.000000 0.000000 0.347247" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="wrist_roll_joint" position="0.308664 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="wrist_pitch_joint" position="0.070000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="tool_flange_joint" position="0.070000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="gripper_palm_joint" position="0.020000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="left_finger_joint" position="0.040000 0.025000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="right_finger_joint" position="0.040000 -0.025000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="camera_link_joint" position="0.420000 0.000000 -0.040000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <viewport target="0.000000 0.000000 0.000000" yaw="-90" pitch="89" distance="22" fov="45" projectionMode="0" showGrid="true"/>
+    <pathIntelligence plannedPathTopic="/plan" odometryTopic="/odom" fixedFrame="map" warningMeters="0.050000000000000003" criticalMeters="0.14999999999999999" maxPathRevisions="64" maxTrajectorySamples="4096"/>
+    <multiRobotNavigation shareFootprints="true"/>
+    <autonomousMission name="Autonomous Mission" behavior="waypoint" routeExecution="whole_route" patrolForever="false" patrolCycles="1" patrolDurationSeconds="0" mode="waypoints">
+        <coverage frameId="map" laneSpacingMeters="0.5"/>
+    </autonomousMission>
+    <behaviorTree>
+        <xml>&lt;?xml version="1.0"?&gt;
+&lt;root main_tree_to_execute="MainTree" BTCPP_format="4"&gt;
+    &lt;BehaviorTree ID="MainTree"&gt;
+        &lt;Sequence name="Navigate"&gt;
+            &lt;ComputePathToPose name="Compute path" goal="{goal_pose}"/&gt;
+            &lt;FollowPath name="Follow path" path="{path}"/&gt;
+        &lt;/Sequence&gt;
+    &lt;/BehaviorTree&gt;
+&lt;/root&gt;
+</xml>
+        <layout>[{"id":"node_2","x":340.0,"y":20.0},{"id":"node_3","x":340.0,"y":150.0},{"id":"node_4","x":600.0,"y":40.0}]</layout>
+    </behaviorTree>
+    <display typeName="robotlens/TF" instanceName="TF" enabled="false" paused="false">
+        <property key="all_enabled" type="bool" value="true"/>
+        <property key="axis_length" type="double" value="0.050000000000000003"/>
+        <property key="frame_name_blacklist" type="string" value=""/>
+        <property key="frame_name_filter" type="string" value=""/>
+        <property key="link_thickness" type="double" value="0.0050000000000000001"/>
+        <property key="show_arrows" type="bool" value="true"/>
+        <property key="show_axes" type="bool" value="true"/>
+        <property key="show_names" type="bool" value="true"/>
+        <property key="show_parent_links" type="bool" value="true"/>
+        <property key="staleness_seconds" type="double" value="1"/>
+        <property key="tree_depth_limit" type="int" value="0"/>
+        <property key="update_interval" type="double" value="0"/>
+        <property key="use_mesh_axes" type="bool" value="true"/>
+        <property key="use_thick_links" type="bool" value="true"/>
+    </display>
+    <display typeName="scene/Primitives" instanceName="Primitives" enabled="true" paused="false"/>
+    <display typeName="scene/ImportedModels" instanceName="Imported Models" enabled="true" paused="false"/>
+    <display typeName="scene/Lights" instanceName="Lights" enabled="true" paused="false"/>
+    <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
+    <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
+    <display typeName="robotlens/Path" instanceName="file_urdf/Mobile_manipulator Navigation plan" enabled="true" paused="false">
+        <property key="message_type" type="string" value="nav_msgs/msg/Path"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator"/>
+        <property key="topic" type="string" value="/robot1/plan"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/Mobile_manipulator Global costmap" enabled="true" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator"/>
+        <property key="topic" type="string" value="/robot1/global_costmap/costmap"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/Mobile_manipulator Local costmap" enabled="false" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator"/>
+        <property key="topic" type="string" value="/robot1/local_costmap/costmap"/>
+        <property key="z_offset" type="double" value="0.002"/>
+    </display>
+    <display typeName="robotlens/Path" instanceName="file_urdf/Mobile_manipulator_copy Navigation plan" enabled="true" paused="false">
+        <property key="message_type" type="string" value="nav_msgs/msg/Path"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy"/>
+        <property key="topic" type="string" value="/robot2/plan"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/Mobile_manipulator_copy Global costmap" enabled="true" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy"/>
+        <property key="topic" type="string" value="/robot2/global_costmap/costmap"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/Mobile_manipulator_copy Local costmap" enabled="false" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy"/>
+        <property key="topic" type="string" value="/robot2/local_costmap/costmap"/>
+        <property key="z_offset" type="double" value="0.002"/>
+    </display>
+    <display typeName="robotlens/Path" instanceName="file_urdf/Mobile_manipulator_copy_2 Navigation plan" enabled="true" paused="false">
+        <property key="message_type" type="string" value="nav_msgs/msg/Path"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy_2"/>
+        <property key="topic" type="string" value="/robot3/plan"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/Mobile_manipulator_copy_2 Global costmap" enabled="true" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy_2"/>
+        <property key="topic" type="string" value="/robot3/global_costmap/costmap"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/Mobile_manipulator_copy_2 Local costmap" enabled="false" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy_2"/>
+        <property key="topic" type="string" value="/robot3/local_costmap/costmap"/>
+        <property key="z_offset" type="double" value="0.002"/>
+    </display>
+    <display typeName="robotlens/Path" instanceName="file_urdf/Mobile_manipulator_copy_3 Navigation plan" enabled="true" paused="false">
+        <property key="message_type" type="string" value="nav_msgs/msg/Path"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy_3"/>
+        <property key="topic" type="string" value="/robot4/plan"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/Mobile_manipulator_copy_3 Global costmap" enabled="true" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy_3"/>
+        <property key="topic" type="string" value="/robot4/global_costmap/costmap"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/Mobile_manipulator_copy_3 Local costmap" enabled="false" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy_3"/>
+        <property key="topic" type="string" value="/robot4/local_costmap/costmap"/>
+        <property key="z_offset" type="double" value="0.002"/>
+    </display>
+    <display typeName="robotlens/Path" instanceName="file_urdf/Mobile_manipulator_copy_4 Navigation plan" enabled="true" paused="false">
+        <property key="message_type" type="string" value="nav_msgs/msg/Path"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy_4"/>
+        <property key="topic" type="string" value="/robot5/plan"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/Mobile_manipulator_copy_4 Global costmap" enabled="true" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy_4"/>
+        <property key="topic" type="string" value="/robot5/global_costmap/costmap"/>
+    </display>
+    <display typeName="robotlens/Map" instanceName="file_urdf/Mobile_manipulator_copy_4 Local costmap" enabled="false" paused="false">
+        <property key="color_scheme" type="int" value="2"/>
+        <property key="message_type" type="string" value="nav_msgs/msg/OccupancyGrid"/>
+        <property key="owner_id" type="string" value="file_urdf/Mobile_manipulator_copy_4"/>
+        <property key="topic" type="string" value="/robot5/local_costmap/costmap"/>
+        <property key="z_offset" type="double" value="0.002"/>
+    </display>
+    <workspaceRoot>.</workspaceRoot>
+    <simulation backend="mujoco" executable="" worldFile="/tmp/robotlens_setup_2248814.xml" worldName="warehouse" robotModelName="robot_file_urdf_Mobile_manipulator_copy_4_base_footprint" attachOnly="false"/>
+    <commsBackend kind="ros2" endpoint=""/>
+    <nav2 launchPackage="" launchFile="nav2_config/nav2_fleet_launch.py" mapYamlPath="nav2_config/warehouse_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
+    <robotCapabilities>
+        <robotCapability ownerId="file_urdf/Mobile_manipulator">
+            <navigation stackKind="Nav2" globalFrame="map" localizationEndpoint="/robot1/amcl_pose" namespacePrefix="/robot1" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="" launchFile="nav2_config/nav2_robot_launch.py" mapYamlPath="nav2_config/warehouse_navigation_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false">
+                    <arg>start_x:=-6.5</arg>
+                    <arg>start_y:=0</arg>
+                    <arg>start_yaw:=0</arg>
+                </config>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="" showNavigationOverlays="true"/>
+                <mobility driveModel="differential_skid_steer" baseFrame="base_link" odometryFrame="odom" commandEndpoint="/cmd_vel" odometryEndpoint="/odom" footprintRadius="0.30000001" maxLinearVelocity="0.5" maxLateralVelocity="0" maxAngularVelocity="1" maxLinearAcceleration="0.5" maxAngularAcceleration="1">
+                    <drivenJoint jointName="left_front_wheel_joint" reversed="false"/>
+                    <drivenJoint jointName="right_front_wheel_joint" reversed="true"/>
+                </mobility>
+            </navigation>
+        </robotCapability>
+        <robotCapability ownerId="file_urdf/Mobile_manipulator_copy">
+            <navigation stackKind="Nav2" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="/robot2" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="" launchFile="nav2_config/nav2_robot_launch.py" mapYamlPath="nav2_config/warehouse_navigation_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false">
+                    <arg>start_x:=-3.6</arg>
+                    <arg>start_y:=-4.5</arg>
+                    <arg>start_yaw:=90</arg>
+                </config>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+        <robotCapability ownerId="file_urdf/Mobile_manipulator_copy_2">
+            <navigation stackKind="Nav2" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="/robot3" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="" launchFile="nav2_config/nav2_robot_launch.py" mapYamlPath="nav2_config/warehouse_navigation_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false">
+                    <arg>start_x:=3.6</arg>
+                    <arg>start_y:=4.5</arg>
+                    <arg>start_yaw:=-90</arg>
+                </config>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+        <robotCapability ownerId="file_urdf/Mobile_manipulator_copy_3">
+            <navigation stackKind="Nav2" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="/robot4" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="" launchFile="nav2_config/nav2_robot_launch.py" mapYamlPath="nav2_config/warehouse_navigation_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false">
+                    <arg>start_x:=-6.5</arg>
+                    <arg>start_y:=4.5</arg>
+                    <arg>start_yaw:=0</arg>
+                </config>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+        <robotCapability ownerId="file_urdf/Mobile_manipulator_copy_4">
+            <navigation stackKind="Nav2" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="/robot5" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="" launchFile="nav2_config/nav2_robot_launch.py" mapYamlPath="nav2_config/warehouse_navigation_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false">
+                    <arg>start_x:=6.5</arg>
+                    <arg>start_y:=-4.5</arg>
+                    <arg>start_yaw:=180</arg>
+                </config>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+    </robotCapabilities>
+</robotlens_project>
+
