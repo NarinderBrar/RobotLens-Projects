@@ -104,7 +104,7 @@ planning window. RobotLens hides navigation overlays when the goal finishes;
 the `robot1/map` display stays available.
 
 The stack must include the periodic costmap-delivery fix from
-`Zenoh-motion-stacks` branch `fix/global-costmap-delivery`. It republishes the
+`Zenoh-motion-stacks` commit `5c8943e` on branch `fix/global-costmap-delivery`. It republishes the
 current costmap at the configured rate even when cells are unchanged, so a
 late visualizer does not retain an old grid. The source change was built and
 verified during this project setup.
