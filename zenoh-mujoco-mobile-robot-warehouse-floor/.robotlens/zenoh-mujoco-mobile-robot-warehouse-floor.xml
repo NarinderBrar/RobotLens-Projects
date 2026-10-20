@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robotlens_project schemaVersion="23" displayName="zenoh-mujoco-mobile-robot-warehouse-floor">
+    <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="false" topicInspector="true" jointControl="false" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false" />
+    <assets>
+        <asset id="urdf-main" originalPath="robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="0" />
+        <robot id="robot-main" originalPath="robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="0" />
+        <world id="world-main" originalPath="worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="0" />
+    </assets>
+    <sceneModel id="file_urdf/Mobile_robot" sourceKind="file_urdf" displayName="Mobile_robot" visible="true">
+        <transform position="-6.500000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="" />
+        <asset id="file_urdf/Mobile_robot" originalPath="robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="0" />
+    </sceneModel>
+    <sceneModel id="mjcf/warehouse" sourceKind="mjcf" displayName="warehouse" visible="true">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="" />
+        <asset id="mjcf/warehouse" originalPath="worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="0" />
+    </sceneModel>
+    <light id="light/local/scene/Directional Light_3" type="directional" name="Directional Light 3" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
+        <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId="" />
+    </light>
+    <virtualSensor id="sensor/local/scene/sensor_1" type="lidar_2d" name="2D LiDAR 1" frameId="sensor_1" enabled="true" topic="robot1/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_robot/lidar_link" />
+        <lidar scanMode="planar_2d" simulationBackend="ray_based" horizontalFovDegrees="359.99969" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="false" noiseStddev="0.0049999999" />
+    </virtualSensor>
+    <viewport target="0.000000 0.000000 0.000000" yaw="-90" pitch="89" distance="22" fov="45" projectionMode="0" showGrid="true" />
+    <display typeName="scene/Primitives" instanceName="Primitives" enabled="true" paused="false" />
+    <display typeName="scene/ImportedModels" instanceName="Imported Models" enabled="true" paused="false" />
+    <display typeName="scene/Lights" instanceName="Lights" enabled="true" paused="false" />
+    <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false" />
+    <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false" />
+    <display typeName="robotlens/Path" instanceName="navigation/path" enabled="false" paused="false">
+        <property key="owner_id" type="string" value="file_urdf/Mobile_robot" />
+        <property key="topic" type="string" value="robot1/navigation/path" />
+    </display>
+    <display typeName="robotlens/Path" instanceName="navigation/local_path" enabled="false" paused="false">
+        <property key="owner_id" type="string" value="file_urdf/Mobile_robot" />
+        <property key="topic" type="string" value="robot1/navigation/local_path" />
+    </display>
+    <display typeName="robotlens/Map" instanceName="navigation/costmap" enabled="false" paused="false">
+        <property key="owner_id" type="string" value="file_urdf/Mobile_robot" />
+        <property key="topic" type="string" value="robot1/navigation/costmap" />
+        <property key="z_offset" type="double" value="0.003" />
+    </display>
+    <display typeName="robotlens/PoseArray" instanceName="navigation/obstacles" enabled="false" paused="false">
+        <property key="owner_id" type="string" value="file_urdf/Mobile_robot" />
+        <property key="topic" type="string" value="robot1/navigation/obstacles" />
+    </display>
+    <display typeName="robotlens/Map" instanceName="Global Map" enabled="true" paused="false">
+        <property key="topic" type="string" value="robot1/map" />
+        <property key="message_type" type="string" value="zenoh/json:occupancy_grid" />
+        <property key="z_offset" type="double" value="0.001" />
+        <property key="show_vector_field" type="bool" value="false" />
+    </display>
+    <workspaceRoot>.</workspaceRoot>
+    <simulation backend="mujoco" executable="" worldFile="" worldName="default" robotModelName="" attachOnly="false" />
+    <commsBackend kind="zenoh" endpoint="" />
+    <robotCapabilities>
+        <robotCapability ownerId="file_urdf/Mobile_robot">
+            <navigation stackKind="zenoh_external" globalFrame="map" localizationEndpoint="odom" namespacePrefix="robot1" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="stacks/navigation.json" showNavigationOverlays="true" />
+                <mobility driveModel="differential_skid_steer" baseFrame="base_link" odometryFrame="odom" commandEndpoint="cmd_vel" odometryEndpoint="odom" footprintRadius="0.5" maxLinearVelocity="0.5" maxLateralVelocity="0" maxAngularVelocity="1" maxLinearAcceleration="0.5" maxAngularAcceleration="1">
+                    <drivenJoint jointName="left_front_wheel_joint" reversed="false" />
+                    <drivenJoint jointName="right_front_wheel_joint" reversed="true" />
+                    <drivenJoint jointName="left_rear_wheel_joint" reversed="false" />
+                    <drivenJoint jointName="right_rear_wheel_joint" reversed="true" />
+                </mobility>
+            </navigation>
+        </robotCapability>
+    </robotCapabilities>
+</robotlens_project>
