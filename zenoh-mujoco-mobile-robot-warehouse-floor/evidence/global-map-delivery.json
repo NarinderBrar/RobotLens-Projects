@@ -1,0 +1,304 @@
+{
+  "global_map_samples": [
+    {
+      "time": 1792473490.4641826,
+      "key": "robot1/map",
+      "payload": {
+        "contract": 1,
+        "frame": "map",
+        "width": 334,
+        "height": 256,
+        "resolution": 0.05,
+        "origin": {
+          "x": -8.35,
+          "y": -6.4,
+          "yaw": 0
+        },
+        "cell_count": 85504,
+        "occupied_cells": 8262,
+        "cell_sha256": "1ff9cf6ec40023b03c6bd0a3c7a1fea48954d4c134c78dfb0f4c36dfb4bb4ace"
+      }
+    },
+    {
+      "time": 1792473491.4652963,
+      "key": "robot1/map",
+      "payload": {
+        "contract": 1,
+        "frame": "map",
+        "width": 334,
+        "height": 256,
+        "resolution": 0.05,
+        "origin": {
+          "x": -8.35,
+          "y": -6.4,
+          "yaw": 0
+        },
+        "cell_count": 85504,
+        "occupied_cells": 8262,
+        "cell_sha256": "1ff9cf6ec40023b03c6bd0a3c7a1fea48954d4c134c78dfb0f4c36dfb4bb4ace"
+      }
+    }
+  ],
+  "costmap_samples": [
+    {
+      "time": 1792473489.9623775,
+      "key": "robot1/navigation/costmap",
+      "payload": {
+        "contract": 1,
+        "height": 128,
+        "origin": {
+          "x": -8.35,
+          "y": -6.4,
+          "yaw": 0.0
+        },
+        "resolution": 0.1,
+        "width": 167,
+        "cell_count": 21376,
+        "occupied_cells": 9916,
+        "cell_sha256": "52726c85be0c027b45fb31d0e89805a02bfab208e284943a1b0c0c18e94aafb0"
+      }
+    },
+    {
+      "time": 1792473490.9634292,
+      "key": "robot1/navigation/costmap",
+      "payload": {
+        "contract": 1,
+        "height": 128,
+        "origin": {
+          "x": -8.35,
+          "y": -6.4,
+          "yaw": 0.0
+        },
+        "resolution": 0.1,
+        "width": 167,
+        "cell_count": 21376,
+        "occupied_cells": 9916,
+        "cell_sha256": "52726c85be0c027b45fb31d0e89805a02bfab208e284943a1b0c0c18e94aafb0"
+      }
+    },
+    {
+      "time": 1792473491.9647741,
+      "key": "robot1/navigation/costmap",
+      "payload": {
+        "contract": 1,
+        "height": 128,
+        "origin": {
+          "x": -8.35,
+          "y": -6.4,
+          "yaw": 0.0
+        },
+        "resolution": 0.1,
+        "width": 167,
+        "cell_count": 21376,
+        "occupied_cells": 9916,
+        "cell_sha256": "52726c85be0c027b45fb31d0e89805a02bfab208e284943a1b0c0c18e94aafb0"
+      }
+    }
+  ],
+  "planned_path": {
+    "time": 1792473475.1328168,
+    "key": "robot1/navigation/path",
+    "payload": {
+      "command_id": "navigation-3",
+      "contract": 1,
+      "frame": "map",
+      "poses": [
+        {
+          "x": -6.647770914474307,
+          "y": 0.5851255626216724,
+          "yaw": 2.049064051560442
+        },
+        {
+          "x": -6.5249999999999995,
+          "y": 0.07500000000000018,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -6.5249999999999995,
+          "y": 0.3250000000000002,
+          "yaw": 2.3561944901923493
+        },
+        {
+          "x": -6.625,
+          "y": 0.4249999999999998,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -6.625,
+          "y": 0.7750000000000004,
+          "yaw": 2.356194490192345
+        },
+        {
+          "x": -6.675,
+          "y": 0.8250000000000002,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -6.675,
+          "y": 1.5750000000000002,
+          "yaw": 2.356194490192345
+        },
+        {
+          "x": -6.725,
+          "y": 1.625,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -6.725,
+          "y": 1.8249999999999993,
+          "yaw": 2.356194490192336
+        },
+        {
+          "x": -6.7749999999999995,
+          "y": 1.875,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -6.7749999999999995,
+          "y": 2.5749999999999993,
+          "yaw": 0.7853981633974572
+        },
+        {
+          "x": -6.725,
+          "y": 2.625,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -6.725,
+          "y": 2.8249999999999993,
+          "yaw": 0.7853981633974572
+        },
+        {
+          "x": -6.675,
+          "y": 2.875,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -6.675,
+          "y": 2.9250000000000007,
+          "yaw": 0.7853981633974394
+        },
+        {
+          "x": -6.625,
+          "y": 2.9749999999999996,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -6.625,
+          "y": 3.0749999999999993,
+          "yaw": 0.7853981633974487
+        },
+        {
+          "x": -5.5249999999999995,
+          "y": 4.175000000000001,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -5.5249999999999995,
+          "y": 4.225,
+          "yaw": 0.7853981633974572
+        },
+        {
+          "x": -5.475,
+          "y": 4.275,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -5.475,
+          "y": 4.325000000000001,
+          "yaw": 0.7853981633974305
+        },
+        {
+          "x": -5.424999999999999,
+          "y": 4.375,
+          "yaw": 1.5707963267948966
+        },
+        {
+          "x": -5.424999999999999,
+          "y": 4.475,
+          "yaw": 0.42662749312688947
+        },
+        {
+          "x": -5.37,
+          "y": 4.5,
+          "yaw": 1.5707963267948966
+        }
+      ]
+    }
+  },
+  "checks": {
+    "direct_line_occupied_samples": 23,
+    "planned_path_occupied_samples": 0,
+    "planned_pose_count": 24
+  },
+  "date": "2026-10-20",
+  "session_pid": 180134,
+  "map_available": true,
+  "raw_map_matches_generated_cells": true,
+  "unchanged_costmap_repeated": true,
+  "visualizers": {
+    "robot1/map": "Ok (85504 cells)",
+    "robot1/navigation/costmap": "Ok (21376 cells)"
+  },
+  "goals": [
+    {
+      "id": "navigation-1",
+      "x": -5.37,
+      "y": 4.5,
+      "yaw": 1.5707963267948966,
+      "state": "succeeded",
+      "last_pose": {
+        "x": -5.366251189159958,
+        "y": 4.355539172584351,
+        "yaw": 1.3601581189552399
+      }
+    },
+    {
+      "id": "navigation-2",
+      "x": -6.5,
+      "y": 0,
+      "yaw": 0,
+      "state": "succeeded",
+      "last_pose": {
+        "x": -6.570758255360689,
+        "y": 0.11687496272686054,
+        "yaw": -0.21852184424702548
+      }
+    },
+    {
+      "id": "navigation-3",
+      "x": -5.37,
+      "y": 4.5,
+      "yaw": 1.5707963267948966,
+      "state": "succeeded",
+      "last_pose": {
+        "x": -5.367175909861777,
+        "y": 4.358666771447242,
+        "yaw": 1.3636227719564813
+      },
+      "costmap_delivery_fix": true
+    }
+  ],
+  "validation": {
+    "geometry_tests": "4 passed",
+    "navigation_and_integration_build": "passed",
+    "late_subscriber_regression": "passed (2.07 seconds)",
+    "visualization_unit_tests": "8 passed"
+  },
+  "limits": [
+    "Static collision-box projection for this warehouse; not online mapping.",
+    "Path occupancy sampling verifies raw map cells, not an independent proof of dynamic collision safety.",
+    "Existing user desktop reused; RobotLens itself was not built."
+  ],
+  "cleanup": {
+    "navigation_and_map_launchers": "stopped, exit 143 after requested SIGTERM",
+    "observer": "exited 0",
+    "simulation": "Stopped",
+    "comms": "disconnected",
+    "bridge_states": false,
+    "bridge_commands": false,
+    "robot_start_pose_restored": true,
+    "desktop_left_open": true,
+    "live_session_not_saved": true
+  }
+}
