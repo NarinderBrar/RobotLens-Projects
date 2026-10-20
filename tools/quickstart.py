@@ -310,7 +310,13 @@ def step_start_servers(ctx: RunContext, step: dict, out: SuiteResult) -> bool:
     if step.get("generate_easynav_config"):
         generated = run_command(ctx, "navigation.generate_easynav_config")
         out.expect(f"{robot} EasyNav config generated", generated.get("ok", False), str(generated))
-    started = run_command(ctx, "navigation.start_servers")
+    started = {}
+    for _ in range(3):
+        started = run_command(ctx, "navigation.start_servers")
+        if started.get("ok") or started.get("error") != "no_navigation_robot":
+            break
+        time.sleep(1.0)
+        select_robot(ctx, robot)
     out.expect(f"{robot} navigation servers start accepted", started.get("ok", False), str(started))
     status = wait_until(lambda: (lambda s: s if s.get("session_status") in ("Running", "Attached")
                                  and (s.get("stack") != "EasyNavigation"
@@ -533,6 +539,9 @@ def smoke_test(client: McpClient, project: Project, args) -> list[SuiteResult]:
         if ok and project.prepare:
             def prepare(out: SuiteResult) -> bool:
                 done = shell(project.prepare, project.root, False, 900)
+                log = project.root / "evidence" / "quickstart" / "prepare.log"
+                log.parent.mkdir(parents=True, exist_ok=True)
+                log.write_text(done.stdout + done.stderr)
                 return out.expect(project.prepare, done.returncode == 0,
                                   f"exit {done.returncode}: {(done.stdout + done.stderr).strip()[-600:]}")
             ok = stage("prepare", prepare)

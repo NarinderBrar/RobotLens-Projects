@@ -6,11 +6,13 @@ cd "$project_root"
 python3 scripts/generate_warehouse_map.py >/dev/null
 mcp=(python3 scripts/mcp.py)
 project_file="$project_root/.robotlens/ros-mujoco-5mobile-manipulator-warehouse-fleet.xml"
-"${mcp[@]}" project.open "{\"path\":\"$project_file\"}" >/dev/null
-for _ in $(seq 1 60); do
-    "${mcp[@]}" project.status '{}' 2>/dev/null | grep -q '"state": "opened"' && break
-    sleep 2
-done
+if ! "${mcp[@]}" project.status '{}' 2>/dev/null | grep -qF "\"project_path\": \"$project_file\""; then
+    "${mcp[@]}" project.open "{\"path\":\"$project_file\"}" >/dev/null
+    for _ in $(seq 1 60); do
+        "${mcp[@]}" project.status '{}' 2>/dev/null | grep -q '"state": "opened"' && break
+        sleep 2
+    done
+fi
 names=(Mobile_manipulator Mobile_manipulator_copy Mobile_manipulator_copy_2 Mobile_manipulator_copy_3 Mobile_manipulator_copy_4)
 find_robot() {
     "${mcp[@]}" scene.find "{\"target\":\"Robots/$1\"}" | python3 -c 'import json,sys; d=json.load(sys.stdin); matches=[c["alias"] for c in (d.get("candidates") or d.get("items") or []) if c.get("path", "").rstrip("/").split("/")[-1] == sys.argv[1]]; print(matches[0] if len(matches) == 1 else "")' "$1"
@@ -35,7 +37,7 @@ for index in $(seq 0 4); do
     "${mcp[@]}" scene.rotate "{\"target\":\"${aliases[$name]}\",\"x\":0,\"y\":0,\"z\":$yaw}" >/dev/null
     "${mcp[@]}" robot.navigation.configure "{\"target\":\"${aliases[$name]}\",\"stack_kind\":\"nav2\",\"namespace_prefix\":\"/robot$robot\",\"nav2\":{\"launch_package\":\"\",\"launch_file\":\"nav2_config/nav2_robot_launch.py\",\"map_yaml\":\"nav2_config/warehouse_navigation_map.yaml\",\"params_yaml\":\"nav2_config/nav2_params.yaml\",\"args\":[\"start_x:=$x\",\"start_y:=$y\",\"start_yaw:=$yaw\"],\"attach_only\":false}}" >/dev/null
 done
-mapfile -t lidars < <("${mcp[@]}" scene.find '{"target":"2D LiDAR"}' | python3 -c 'import json,sys; seen=set(); [print(("dup" if c["path"].split("/")[1] in seen else "keep"), c["alias"], c["path"].split("/")[1]) or seen.add(c["path"].split("/")[1]) for c in (lambda d: d.get("candidates") or d.get("items") or [])(json.load(sys.stdin))]')
+mapfile -t lidars < <("${mcp[@]}" scene.find '{"target":"2D LiDAR"}' | python3 -c 'import json,sys; seen=set(); [print(("dup" if c["path"].split("/")[1] in seen else "keep"), c["alias"], c["path"].split("/")[1]) or seen.add(c["path"].split("/")[1]) for c in (lambda d: [c for c in (d.get("candidates") or d.get("items") or []) if c.get("path", "").startswith("Robots/")])(json.load(sys.stdin))]')
 duplicates=()
 for item in "${lidars[@]}"; do
     read -r kind alias owner <<< "$item"

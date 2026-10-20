@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import json
 import sys
+import time
 from pathlib import Path
 
 automation = Path(__file__).resolve().parents[3] / "RobotLens-Automation" / "scripts"
 sys.path.insert(0, str(automation))
-from mcp_client import McpClient, live_sessions
+from mcp_client import McpClient, McpError, live_sessions
 
 
 def main() -> int:
@@ -17,7 +18,15 @@ def main() -> int:
     if not sessions:
         print("no live RobotLens session", file=sys.stderr)
         return 1
-    with McpClient(sessions[0].socket) as client:
+    for attempt in range(5):
+        try:
+            client = McpClient(sessions[0].socket)
+            break
+        except McpError:
+            if attempt == 4:
+                raise
+            time.sleep(1.0)
+    with client:
         result = client.call(sys.argv[1], arguments) if sys.argv[1].startswith("robotlens.") else client.run(sys.argv[1], arguments)
         print(json.dumps(result.result, indent=2))
         for index, image in enumerate(result.images):
