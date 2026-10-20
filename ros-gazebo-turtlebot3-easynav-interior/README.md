@@ -14,7 +14,7 @@ python3 scripts/quickstart.py         # setup, then test
 
 `test` uses the running RobotLens session if there is one. Otherwise it starts RobotLens from
 `../../RobotLens` (build it first with `./build.sh`) and closes it at the end, keeping its log
-in `evidence/quickstart-robotlens.log`. The test checks that:
+in `evidence/quickstart/robotlens.log`. The test checks that:
 
 - the project opens
 - communication starts and connects
@@ -22,7 +22,7 @@ in `evidence/quickstart-robotlens.log`. The test checks that:
 - the robots are loaded: `turtlebot3_burger`
 - RobotLens resolves the TF frames `base_link`
 - with `--navigation`, the robot's navigation servers start
-- a viewport screenshot is saved to `evidence/quickstart.png`
+- a viewport screenshot is saved to `evidence/quickstart/quickstart.png`
 
 It then stops navigation, the simulation, and communication, in that order. `--keep-running` leaves the simulation and RobotLens running for a look. `--navigation` also starts the navigation servers.
 The shared code is in `../tools/quickstart.py`.
