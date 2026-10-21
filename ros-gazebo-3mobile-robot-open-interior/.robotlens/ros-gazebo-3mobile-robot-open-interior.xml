@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robotlens_project schemaVersion="23" displayName="ros-gazebo-3mobile-robot-open-interior">
+    <connectionProfile domainId="0" namespace=""/>
+    <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="true" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
+    <assets>
+        <asset id="urdf-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="-4645199449"/>
+        <robot id="robot-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="-4645199449"/>
+        <world id="world-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </assets>
+    <sceneModel id="sdf/white_floor" sourceKind="sdf" displayName="white_floor" visible="true">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/white_floor" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/wall_north" sourceKind="sdf" displayName="wall_north" visible="true">
+        <transform position="0.000000 12.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/wall_north" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/wall_south" sourceKind="sdf" displayName="wall_south" visible="true">
+        <transform position="0.000000 -12.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/wall_south" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/wall_east" sourceKind="sdf" displayName="wall_east" visible="true">
+        <transform position="15.000000 0.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/wall_east" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/wall_west" sourceKind="sdf" displayName="wall_west" visible="true">
+        <transform position="-15.000000 0.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/wall_west" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/mid_wall_left" sourceKind="sdf" displayName="mid_wall_left" visible="true">
+        <transform position="-8.500000 0.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/mid_wall_left" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/mid_wall_right" sourceKind="sdf" displayName="mid_wall_right" visible="true">
+        <transform position="8.500000 0.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/mid_wall_right" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/mid_vertical_top" sourceKind="sdf" displayName="mid_vertical_top" visible="true">
+        <transform position="0.000000 10.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/mid_vertical_top" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/mid_vertical_upper" sourceKind="sdf" displayName="mid_vertical_upper" visible="true">
+        <transform position="0.000000 3.500000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/mid_vertical_upper" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/mid_vertical_lower" sourceKind="sdf" displayName="mid_vertical_lower" visible="true">
+        <transform position="0.000000 -3.500000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/mid_vertical_lower" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/mid_vertical_bottom" sourceKind="sdf" displayName="mid_vertical_bottom" visible="true">
+        <transform position="0.000000 -10.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/mid_vertical_bottom" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/blocker_tl" sourceKind="sdf" displayName="blocker_tl" visible="true">
+        <transform position="-7.000000 5.500000 0.750000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/blocker_tl" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/blocker_tr" sourceKind="sdf" displayName="blocker_tr" visible="true">
+        <transform position="7.000000 8.800000 0.750000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/blocker_tr" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/blocker_bl" sourceKind="sdf" displayName="blocker_bl" visible="true">
+        <transform position="-7.000000 -8.800000 0.750000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/blocker_bl" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/blocker_br" sourceKind="sdf" displayName="blocker_br" visible="true">
+        <transform position="7.000000 -5.500000 0.750000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/blocker_br" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/shelf_red" sourceKind="sdf" displayName="shelf_red" visible="true">
+        <transform position="-10.000000 8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/shelf_red" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/shelf_blue" sourceKind="sdf" displayName="shelf_blue" visible="true">
+        <transform position="10.000000 8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/shelf_blue" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/shelf_green" sourceKind="sdf" displayName="shelf_green" visible="true">
+        <transform position="-10.000000 -8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/shelf_green" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="sdf/shelf_yellow" sourceKind="sdf" displayName="shelf_yellow" visible="true">
+        <transform position="10.000000 -8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="sdf/shelf_yellow" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4645185677"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/Mobile_robot" sourceKind="file_urdf" displayName="Mobile_robot" visible="true">
+        <transform position="-12.000000 -2.500000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_robot" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="-4645199449"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/Mobile_robot_copy" sourceKind="file_urdf" displayName="Mobile_robot_copy" visible="true">
+        <transform position="-12.000000 -4.500000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_robot_copy" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="-4645199449"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/Mobile_robot_copy_2" sourceKind="file_urdf" displayName="Mobile_robot_copy_2" visible="true">
+        <transform position="-12.000000 -6.750000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_robot_copy_2" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="-4645199449"/>
+    </sceneModel>
+    <light id="light/local/scene/Directional Light_2" type="directional" name="Directional Light 2" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
+        <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId=""/>
+    </light>
+    <virtualSensor id="sensor/local/scene/sensor_1" type="lidar_2d" name="2D LiDAR 1" frameId="sensor_1" enabled="true" topic="/robot1/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.12" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_robot/lidar_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="360" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_2" type="lidar_2d" name="2D LiDAR 2" frameId="sensor_2" enabled="true" topic="/robot2/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.12" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_robot_copy/lidar_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="360" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_3" type="lidar_2d" name="2D LiDAR 3" frameId="sensor_3" enabled="true" topic="/robot3/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.12" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_robot_copy_2/lidar_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="360" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <visualOrigin linkName="base_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="left_front_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="right_front_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="left_rear_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="right_rear_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="lidar_link" visualIndex="0" position="0.000000 0.000000 0.010000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="base_footprint_joint" position="0.000000 0.000000 0.225000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="left_front_wheel_joint" position="0.250000 0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="right_front_wheel_joint" position="0.250000 -0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="left_rear_wheel_joint" position="-0.250000 0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="right_rear_wheel_joint" position="-0.250000 -0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="lidar_link_joint" position="0.320000 0.000000 0.125000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <viewport target="0.000000 0.000000 0.000000" yaw="-90" pitch="30" distance="5" fov="45" projectionMode="0" showGrid="true"/>
+    <pathIntelligence plannedPathTopic="/plan" odometryTopic="/odom" fixedFrame="map" warningMeters="0.050000000000000003" criticalMeters="0.14999999999999999" maxPathRevisions="64" maxTrajectorySamples="4096"/>
+    <multiRobotNavigation shareFootprints="false"/>
+    <autonomousMission name="Autonomous Mission" behavior="waypoint" routeExecution="whole_route" patrolForever="false" patrolCycles="1" patrolDurationSeconds="0" mode="waypoints">
+        <coverage frameId="map" laneSpacingMeters="0.5"/>
+    </autonomousMission>
+    <behaviorTree>
+        <xml>&lt;?xml version="1.0"?&gt;
+&lt;root main_tree_to_execute="MainTree" BTCPP_format="4"&gt;
+  &lt;BehaviorTree ID="MainTree"&gt;
+    &lt;Sequence name="Navigate"&gt;
+      &lt;ComputePathToPose name="Compute path" goal="{goal_pose}"&gt;&lt;/ComputePathToPose&gt;
+      &lt;FollowPath name="Follow path" path="{path}"&gt;&lt;/FollowPath&gt;
+    &lt;/Sequence&gt;
+  &lt;/BehaviorTree&gt;
+&lt;/root&gt;
+</xml>
+        <layout>[{"id":"node_1","x":40.0,"y":40.0},{"id":"node_2","x":340.0,"y":20.0},{"id":"node_3","x":340.0,"y":150.0}]</layout>
+    </behaviorTree>
+    <display typeName="robotlens/TF" instanceName="TF" enabled="false" paused="false">
+        <property key="all_enabled" type="bool" value="true"/>
+        <property key="axis_length" type="double" value="0.050000000000000003"/>
+        <property key="frame_name_blacklist" type="string" value=""/>
+        <property key="frame_name_filter" type="string" value=""/>
+        <property key="link_thickness" type="double" value="0.001"/>
+        <property key="show_arrows" type="bool" value="true"/>
+        <property key="show_axes" type="bool" value="true"/>
+        <property key="show_names" type="bool" value="true"/>
+        <property key="show_parent_links" type="bool" value="true"/>
+        <property key="staleness_seconds" type="double" value="1"/>
+        <property key="tree_depth_limit" type="int" value="0"/>
+        <property key="update_interval" type="double" value="0"/>
+        <property key="use_mesh_axes" type="bool" value="true"/>
+        <property key="use_thick_links" type="bool" value="true"/>
+    </display>
+    <display typeName="scene/Primitives" instanceName="Primitives" enabled="true" paused="false"/>
+    <display typeName="scene/ImportedModels" instanceName="Imported Models" enabled="true" paused="false"/>
+    <display typeName="scene/Lights" instanceName="Lights" enabled="true" paused="false"/>
+    <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
+    <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
+    <workspaceRoot>.</workspaceRoot>
+    <simulation backend="gazebo" executable="" worldFile="" worldName="default" robotModelName="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-3mobile-robot-open-interior/robots/Mobile_robot.urdf" attachOnly="false"/>
+    <commsBackend kind="ros2" endpoint=""/>
+    <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
+    <robotCapabilities>
+        <robotCapability ownerId="file_urdf/Mobile_robot">
+            <navigation stackKind="Nav2" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="/robot1" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="" launchFile="nav2_config/nav2_robot_launch.py" mapYamlPath="nav2_config/nav2_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false">
+                    <arg>start_x:=-12.0</arg>
+                    <arg>start_y:=-2.5</arg>
+                    <arg>start_yaw:=0.0</arg>
+                    <arg>robot_radius:=0.5</arg>
+                </config>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+        <robotCapability ownerId="file_urdf/Mobile_robot_copy">
+            <navigation stackKind="Nav2" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="/robot2" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="" launchFile="nav2_config/nav2_robot_launch.py" mapYamlPath="nav2_config/nav2_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false">
+                    <arg>start_x:=-12.0</arg>
+                    <arg>start_y:=-4.5</arg>
+                    <arg>start_yaw:=0.0</arg>
+                    <arg>robot_radius:=0.5</arg>
+                </config>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+        <robotCapability ownerId="file_urdf/Mobile_robot_copy_2">
+            <navigation stackKind="Nav2" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="/robot3" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="" launchFile="nav2_config/nav2_robot_launch.py" mapYamlPath="nav2_config/nav2_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false">
+                    <arg>start_x:=-12.0</arg>
+                    <arg>start_y:=-6.75</arg>
+                    <arg>start_yaw:=0.0</arg>
+                    <arg>robot_radius:=0.5</arg>
+                </config>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+    </robotCapabilities>
+</robotlens_project>
+
