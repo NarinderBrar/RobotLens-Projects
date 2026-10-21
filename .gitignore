@@ -7,5 +7,4 @@ install/
 log/
 .venv/
 *.bak-*
-*/evidence/quickstart.png
-*/evidence/quickstart-robotlens.log
+*/evidence/quickstart/

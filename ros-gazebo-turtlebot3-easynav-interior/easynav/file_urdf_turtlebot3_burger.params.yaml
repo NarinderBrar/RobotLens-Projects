@@ -42,7 +42,7 @@ localizer_node:
         odom_frame: "odom"
         base_link_frame: "base_footprint"
         world_frame: "map"
-        odom0: "/odom_map"
+        odom0: "/odom"
         odom0_config: [true,  true,  false,
                        false, false, true,
                        true,  true,  false,
@@ -56,23 +56,36 @@ maps_manager_node:
     map_types: [simple]
     simple:
       freq: 10.0
-      plugin: easynav_simple_maps_manager/SimpleMapsManager
+      plugin: easynav_costmap_maps_manager/CostmapMapsManager
       package: ""
       map_path_file: ""
+      filters: [obstacles, inflation]
+      obstacles:
+        plugin: easynav_costmap_maps_manager/CostmapMapsManager/ObstaclesFilter
+      inflation:
+        plugin: easynav_costmap_maps_manager/CostmapMapsManager/InflationFilter
+        inscribed_radius: 0.35
+        inflation_radius: 0.55
+        cost_scaling_factor: 3.0
 
 planner_node:
   ros__parameters:
     use_sim_time: true
     planner_types: [simple]
     simple:
-      freq: 0.5
-      plugin: easynav_simple_planner/SimplePlanner
-      robot_radius: 0.3
-      clearance_distance: 0.05
+      freq: 5.0
+      plugin: easynav_costmap_planner/CostmapPlanner
+      cost_factor: 0.01
+      continuous_replan: true
 
 controller_node:
   ros__parameters:
     use_sim_time: true
+    colision_checker:
+      active: true
+      robot_radius: 0.3
+      brake_acc: 0.5
+      safety_margin: 0.05
     controller_types: [simple]
     simple:
       rt_freq: 30.0
@@ -82,6 +95,12 @@ controller_node:
       max_linear_acc: 0.5
       max_angular_acc: 1.0
       look_ahead_dist: 0.3
-      k_rot: 0.5
-      tolerance_dist: 0.1
+      linear_kp: 0.8
+      linear_ki: 0.0
+      linear_kd: 0.0
+      angular_kp: 0.5
+      angular_ki: 0.0
+      angular_kd: 0.0
+      k_rot: 2.0
+      tolerance_dist: 0.05
       final_goal_angle_tolerance: 0.1

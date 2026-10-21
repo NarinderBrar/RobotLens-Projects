@@ -13,6 +13,13 @@ PROJECT = Project(
     frames=('base_link',),
     requires=('worlds/open_interior.sdf', 'nav2_config/nav2_params.yaml'),
     navigation=True,
+    scenario=(
+        {"step": "start_navigation", "robots": ["turtlebot3_burger"]},
+        {"step": "screenshot", "name": "before-goal"},
+        {"step": "navigate", "goals": [{"robot": "turtlebot3_burger", "x": 1.5, "y": 0.0,
+                                         "truth": "base_footprint"}]},
+        {"step": "screenshot", "name": "after-goal"},
+    ),
 )
 
 if __name__ == "__main__":

@@ -19,13 +19,13 @@ The test does not start `stacks/run_navigation.sh`; use the run steps below for 
 
 `test` uses the running RobotLens session if there is one. Otherwise it starts RobotLens from
 `../../RobotLens` (build it first with `./build.sh`) and closes it at the end, keeping its log
-in `evidence/quickstart-robotlens.log`. The test checks that:
+in `evidence/quickstart/robotlens.log`. The test checks that:
 
 - the project opens
 - communication starts and connects
 - the simulation starts and reaches Running
 - the robots are loaded: `Mobile_robot`
-- a viewport screenshot is saved to `evidence/quickstart.png`
+- a viewport screenshot is saved to `evidence/quickstart/quickstart.png`
 
 It then stops navigation, the simulation, and communication, in that order. `--keep-running` leaves the simulation and RobotLens running for a look.
 The shared code is in `../tools/quickstart.py`.

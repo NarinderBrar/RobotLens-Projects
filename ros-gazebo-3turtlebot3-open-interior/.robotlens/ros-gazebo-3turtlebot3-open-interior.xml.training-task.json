@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 4,
+  "selectedEmbeddedRuntimeAssetId": "",
+  "selectedExecutionMode": "embedded",
+  "selectedRobotAssetId": "robot-tb1",
+  "selectedTask": "joint-target",
+  "selectedWorldAssetId": "world-main"
+}
