@@ -3,6 +3,7 @@
 pose   --parent map --frames base_footprint [...]   planar pose [x, y, yaw] of each frame
 joints --topic /joint_states                        latest joint names and positions
 active --manager /robot1/lifecycle_manager_navigation  waits until the manager reports active
+command --topic /cmd_joints --names a b --positions 0.1 0.2  publishes a JointState command
 """
 
 import argparse
@@ -67,19 +68,36 @@ def active(node: Node, args) -> dict:
     return {"active": False}
 
 
+def command(node: Node, args) -> dict:
+    publisher = node.create_publisher(JointState, args.topic, 10)
+    message = JointState()
+    message.name = list(args.names)
+    message.position = [float(p) for p in args.positions]
+    deadline = time.monotonic() + args.timeout
+    sent = 0
+    while time.monotonic() < deadline:
+        message.header.stamp = node.get_clock().now().to_msg()
+        publisher.publish(message)
+        sent += 1
+        rclpy.spin_once(node, timeout_sec=0.1)
+    return {"sent": sent, "subscribers": publisher.get_subscription_count()}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("pose", "joints", "active"))
+    parser.add_argument("mode", choices=("pose", "joints", "active", "command"))
     parser.add_argument("--parent", default="map")
     parser.add_argument("--frames", nargs="+", default=["base_footprint"])
     parser.add_argument("--topic", default="/joint_states")
     parser.add_argument("--manager", default="/lifecycle_manager_navigation")
+    parser.add_argument("--names", nargs="*", default=[])
+    parser.add_argument("--positions", nargs="*", default=[])
     parser.add_argument("--timeout", type=float, default=10.0)
     args = parser.parse_args()
     rclpy.init()
     node = rclpy.create_node(f"robotlens_quickstart_probe_{args.mode}")
     try:
-        print(json.dumps({"pose": pose, "joints": joints, "active": active}[args.mode](node, args)))
+        print(json.dumps({"pose": pose, "joints": joints, "active": active, "command": command}[args.mode](node, args)))
     finally:
         node.destroy_node()
         rclpy.shutdown()
