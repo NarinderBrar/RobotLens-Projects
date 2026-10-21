@@ -7,8 +7,13 @@ test   uses the live RobotLens session (or starts one), opens the project, close
        evidence/quickstart/quickstart.png, and stops everything in order: navigation, simulation,
        communication.
 run    does what test does, then starts the project's stacks and runs its scenario (navigation
-       goals, arm targets) with pass checks measured from ROS 2 or Zenoh, and writes
-       evidence/quickstart/report.json.
+       goals, arm targets, Gazebo motion and flight) with pass checks measured from ROS 2, Zenoh,
+       or Gazebo, and writes evidence/quickstart/report.json.
+
+The viewport camera follows the scenario so a viewer always sees the action: it starts at the
+project's `view`, frames every robot's start and goal before a navigation step, and follows
+moving Gazebo models during motion steps. Every camera change glides from the current view
+with an eased lerp of target, yaw, pitch, and distance.
 """
 
 from __future__ import annotations
@@ -22,7 +27,7 @@ import signal
 import subprocess
 import sys
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 WORKSPACE = Path(__file__).resolve().parents[2]
@@ -58,6 +63,7 @@ class Project:
     stacks: str = ""
     before_simulation: tuple[dict, ...] = ()
     scenario: tuple[dict, ...] = ()
+    view: dict = field(default_factory=dict)
 
     @property
     def project_file(self) -> Path:
@@ -186,11 +192,68 @@ def start_navigation(ctx: RunContext, out: SuiteResult) -> None:
                f"{status.get('stack')} {status.get('session_status')}")
 
 
+def camera_state(ctx: RunContext) -> dict | None:
+    camera = run_command(ctx, "view.get_camera")
+    target = camera.get("target")
+    if isinstance(target, dict):
+        target = [target.get("x", 0.0), target.get("y", 0.0), target.get("z", 0.0)]
+    if not camera.get("ok", False) or not target:
+        return None
+    return {"x": target[0], "y": target[1], "z": target[2], "yaw": camera["yaw"],
+            "pitch": camera["pitch"], "distance": camera["distance"]}
+
+
+def glide(ctx: RunContext, goal: dict, seconds: float = 0.8) -> None:
+    start = camera_state(ctx)
+    if start is None or seconds <= 0.0:
+        run_command(ctx, "view.set_camera", goal)
+        return
+    turn = math.remainder(goal["yaw"] - start["yaw"], 360.0)
+    began = time.monotonic()
+    while True:
+        t = min(1.0, (time.monotonic() - began) / seconds)
+        eased = t * t * (3.0 - 2.0 * t)
+        frame = {key: start[key] + (goal[key] - start[key]) * eased
+                 for key in ("x", "y", "z", "pitch", "distance")}
+        frame["yaw"] = start["yaw"] + turn * eased
+        run_command(ctx, "view.set_camera", frame)
+        if t >= 1.0:
+            return
+        time.sleep(1.0 / 30.0)
+
+
+def aim(ctx: RunContext, project: Project, points: list, seconds: float = 0.4,
+        pitch: float | None = None) -> None:
+    points = [p for p in points if p]
+    if not points:
+        return
+    center = [sum(p[i] for p in points) / len(points) for i in range(3)]
+    radius = max(math.dist(p[:3], center) for p in points)
+    view = project.view
+    distance = max(view.get("min_distance", 3.0), view.get("margin", 1.6) * radius + 1.0)
+    glide(ctx, {"x": center[0], "y": center[1], "z": center[2], "yaw": view.get("yaw", -60.0),
+                "pitch": pitch if pitch is not None else view.get("pitch", 35.0),
+                "distance": distance},
+          seconds * view.get("glide", 1.0))
+
+
+def default_view(ctx: RunContext, project: Project, out: SuiteResult) -> None:
+    view = project.view
+    if "target" not in view:
+        return
+    x, y, z = view["target"]
+    glide(ctx, {"x": x, "y": y, "z": z, "yaw": view.get("yaw", -60.0),
+                "pitch": view.get("pitch", 25.0),
+                "distance": view.get("distance", view.get("min_distance", 3.0))},
+          0.6 * view.get("glide", 1.0))
+    out.expect("camera aimed at the project view", camera_state(ctx) is not None)
+
+
 def screenshot(ctx: RunContext, project: Project, out: SuiteResult, name: str = "quickstart",
                camera: dict | None = None) -> None:
     if camera:
-        run_command(ctx, "view.set_camera", camera)
-        time.sleep(0.5)
+        glide(ctx, camera, 0.5 * project.view.get("glide", 1.0))
+        time.sleep(0.2)
     shot = ctx.client.call("robotlens.capture_viewport_screenshot")
     png = shot.images[0] if shot.images else b""
     path = project.root / "evidence" / "quickstart" / f"{name}.png"
@@ -258,20 +321,37 @@ def gz_pose(model: str, link: str = "") -> list[float] | None:
     return None
 
 
-def gz_publish(command: dict) -> None:
-    gz(["topic", "-t", command["topic"], "-m", command.get("type", "gz.msgs.Double"),
-        "-p", command["payload"]])
+def gz_publish(commands: list[dict]) -> dict:
+    if not commands:
+        return {}
+    try:
+        done = subprocess.run(["python3", str(TOOLS / "gz_publish.py"), json.dumps(commands)],
+                              capture_output=True, text=True, timeout=30)
+    except subprocess.TimeoutExpired:
+        return {}
+    rows = [row for row in done.stdout.splitlines() if row.startswith("{")]
+    return json.loads(rows[-1]) if rows else {}
 
 
-def step_gz_motion(step: dict, out: SuiteResult) -> bool:
+def step_gz_motion(ctx: RunContext, project: Project, step: dict, out: SuiteResult) -> bool:
     checks = step["check"]
     before = [gz_pose(c["model"], c.get("link", "")) for c in checks]
-    for command in step["publish"]:
-        gz_publish(command)
-    time.sleep(step.get("hold", 3.0))
+    follow = step.get("follow", True) and not any(c.get("link") for c in checks)
+    deadline = time.monotonic() + step.get("hold", 3.0)
+    for _ in range(step.get("repeat", 1)):
+        sent = gz_publish(step["publish"])
+    if step["publish"]:
+        out.expect("Gazebo commands reached their subscribers",
+                   bool(sent) and all(sent.get("connected", {}).values()), str(sent))
+    while time.monotonic() < deadline:
+        if follow:
+            aim(ctx, project, before + [gz_pose(m) for c in checks
+                                        for m in (c["model"], c.get("near")) if m], 0.3)
+        else:
+            time.sleep(min(0.5, max(0.0, deadline - time.monotonic())))
+    gz_publish(step.get("stop", []))
+    time.sleep(step.get("settle", 0.0))
     after = [gz_pose(c["model"], c.get("link", "")) for c in checks]
-    for command in step.get("stop", []):
-        gz_publish(command)
     ok = True
     for check, start, end in zip(checks, before, after):
         name = f"{check['model']}{'/' + check['link'] if check.get('link') else ''}"
@@ -282,9 +362,18 @@ def step_gz_motion(step: dict, out: SuiteResult) -> bool:
         changes = [abs(math.remainder(b - a, math.tau)) for a, b in zip(start[3:], end[3:])]
         axis = ("roll", "pitch", "yaw").index(check["axis"]) if "axis" in check else None
         turned = changes[axis] if axis is not None else max(changes)
-        passed = moved >= check.get("min_move", 0.0) and turned >= check.get("min_turn", 0.0)
+        passed = (moved >= check.get("min_move", 0.0) and turned >= check.get("min_turn", 0.0)
+                  and end[2] >= check.get("min_z", -math.inf)
+                  and end[2] <= check.get("max_z", math.inf))
+        if "near" in check:
+            other = gz_pose(check["near"])
+            gap = math.dist(end[:2], other[:2]) if other else math.inf
+            passed = passed and gap <= check.get("max_gap", 1.0)
+            moved_detail = f"{gap:.2f} m from {check['near']}, "
+        else:
+            moved_detail = ""
         ok &= out.expect(f"{name} {check.get('label', 'moved')} (measured in Gazebo)", passed,
-                         f"moved {moved:.3f} m, turned {turned:.3f} rad, "
+                         f"{moved_detail}moved {moved:.3f} m, turned {turned:.3f} rad, "
                          f"at {[round(v, 2) for v in end]}")
     return ok
 
@@ -436,10 +525,37 @@ def step_start_navigation(ctx: RunContext, step: dict, out: SuiteResult) -> bool
     return True
 
 
+def escort_twist(escort: dict, x: float, y: float, z: float) -> dict:
+    return {"topic": escort["twist_topic"], "type": "gz.msgs.Twist",
+            "payload": f"linear: {{x: {x:.3f}, y: {y:.3f}, z: {z:.3f}}}"}
+
+
+def escort(escort: dict) -> None:
+    drone, robot = gz_pose(escort["drone"]), gz_pose(escort["robot"])
+    if not drone or not robot:
+        return
+    gain, limit = escort.get("gain", 0.5), escort.get("max_speed", 0.6)
+
+    def clamp(value: float) -> float:
+        return max(-limit, min(limit, gain * value))
+
+    gz_publish([escort_twist(escort, clamp(robot[0] - drone[0]), clamp(robot[1] - drone[1]),
+                             clamp(escort.get("altitude", 2.5) - drone[2]))])
+
+
+def frame_route(ctx: RunContext, project: Project, goals: list, before: dict | None = None) -> None:
+    before = before if before is not None else truth_poses(project, [g["truth"] for g in goals])
+    ground = [p[2] for p in before.values() if p] or [0.0]
+    points = [p[:3] for p in before.values() if p] + [(g["x"], g["y"], min(ground)) for g in goals]
+    aim(ctx, project, points, pitch=project.view.get("route_pitch", 55.0))
+
+
 def step_navigate(ctx: RunContext, project: Project, step: dict, out: SuiteResult) -> bool:
     goals = step["goals"]
     tolerance = step.get("tolerance", 0.25)
     before = truth_poses(project, [g["truth"] for g in goals])
+    if step.get("follow", True):
+        frame_route(ctx, project, goals, before)
     probes = {}
     for goal in goals:
         if goal.get("via") in GOAL_PROBES:
@@ -488,10 +604,16 @@ def step_navigate(ctx: RunContext, project: Project, step: dict, out: SuiteResul
                     else "failed"
             elif process.poll() is None:
                 states[goal["robot"]] = "navigating"
+        if "escort" in step:
+            escort(step["escort"])
         return all(state in TERMINAL for state in states.values())
 
-
     wait_until(finished, step.get("timeout", 240.0) + 30.0, 1.0)
+    if "escort" in step:
+        settle_until = time.monotonic() + step["escort"].get("settle", 8.0)
+        while time.monotonic() < settle_until:
+            escort(step["escort"])
+        gz_publish([escort_twist(step["escort"], 0.0, 0.0, 0.0)])
     for process in probes.values():
         if process.poll() is None:
             os.killpg(process.pid, signal.SIGTERM)
@@ -513,11 +635,11 @@ def send_joint_target(ctx: RunContext, target: dict, out: SuiteResult) -> bool:
     joints = target["joints"]
     label = target.get("label", target.get("prefix") or target.get("command_topic", ""))
     if "gz_prefix" in target:
-        for name, position in zip(joints["name"], joints["position"]):
-            gz_publish({"topic": f"{target['gz_prefix']}/{name}/cmd_pos",
-                        "payload": f"data: {position}"})
-        return out.expect(f"{label} Gazebo joint commands published".strip(), True,
-                          f"{target['gz_prefix']}/<joint>/cmd_pos")
+        sent = gz_publish([{"topic": f"{target['gz_prefix']}/{name}/cmd_pos",
+                            "payload": f"data: {position}"}
+                           for name, position in zip(joints["name"], joints["position"])])
+        return out.expect(f"{label} Gazebo joint commands published".strip(),
+                          bool(sent) and all(sent.get("connected", {}).values()), str(sent))
     if "command_topic" in target:
         sent = probe_json(["python3", str(TOOLS / "ros_probe.py"), "command", "--topic",
                            target["command_topic"], "--names", *joints["name"], "--positions",
@@ -637,8 +759,12 @@ def run_scenario(ctx: RunContext, project: Project, stage) -> None:
         elif kind == "joint_target":
             ok = stage(name, lambda out, s=step: step_joint_target(ctx, project, s, out))
         elif kind == "gz_motion":
-            ok = stage(name, lambda out, s=step: step_gz_motion(s, out))
+            ok = stage(name, lambda out, s=step: step_gz_motion(ctx, project, s, out))
         elif kind == "screenshot":
+            following = project.scenario[index] if index < len(project.scenario) else {}
+            if not step.get("camera") and following.get("step") == "navigate" \
+                    and following.get("follow", True):
+                frame_route(ctx, project, following["goals"])
             ok = stage(name, lambda out, s=step: screenshot(ctx, project, out, s["name"],
                                                              s.get("camera")))
         else:
@@ -685,6 +811,7 @@ def smoke_test(client: McpClient, project: Project, args) -> list[SuiteResult]:
             stage("scene", lambda out: check_scene(ctx, project, out))
             if args.navigation and project.navigation:
                 stage("navigation", lambda out: start_navigation(ctx, out))
+            stage("view", lambda out: default_view(ctx, project, out))
             stage("screenshot", lambda out: screenshot(ctx, project, out))
             if args.action in ("run", "all") and project.scenario:
                 holder = {}
