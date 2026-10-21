@@ -387,25 +387,47 @@ def nav_ready(status: dict) -> bool:
     return bool(status.get("connected")) or status.get("session_state") == "Running"
 
 
+def lifecycle_active(manager: str, timeout: float) -> bool:
+    return probe_json(["python3", str(TOOLS / "ros_probe.py"), "active", "--manager", manager,
+                       "--timeout", str(timeout)], True, timeout).get("active", False)
+
+
+def start_robot_navigation(ctx: RunContext, step: dict, robot: str, manager: str) -> tuple:
+    if step.get("managed", True):
+        started = run_command(ctx, "robot.navigation.start", {"target": robot})
+        if not (started.get("ok", False) or started.get("error") == "already_running"):
+            return False, str(started)
+    status = wait_until(lambda: (lambda s: s if nav_ready(s) or s.get("session_state") == "Lost"
+                                 else None)(nav_status(ctx, robot)),
+                        step.get("timeout", 180.0), 1.0) or nav_status(ctx, robot)
+    detail = (f"{status.get('stack_kind')} session={status.get('session_state')} "
+              f"{status.get('session_error') or status.get('error', '')}".strip())
+    if not nav_ready(status):
+        return False, detail
+    if manager and not lifecycle_active(manager, step.get("activation_timeout", 60.0)):
+        return False, f"{manager} did not report all Nav2 nodes active"
+    return True, detail
+
+
 def step_start_navigation(ctx: RunContext, step: dict, out: SuiteResult) -> bool:
-    for robot in step["robots"]:
-        if step.get("managed", True):
-            started = run_command(ctx, "robot.navigation.start", {"target": robot})
-            out.expect(f"{robot} navigation start accepted",
-                       started.get("ok", False) or started.get("error") == "already_running",
-                       str(started))
-        status = wait_until(lambda r=robot: (lambda s: s if nav_ready(s) else None)(
-            nav_status(ctx, r)), step.get("timeout", 180.0), 1.0) or nav_status(ctx, robot)
-        if not out.expect(f"{robot} navigation stack ready", nav_ready(status),
-                          f"{status.get('stack_kind')} state={status.get('state')} "
-                          f"session={status.get('session_state')} "
-                          f"{status.get('session_error') or status.get('error', '')}"):
-            return False
-    for manager in step.get("lifecycle_managers", []):
-        active = probe_json(["python3", str(TOOLS / "ros_probe.py"), "active", "--manager",
-                             manager, "--timeout", "120"], True, 120.0)
-        if not out.expect(f"{manager} reports all Nav2 nodes active", active.get("active", False),
-                          str(active)):
+    managers = step.get("lifecycle_managers", [])
+    for index, robot in enumerate(step["robots"]):
+        manager = managers[index] if index < len(managers) else ""
+        attempts = step.get("attempts", 3) if step.get("managed", True) else 1
+        failures = []
+        for attempt in range(1, attempts + 1):
+            ready, detail = start_robot_navigation(ctx, step, robot, manager)
+            if ready:
+                break
+            failures.append(detail)
+            if attempt < attempts:
+                run_command(ctx, "robot.navigation.stop", {"target": robot})
+                wait_until(lambda: not nav_ready(nav_status(ctx, robot)), 20.0, 1.0)
+                time.sleep(2.0)
+        retried = f" after {len(failures)} restart(s): {failures}" if failures and ready else ""
+        if not out.expect(f"{robot} navigation stack ready"
+                          f"{' and active' if manager else ''}", ready,
+                          (detail + retried) if ready else str(failures)):
             return False
     return True
 
