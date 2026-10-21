@@ -1,0 +1,29 @@
+{
+  "control_rate_hz": 20,
+  "odom_timeout_s": 1.0,
+  "avoidance": {
+    "enabled": true
+  },
+  "footprint_radius": 0.12,
+  "limits": {
+    "max_linear_speed": 0.2,
+    "max_angular_speed": 1.0,
+    "max_linear_acceleration": 0.5,
+    "max_angular_acceleration": 1.5,
+    "position_tolerance": 0.1,
+    "yaw_tolerance": 0.2,
+    "lookahead_distance": 0.3
+  },
+  "localization": {
+    "enabled": false
+  },
+  "obstacle_margin": 0.05,
+  "robot_prefix": "robot2",
+  "scan_offset": {
+    "x": -0.032,
+    "y": 0.0,
+    "yaw": 0.0
+  },
+  "version": 1,
+  "scan_ignore_radius": 0.15
+}
