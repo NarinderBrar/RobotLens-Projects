@@ -37,7 +37,7 @@ for index in $(seq 0 4); do
     "${mcp[@]}" scene.rotate "{\"target\":\"${aliases[$name]}\",\"x\":0,\"y\":0,\"z\":$yaw}" >/dev/null
     "${mcp[@]}" robot.navigation.configure "{\"target\":\"${aliases[$name]}\",\"stack_kind\":\"nav2\",\"namespace_prefix\":\"/robot$robot\",\"nav2\":{\"launch_package\":\"\",\"launch_file\":\"nav2_config/nav2_robot_launch.py\",\"map_yaml\":\"nav2_config/warehouse_navigation_map.yaml\",\"params_yaml\":\"nav2_config/nav2_params.yaml\",\"args\":[\"start_x:=$x\",\"start_y:=$y\",\"start_yaw:=$yaw\"],\"attach_only\":false}}" >/dev/null
 done
-mapfile -t lidars < <("${mcp[@]}" scene.find '{"target":"2D LiDAR"}' | python3 -c 'import json,sys; seen=set(); [print(("dup" if c["path"].split("/")[1] in seen else "keep"), c["alias"], c["path"].split("/")[1]) or seen.add(c["path"].split("/")[1]) for c in (lambda d: [c for c in (d.get("candidates") or d.get("items") or []) if c.get("path", "").startswith("Robots/")])(json.load(sys.stdin))]')
+mapfile -t lidars < <("${mcp[@]}" scene.find '{"target":"2D LiDAR"}' | python3 -c 'import json,sys; seen=set(); [print(("dup" if c["path"].split("/")[1] in seen else "keep"), c["alias"], c["path"].split("/")[1]) or seen.add(c["path"].split("/")[1]) for c in (lambda d: [c for c in (d.get("candidates") or d.get("items") or []) if c.get("path", "").startswith(("Robots/", "Editor Objects/"))])(json.load(sys.stdin))]')
 duplicates=()
 for item in "${lidars[@]}"; do
     read -r kind alias owner <<< "$item"

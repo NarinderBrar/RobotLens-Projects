@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robotlens_project schemaVersion="23" displayName="zenoh-mujoco-3mobile-robot-warehouse-floor">
+    <connectionProfile domainId="0" namespace=""/>
+    <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="false" topicInspector="true" jointControl="false" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
+    <assets>
+        <asset id="urdf-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-3mobile-robot-warehouse-floor/robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="-4645156730"/>
+        <robot id="robot-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-3mobile-robot-warehouse-floor/robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="-350189434"/>
+        <world id="world-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-3mobile-robot-warehouse-floor/worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="-350189434"/>
+    </assets>
+    <sceneModel id="mjcf/warehouse" sourceKind="mjcf" displayName="warehouse" visible="true">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="mjcf/warehouse" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-3mobile-robot-warehouse-floor/worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="-4645156730"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/Mobile_robot" sourceKind="file_urdf" displayName="Mobile_robot" visible="true">
+        <transform position="-6.500000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_robot" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-3mobile-robot-warehouse-floor/robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="-4645156730"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/Mobile_robot_copy" sourceKind="file_urdf" displayName="Mobile_robot_copy" visible="true">
+        <transform position="-6.500000 4.500000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_robot_copy" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-3mobile-robot-warehouse-floor/robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="-4645156730"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/Mobile_robot_copy_2" sourceKind="file_urdf" displayName="Mobile_robot_copy_2" visible="true">
+        <transform position="-6.500000 -4.500000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/Mobile_robot_copy_2" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-3mobile-robot-warehouse-floor/robots/Mobile_robot.urdf" relativePath="robots/Mobile_robot.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="10093" lastWriteTimeUnix="-4645156730"/>
+    </sceneModel>
+    <light id="light/local/scene/Directional Light_2" type="directional" name="Directional Light 2" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
+        <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId=""/>
+    </light>
+    <virtualSensor id="sensor/local/scene/sensor_1" type="lidar_2d" name="2D LiDAR 1" frameId="sensor_1" enabled="true" topic="robot1/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_robot/lidar_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="360" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_2" type="lidar_2d" name="2D LiDAR 2" frameId="sensor_2" enabled="true" topic="robot2/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_robot_copy/lidar_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="360" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <virtualSensor id="sensor/local/scene/sensor_3" type="lidar_2d" name="2D LiDAR 3" frameId="sensor_3" enabled="true" topic="robot3/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.1" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.040000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/Mobile_robot_copy_2/lidar_link"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="360" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <visualOrigin linkName="base_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="left_front_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="right_front_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="left_rear_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="right_rear_wheel" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="-0.707107 0.707107 0.000000 0.000000"/>
+    <visualOrigin linkName="lidar_link" visualIndex="0" position="0.000000 0.000000 0.010000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="base_footprint_joint" position="0.000000 0.000000 0.225000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="left_front_wheel_joint" position="0.250000 0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="right_front_wheel_joint" position="0.250000 -0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="left_rear_wheel_joint" position="-0.250000 0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="right_rear_wheel_joint" position="-0.250000 -0.340000 -0.115000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="lidar_link_joint" position="0.320000 0.000000 0.125000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <viewport target="0.000000 0.000000 0.000000" yaw="-90" pitch="30" distance="5" fov="45" projectionMode="0" showGrid="true"/>
+    <pathIntelligence plannedPathTopic="/plan" odometryTopic="/odom" fixedFrame="map" warningMeters="0.050000000000000003" criticalMeters="0.14999999999999999" maxPathRevisions="64" maxTrajectorySamples="4096"/>
+    <multiRobotNavigation shareFootprints="false"/>
+    <autonomousMission name="Autonomous Mission" behavior="waypoint" routeExecution="whole_route" patrolForever="false" patrolCycles="1" patrolDurationSeconds="0" mode="waypoints">
+        <coverage frameId="map" laneSpacingMeters="0.5"/>
+    </autonomousMission>
+    <behaviorTree>
+        <xml>&lt;?xml version="1.0"?&gt;
+&lt;root main_tree_to_execute="MainTree" BTCPP_format="4"&gt;
+    &lt;BehaviorTree ID="MainTree"&gt;
+        &lt;Sequence name="Navigate"&gt;
+            &lt;ComputePathToPose name="Compute path" goal="{goal_pose}"/&gt;
+            &lt;FollowPath name="Follow path" path="{path}"/&gt;
+        &lt;/Sequence&gt;
+    &lt;/BehaviorTree&gt;
+&lt;/root&gt;
+</xml>
+        <layout>[{"id":"node_2","x":340.0,"y":20.0},{"id":"node_3","x":340.0,"y":150.0},{"id":"node_4","x":600.0,"y":40.0}]</layout>
+    </behaviorTree>
+    <display typeName="robotlens/TF" instanceName="TF" enabled="false" paused="false">
+        <property key="all_enabled" type="bool" value="true"/>
+        <property key="axis_length" type="double" value="0.050000000000000003"/>
+        <property key="frame_name_blacklist" type="string" value=""/>
+        <property key="frame_name_filter" type="string" value=""/>
+        <property key="link_thickness" type="double" value="0.001"/>
+        <property key="show_arrows" type="bool" value="true"/>
+        <property key="show_axes" type="bool" value="true"/>
+        <property key="show_names" type="bool" value="true"/>
+        <property key="show_parent_links" type="bool" value="true"/>
+        <property key="staleness_seconds" type="double" value="1"/>
+        <property key="tree_depth_limit" type="int" value="0"/>
+        <property key="update_interval" type="double" value="0"/>
+        <property key="use_mesh_axes" type="bool" value="true"/>
+        <property key="use_thick_links" type="bool" value="true"/>
+    </display>
+    <display typeName="scene/Primitives" instanceName="Primitives" enabled="true" paused="false"/>
+    <display typeName="scene/ImportedModels" instanceName="Imported Models" enabled="true" paused="false"/>
+    <display typeName="scene/Lights" instanceName="Lights" enabled="true" paused="false"/>
+    <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
+    <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
+    <workspaceRoot>.</workspaceRoot>
+    <simulation backend="mujoco" executable="" worldFile="/tmp/robotlens_setup_8819.xml" worldName="default" robotModelName="robot_file_urdf_Mobile_robot_copy_2_base_footprint" attachOnly="false"/>
+    <commsBackend kind="zenoh" endpoint=""/>
+    <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
+    <robotCapabilities>
+        <robotCapability ownerId="file_urdf/Mobile_robot">
+            <navigation stackKind="zenoh_external" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="robot1" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="stacks/navigation-robot1.json" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+        <robotCapability ownerId="file_urdf/Mobile_robot_copy">
+            <navigation stackKind="zenoh_external" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="robot2" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="stacks/navigation-robot2.json" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+        <robotCapability ownerId="file_urdf/Mobile_robot_copy_2">
+            <navigation stackKind="zenoh_external" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="robot3" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="stacks/navigation-robot3.json" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+    </robotCapabilities>
+</robotlens_project>
+
