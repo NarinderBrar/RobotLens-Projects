@@ -512,6 +512,12 @@ def step_navigate(ctx: RunContext, project: Project, step: dict, out: SuiteResul
 def send_joint_target(ctx: RunContext, target: dict, out: SuiteResult) -> bool:
     joints = target["joints"]
     label = target.get("label", target.get("prefix") or target.get("command_topic", ""))
+    if "gz_prefix" in target:
+        for name, position in zip(joints["name"], joints["position"]):
+            gz_publish({"topic": f"{target['gz_prefix']}/{name}/cmd_pos",
+                        "payload": f"data: {position}"})
+        return out.expect(f"{label} Gazebo joint commands published".strip(), True,
+                          f"{target['gz_prefix']}/<joint>/cmd_pos")
     if "command_topic" in target:
         sent = probe_json(["python3", str(TOOLS / "ros_probe.py"), "command", "--topic",
                            target["command_topic"], "--names", *joints["name"], "--positions",
@@ -552,7 +558,7 @@ def step_joint_target(ctx: RunContext, project: Project, step: dict, out: SuiteR
         ok &= out.expect(f"{name} within {tolerance} rad and holding (measured)",
                          bool(reached) and max(final.values()) <= tolerance,
                          ", ".join(f"{n} {e:.3f}" for n, e in final.items()))
-        if "command_topic" not in target:
+        if "command_topic" not in target and "gz_prefix" not in target:
             status = lambda t=target: run_command(ctx, "motion_stack.status",
                                                   {"prefix": t.get("prefix", "")})
             result = wait_until(lambda: find_result(status(), str(target["command_id"])),
