@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <robot name="panda">
   <robotlens_sim base="fixed">
-    <actuator joint="panda_joint1" type="position" gain="800" effort="87" lower="-2.89725" upper="2.89725" />
-    <actuator joint="panda_joint2" type="position" gain="800" effort="87" lower="-1.76278" upper="1.76278" />
-    <actuator joint="panda_joint3" type="position" gain="600" effort="87" lower="-2.89725" upper="2.89725" />
-    <actuator joint="panda_joint4" type="position" gain="600" effort="87" lower="-3.07178" upper="-0.0698132" />
-    <actuator joint="panda_joint5" type="position" gain="150" effort="12" lower="-2.89725" upper="2.89725" />
-    <actuator joint="panda_joint6" type="position" gain="150" effort="12" lower="-0.0174533" upper="3.75246" />
-    <actuator joint="panda_joint7" type="position" gain="100" effort="12" lower="-2.89725" upper="2.89725" />
+    <actuator joint="panda_joint1" type="position" gain="2400" effort="87" lower="-2.89725" upper="2.89725" />
+    <actuator joint="panda_joint2" type="position" gain="2400" effort="87" lower="-1.76278" upper="1.76278" />
+    <actuator joint="panda_joint3" type="position" gain="1800" effort="87" lower="-2.89725" upper="2.89725" />
+    <actuator joint="panda_joint4" type="position" gain="1800" effort="87" lower="-3.07178" upper="-0.0698132" />
+    <actuator joint="panda_joint5" type="position" gain="450" effort="12" lower="-2.89725" upper="2.89725" />
+    <actuator joint="panda_joint6" type="position" gain="450" effort="12" lower="-0.0174533" upper="3.75246" />
+    <actuator joint="panda_joint7" type="position" gain="300" effort="12" lower="-2.89725" upper="2.89725" />
     <actuator joint="panda_finger_joint1" type="position" gain="400" effort="20" lower="0" upper="0.04" />
     <actuator joint="panda_finger_joint2" type="position" gain="400" effort="20" lower="0" upper="0.04" />
   </robotlens_sim>
@@ -166,7 +166,7 @@
     <origin xyz="0 0 0.333" rpy="0 -0 0" />
     <axis xyz="0 0 1" />
     <limit lower="-2.89725" upper="2.89725" effort="87" velocity="2.175" />
-    <dynamics damping="12" />
+    <dynamics damping="20" />
   </joint>
   <joint name="panda_joint2" type="revolute">
     <parent link="panda_link1" />
@@ -174,7 +174,7 @@
     <origin xyz="0 0 0" rpy="-1.5708 0 0" />
     <axis xyz="0 0 1" />
     <limit lower="-1.76278" upper="1.76278" effort="87" velocity="2.175" />
-    <dynamics damping="12" />
+    <dynamics damping="20" />
   </joint>
   <joint name="panda_joint3" type="revolute">
     <parent link="panda_link2" />
@@ -182,7 +182,7 @@
     <origin xyz="0 -0.316 0" rpy="1.5708 -0 0" />
     <axis xyz="0 0 1" />
     <limit lower="-2.89725" upper="2.89725" effort="87" velocity="2.175" />
-    <dynamics damping="10" />
+    <dynamics damping="16" />
   </joint>
   <joint name="panda_joint4" type="revolute">
     <parent link="panda_link3" />
@@ -190,7 +190,7 @@
     <origin xyz="0.0825 0 0" rpy="1.5708 -0 0" />
     <axis xyz="0 0 1" />
     <limit lower="-3.07178" upper="-0.0698132" effort="87" velocity="2.175" />
-    <dynamics damping="10" />
+    <dynamics damping="16" />
   </joint>
   <joint name="panda_joint5" type="revolute">
     <parent link="panda_link4" />
@@ -198,7 +198,7 @@
     <origin xyz="-0.0825 0.384 1.11022e-16" rpy="-1.5708 0 0" />
     <axis xyz="0 0 1" />
     <limit lower="-2.89725" upper="2.89725" effort="12" velocity="2.61" />
-    <dynamics damping="3" />
+    <dynamics damping="5" />
   </joint>
   <joint name="panda_joint6" type="revolute">
     <parent link="panda_link5" />
@@ -206,7 +206,7 @@
     <origin xyz="0 0 0" rpy="1.5708 -0 0" />
     <axis xyz="0 0 1" />
     <limit lower="-0.0174533" upper="3.75246" effort="12" velocity="2.61" />
-    <dynamics damping="3" />
+    <dynamics damping="5" />
   </joint>
   <joint name="panda_joint7" type="revolute">
     <parent link="panda_link6" />
@@ -214,7 +214,7 @@
     <origin xyz="0.088 -2.22045e-16 1.11022e-16" rpy="1.5708 -0 0" />
     <axis xyz="0 0 1" />
     <limit lower="-2.89725" upper="2.89725" effort="12" velocity="2.61" />
-    <dynamics damping="2" />
+    <dynamics damping="3" />
   </joint>
   <joint name="panda_hand_joint" type="fixed">
     <parent link="panda_link7" />

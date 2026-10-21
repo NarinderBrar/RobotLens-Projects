@@ -1,9 +1,10 @@
 """Builds a RobotLens project from a spec over MCP; each project's scripts/build_project.py calls build().
 
 The spec names the communication backend and simulator, the files to copy from this repository,
-an optional world, and each robot with its pose, 2D LiDAR, and navigation settings. RobotLens
-creates the project, imports the models, places the robots, attaches and configures the LiDARs,
-configures navigation, and saves the project. Nothing in .robotlens/ is written by hand.
+an optional world, and each robot with its pose, 2D LiDAR, navigation, and Joint Control
+settings. RobotLens creates the project, imports the models, places the robots, attaches and
+configures the LiDARs, configures navigation and Joint Control, and saves the project.
+Nothing in .robotlens/ is written by hand.
 
 The build needs an empty RobotLens session: it uses the running one, or starts RobotLens
 without a project and stops it at the end. It refuses to overwrite an existing project.
@@ -40,6 +41,7 @@ class Robot:
     pose: tuple[float, float, float] = (0.0, 0.0, 0.0)
     lidar: Lidar | None = None
     navigation: dict | None = None
+    joint_control: dict | None = None
 
 
 @dataclass
@@ -133,6 +135,9 @@ def build_project(ctx: RunContext, spec: Spec) -> None:
         if robot.navigation:
             step(f"{name} navigation configured", run_command(
                 ctx, "robot.navigation.configure", {"target": alias, **robot.navigation}))
+        if robot.joint_control:
+            step(f"{name} joint control configured", run_command(
+                ctx, "robot.joint_control.configure", {"target": alias, **robot.joint_control}))
     step("project saved", run_command(ctx, "project.save"))
 
 

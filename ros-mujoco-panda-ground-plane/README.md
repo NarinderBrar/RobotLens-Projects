@@ -43,12 +43,15 @@ no inertia, which MuJoCo rejects ("mass and inertia of moving bodies must be lar
 mjMINVAL"). For simulation the project adds:
 
 - a `robotlens_sim` block with a fixed base and position actuators on the seven arm joints
-  (gain 800/800/600/600/150/150/100, effort 87 N m on joints 1-4 and 12 N m on 5-7, the Panda's
-  rated torques) and on both fingers
-- joint damping (12 to 2) so the position servos settle without ringing
+  (gain 2400/2400/1800/1800/450/450/300, effort 87 N m on joints 1-4 and 12 N m on 5-7, the
+  Panda's rated torques) and on both fingers
+- joint damping (20 to 3) so the position servos settle without ringing
 - the Panda's real velocity limits (2.175 and 2.61 rad/s) instead of 100 rad/s
 
-Joint 4 settles about 0.034 rad short of its target under gravity with these gains.
+Under gravity joint 4 settles about 0.023 rad short of a stack trajectory's end, and 0.011 rad
+short of a direct command; both are inside `zms_manipulation`'s 0.03 rad `position_tolerance`.
+With a third of these gains the sag was 0.034 rad, the stack reported "joints did not settle",
+and on that failure it held the arm where it was.
 
 ## Rebuilding the project
 
