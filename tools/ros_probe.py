@@ -2,6 +2,7 @@
 
 pose   --parent map --frames base_footprint [...]   planar pose [x, y, yaw] of each frame
 joints --topic /joint_states                        latest joint names and positions
+active --manager /robot1/lifecycle_manager_navigation  waits until the manager reports active
 """
 
 import argparse
@@ -13,6 +14,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import JointState
+from std_srvs.srv import Trigger
 from tf2_ros import Buffer, TransformListener
 
 
@@ -52,18 +54,32 @@ def joints(node: Node, args) -> dict:
     return latest
 
 
+def active(node: Node, args) -> dict:
+    client = node.create_client(Trigger, f"{args.manager}/is_active")
+    deadline = time.monotonic() + args.timeout
+    while time.monotonic() < deadline:
+        if client.wait_for_service(timeout_sec=1.0):
+            future = client.call_async(Trigger.Request())
+            rclpy.spin_until_future_complete(node, future, timeout_sec=5.0)
+            if future.done() and future.result() is not None and future.result().success:
+                return {"active": True}
+        time.sleep(0.5)
+    return {"active": False}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("pose", "joints"))
+    parser.add_argument("mode", choices=("pose", "joints", "active"))
     parser.add_argument("--parent", default="map")
     parser.add_argument("--frames", nargs="+", default=["base_footprint"])
     parser.add_argument("--topic", default="/joint_states")
+    parser.add_argument("--manager", default="/lifecycle_manager_navigation")
     parser.add_argument("--timeout", type=float, default=10.0)
     args = parser.parse_args()
     rclpy.init()
     node = rclpy.create_node(f"robotlens_quickstart_probe_{args.mode}")
     try:
-        print(json.dumps({"pose": pose, "joints": joints}[args.mode](node, args)))
+        print(json.dumps({"pose": pose, "joints": joints, "active": active}[args.mode](node, args)))
     finally:
         node.destroy_node()
         rclpy.shutdown()

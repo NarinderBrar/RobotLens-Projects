@@ -401,6 +401,12 @@ def step_start_navigation(ctx: RunContext, step: dict, out: SuiteResult) -> bool
                           f"session={status.get('session_state')} "
                           f"{status.get('session_error') or status.get('error', '')}"):
             return False
+    for manager in step.get("lifecycle_managers", []):
+        active = probe_json(["python3", str(TOOLS / "ros_probe.py"), "active", "--manager",
+                             manager, "--timeout", "120"], True, 120.0)
+        if not out.expect(f"{manager} reports all Nav2 nodes active", active.get("active", False),
+                          str(active)):
+            return False
     return True
 
 
