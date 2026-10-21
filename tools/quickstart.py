@@ -186,7 +186,11 @@ def start_navigation(ctx: RunContext, out: SuiteResult) -> None:
                f"{status.get('stack')} {status.get('session_status')}")
 
 
-def screenshot(ctx: RunContext, project: Project, out: SuiteResult, name: str = "quickstart") -> None:
+def screenshot(ctx: RunContext, project: Project, out: SuiteResult, name: str = "quickstart",
+               camera: dict | None = None) -> None:
+    if camera:
+        run_command(ctx, "view.set_camera", camera)
+        time.sleep(0.5)
     shot = ctx.client.call("robotlens.capture_viewport_screenshot")
     png = shot.images[0] if shot.images else b""
     path = project.root / "evidence" / "quickstart" / f"{name}.png"
@@ -599,7 +603,8 @@ def run_scenario(ctx: RunContext, project: Project, stage) -> None:
         elif kind == "gz_motion":
             ok = stage(name, lambda out, s=step: step_gz_motion(s, out))
         elif kind == "screenshot":
-            ok = stage(name, lambda out, s=step: screenshot(ctx, project, out, s["name"]))
+            ok = stage(name, lambda out, s=step: screenshot(ctx, project, out, s["name"],
+                                                             s.get("camera")))
         else:
             ok = stage(name, lambda out, k=kind: out.expect(f"known step {k}", False))
         if not ok:

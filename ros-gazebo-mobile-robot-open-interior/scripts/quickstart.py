@@ -7,6 +7,7 @@ from quickstart import Project, run
 
 ROBOTS = ("Mobile_robot",)
 ROWS = (-3.0,)
+CAMERA = {"x": -9.0, "y": -4.6, "z": 0.0, "yaw": -90.0, "pitch": 60.0, "distance": 11.0}
 
 PROJECT = Project(
     root=Path(__file__).resolve().parents[1],
@@ -20,11 +21,11 @@ PROJECT = Project(
         {"step": "start_navigation", "robots": list(ROBOTS),
          "lifecycle_managers": [f"/robot{n}/lifecycle_manager_navigation"
                                 for n in range(1, len(ROBOTS) + 1)]},
-        {"step": "screenshot", "name": "before-goals"},
+        {"step": "screenshot", "name": "before-goals", "camera": CAMERA},
         {"step": "navigate", "tolerance": 0.35, "timeout": 300, "goals": [
             {"robot": robot, "x": -6.0, "y": y, "yaw": 0.0, "truth": f"robot{n}/base_footprint"}
             for n, (robot, y) in enumerate(zip(ROBOTS, ROWS), start=1)]},
-        {"step": "screenshot", "name": "after-goals"},
+        {"step": "screenshot", "name": "after-goals", "camera": CAMERA},
     ),
 )
 
