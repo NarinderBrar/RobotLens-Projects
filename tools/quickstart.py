@@ -352,6 +352,8 @@ def step_gz_motion(ctx: RunContext, project: Project, step: dict, out: SuiteResu
     gz_publish(step.get("stop", []))
     time.sleep(step.get("settle", 0.0))
     after = [gz_pose(c["model"], c.get("link", "")) for c in checks]
+    if follow:
+        aim(ctx, project, before + after + [gz_pose(c["near"]) for c in checks if "near" in c])
     ok = True
     for check, start, end in zip(checks, before, after):
         name = f"{check['model']}{'/' + check['link'] if check.get('link') else ''}"
@@ -375,6 +377,88 @@ def step_gz_motion(ctx: RunContext, project: Project, step: dict, out: SuiteResu
         ok &= out.expect(f"{name} {check.get('label', 'moved')} (measured in Gazebo)", passed,
                          f"{moved_detail}moved {moved:.3f} m, turned {turned:.3f} rad, "
                          f"at {[round(v, 2) for v in end]}")
+    return ok
+
+
+def odom_position(project: Project, source: str, timeout: float = 5.0) -> list[float] | None:
+    if project.comms == "zenoh":
+        report = probe_json([str(ZENOH_PYTHON), str(TOOLS / "zenoh_probe.py"), source,
+                             "--timeout", str(timeout)], False, timeout).get(source)
+        return [report["x"], report["y"], report.get("z", 0.0)] if report else None
+    report = probe_json(["python3", str(TOOLS / "ros_probe.py"), "odom", "--topic", source,
+                         "--timeout", str(timeout)], True, timeout)
+    return report.get("position")
+
+
+def zenoh_twist_publisher(commands: list[dict], seconds: float) -> subprocess.Popen:
+    args = [str(ZENOH_PYTHON), str(TOOLS / "zenoh_twist.py"), "--seconds", str(seconds)]
+    for command in commands:
+        args += ["--command", command["key"], *[str(v) for v in command["twist"]]]
+    return subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+
+
+def twist_publisher(project: Project, command: dict, seconds: float) -> subprocess.Popen:
+    twist = [str(v) for v in command["twist"]]
+    line = f'source "{ROS_SETUP}" && exec ' + " ".join(
+        f"'{a}'" for a in ["python3", str(TOOLS / "ros_probe.py"), "twist", "--topic",
+                           command["topic"], "--twist", *twist, "--timeout", str(seconds)])
+    return subprocess.Popen(["bash", "-c", line], stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, start_new_session=True)
+
+
+def step_twist_motion(ctx: RunContext, project: Project, step: dict, out: SuiteResult) -> bool:
+    checks = step["check"]
+    sources = [c["odom"] for c in checks] + [c["near"] for c in checks if "near" in c]
+    before = {s: odom_position(project, s) for s in sources}
+    commands = step.get("commands", [])
+    if project.comms == "zenoh":
+        publishers = [zenoh_twist_publisher(commands, step.get("hold", 3.0))] if commands else []
+    else:
+        publishers = [twist_publisher(project, c, step.get("hold", 3.0)) for c in commands]
+    def stream() -> None:
+        while any(p.poll() is None for p in publishers):
+            if step.get("follow", True):
+                aim(ctx, project, [v for v in before.values() if v] +
+                    [odom_position(project, s, 2.0) for s in sources], 0.3)
+            else:
+                time.sleep(0.5)
+
+    stream()
+    if project.comms == "zenoh" and publishers:
+        rows = [r for r in publishers[0].stdout.read().splitlines() if r.startswith("{")]
+        matched = json.loads(rows[-1]).get("matched", []) if rows else []
+        if not matched or not all(matched):
+            publishers = [zenoh_twist_publisher(commands, step.get("hold", 3.0))]
+            stream()
+            rows = [r for r in publishers[0].stdout.read().splitlines() if r.startswith("{")]
+            retried = json.loads(rows[-1]).get("matched", []) if rows else []
+            out.expect("Zenoh commands reached their subscribers after one retry",
+                       bool(retried) and all(retried), f"first {matched}, retry {retried}")
+    if not publishers:
+        time.sleep(step.get("hold", 0.0))
+    time.sleep(step.get("settle", 0.5))
+    after = {s: odom_position(project, s) for s in sources}
+    if step.get("follow", True):
+        aim(ctx, project, [v for v in before.values() if v] + [v for v in after.values() if v])
+    ok = True
+    for check in checks:
+        start, end = before.get(check["odom"]), after.get(check["odom"])
+        name = f"{check.get('robot', check['odom'])} {check.get('label', 'moved')}"
+        if not start or not end:
+            ok &= out.expect(f"{name} (measured on odometry)", False, f"{start} {end}")
+            continue
+        moved = math.dist(start, end)
+        passed = (moved >= check.get("min_move", 0.0)
+                  and end[2] >= check.get("min_z", -math.inf)
+                  and end[2] <= check.get("max_z", math.inf))
+        detail = ""
+        if "near" in check:
+            other = after.get(check["near"])
+            gap = math.dist(end[:2], other[:2]) if other else math.inf
+            passed = passed and gap <= check.get("max_gap", 1.0)
+            detail = f"{gap:.2f} m from {check['near']}, "
+        ok &= out.expect(f"{name} (measured on odometry)", passed,
+                         f"{detail}moved {moved:.3f} m, at {[round(v, 2) for v in end]}")
     return ok
 
 
@@ -525,6 +609,19 @@ def step_start_navigation(ctx: RunContext, step: dict, out: SuiteResult) -> bool
     return True
 
 
+def start_escort(project: Project, escort: dict) -> subprocess.Popen:
+    options = ["--drone-odom", escort["drone_odom"], "--robot-odom", escort["robot_odom"],
+               "--cmd", escort["cmd"], "--altitude", str(escort.get("altitude", 2.5))]
+    if project.comms == "zenoh":
+        return subprocess.Popen([str(ZENOH_PYTHON), str(TOOLS / "zenoh_escort.py"), *options],
+                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                                start_new_session=True)
+    line = f'source "{ROS_SETUP}" && exec ' + " ".join(
+        f"'{a}'" for a in ["python3", str(TOOLS / "ros_escort.py"), *options])
+    return subprocess.Popen(["bash", "-c", line], stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, start_new_session=True)
+
+
 def escort_twist(escort: dict, x: float, y: float, z: float) -> dict:
     return {"topic": escort["twist_topic"], "type": "gz.msgs.Twist",
             "payload": f"linear: {{x: {x:.3f}, y: {y:.3f}, z: {z:.3f}}}"}
@@ -604,16 +701,25 @@ def step_navigate(ctx: RunContext, project: Project, step: dict, out: SuiteResul
                     else "failed"
             elif process.poll() is None:
                 states[goal["robot"]] = "navigating"
-        if "escort" in step:
+        if "twist_topic" in step.get("escort", {}):
             escort(step["escort"])
         return all(state in TERMINAL for state in states.values())
 
+    escort_process = start_escort(project, step["escort"]) \
+        if "drone_odom" in step.get("escort", {}) else None
     wait_until(finished, step.get("timeout", 240.0) + 30.0, 1.0)
     if "escort" in step:
         settle_until = time.monotonic() + step["escort"].get("settle", 8.0)
         while time.monotonic() < settle_until:
-            escort(step["escort"])
-        gz_publish([escort_twist(step["escort"], 0.0, 0.0, 0.0)])
+            if escort_process is None:
+                escort(step["escort"])
+            else:
+                time.sleep(0.5)
+        if escort_process is None:
+            gz_publish([escort_twist(step["escort"], 0.0, 0.0, 0.0)])
+        else:
+            os.killpg(escort_process.pid, signal.SIGTERM)
+            escort_process.wait(timeout=10)
     for process in probes.values():
         if process.poll() is None:
             os.killpg(process.pid, signal.SIGTERM)
@@ -758,6 +864,8 @@ def run_scenario(ctx: RunContext, project: Project, stage) -> None:
             ok = stage(name, lambda out, s=step: step_navigate(ctx, project, s, out))
         elif kind == "joint_target":
             ok = stage(name, lambda out, s=step: step_joint_target(ctx, project, s, out))
+        elif kind == "twist_motion":
+            ok = stage(name, lambda out, s=step: step_twist_motion(ctx, project, s, out))
         elif kind == "gz_motion":
             ok = stage(name, lambda out, s=step: step_gz_motion(ctx, project, s, out))
         elif kind == "screenshot":

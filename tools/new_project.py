@@ -6,8 +6,8 @@ settings. RobotLens creates the project, imports the models, places the robots, 
 configures the LiDARs, configures navigation and Joint Control, and saves the project.
 Nothing in .robotlens/ is written by hand.
 
-The build needs an empty RobotLens session: it uses the running one, or starts RobotLens
-without a project and stops it at the end. It refuses to overwrite an existing project.
+The build needs an empty RobotLens session: it uses a running one with no project open, or
+starts its own RobotLens without a project and stops it at the end. It refuses to overwrite an existing project.
 """
 
 from __future__ import annotations
@@ -141,6 +141,15 @@ def build_project(ctx: RunContext, spec: Spec) -> None:
     step("project saved", run_command(ctx, "project.save"))
 
 
+def session_is_empty(session) -> bool:
+    try:
+        with McpClient(socket_path=str(session.socket), timeout=10.0) as client:
+            status = run_command(RunContext(client, "probe", 16.6), "project.status")
+    except Exception:  # noqa: BLE001 - an unreachable session is not usable
+        return False
+    return not status.get("project_path") and not status.get("loading")
+
+
 def build(spec: Spec) -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -152,11 +161,11 @@ def build(spec: Spec) -> int:
         return 1
     print(f"Building {spec.root.name}")
     copy_files(spec)
-    sessions = live_sessions()
+    empty = next((session for session in live_sessions() if session_is_empty(session)), None)
     instance = None
-    if sessions:
-        socket = sessions[0].socket
-        print(f"Using live RobotLens session {sessions[0].pid}")
+    if empty is not None:
+        socket = empty.socket
+        print(f"Using empty live RobotLens session {empty.pid}")
     else:
         log = spec.root / "evidence" / "build" / "robotlens.log"
         instance = RobotLensInstance(ROBOTLENS, None, log)
