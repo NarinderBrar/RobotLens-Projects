@@ -512,10 +512,19 @@ def step_navigate(ctx: RunContext, project: Project, step: dict, out: SuiteResul
 def step_joint_target(ctx: RunContext, project: Project, step: dict, out: SuiteResult) -> bool:
     joints = step["joints"]
     tolerance = step.get("tolerance", 0.05)
-    sent = run_command(ctx, "motion_stack.target", {"prefix": step.get("prefix", ""),
-                                                    "joints": joints})
-    if not out.expect("joint target accepted", sent.get("ok", False), str(sent)):
-        return False
+    if "command_topic" in step:
+        sent = probe_json(["python3", str(TOOLS / "ros_probe.py"), "command", "--topic",
+                           step["command_topic"], "--names", *joints["name"], "--positions",
+                           *[str(p) for p in joints["position"]], "--timeout",
+                           str(step.get("command_seconds", 3.0))], True, 10.0)
+        if not out.expect(f"joint command published on {step['command_topic']}",
+                          sent.get("subscribers", 0) > 0, str(sent)):
+            return False
+    else:
+        sent = run_command(ctx, "motion_stack.target", {"prefix": step.get("prefix", ""),
+                                                        "joints": joints})
+        if not out.expect("joint target accepted", sent.get("ok", False), str(sent)):
+            return False
 
     def errors():
         state = truth_joints(project, step["truth"])

@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "robot_prefix": "",
+  "urdf_path": "../robots/panda.urdf",
+  "base_frame": "panda_link0",
+  "eef_frame": "panda_link8",
+  "control_rate_hz": 20,
+  "state_timeout_s": 1.0,
+  "tracking_error": 0.5,
+  "position_tolerance": 0.03,
+  "max_acceleration": 1.0,
+  "planning": {
+    "max_time_s": 3.0,
+    "collision_padding": 0.01,
+    "settle_timeout_s": 4.0
+  },
+  "gripper": {
+    "joints": ["panda_finger_joint1", "panda_finger_joint2"],
+    "open": [0.04, 0.04],
+    "closed": [0.0, 0.0]
+  }
+}

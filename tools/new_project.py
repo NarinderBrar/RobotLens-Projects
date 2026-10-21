@@ -1,8 +1,8 @@
 """Builds a RobotLens project from a spec over MCP; each project's scripts/build_project.py calls build().
 
 The spec names the communication backend and simulator, the files to copy from this repository,
-the world, and each robot with its pose, 2D LiDAR, and navigation settings. RobotLens creates
-the project, imports the models, places the robots, attaches and configures the LiDARs,
+an optional world, and each robot with its pose, 2D LiDAR, and navigation settings. RobotLens
+creates the project, imports the models, places the robots, attaches and configures the LiDARs,
 configures navigation, and saves the project. Nothing in .robotlens/ is written by hand.
 
 The build needs an empty RobotLens session: it uses the running one, or starts RobotLens
@@ -47,8 +47,8 @@ class Spec:
     root: Path
     communication: str
     simulator: str
-    world: str
     robots: tuple[Robot, ...]
+    world: str = ""
     copy: dict[str, str] = field(default_factory=dict)
 
 
@@ -117,7 +117,8 @@ def build_project(ctx: RunContext, spec: Spec) -> None:
                                else None)(run_command(ctx, "project.status")), 60.0, 0.5):
         raise BuildError("the new project did not open")
     run_command(ctx, "ui.splash", {"visible": False})
-    import_model(ctx, spec.world)
+    if spec.world:
+        import_model(ctx, spec.world)
     for robot in spec.robots:
         model = import_model(ctx, robot.file)
         name, alias = model["name"], model["alias"]
