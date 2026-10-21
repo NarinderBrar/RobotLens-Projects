@@ -4,6 +4,8 @@ pose   --parent map --frames base_footprint [...]   planar pose [x, y, yaw] of e
 joints --topic /joint_states                        latest joint names and positions
 active --manager /robot1/lifecycle_manager_navigation  waits until the manager reports active
 command --topic /cmd_joints --names a b --positions 0.1 0.2  publishes a JointState command
+twist --topic /cmd_vel --twist 0 0 0.5 0 --timeout 3  streams a Twist (x y z yaw rate), then zero
+odom --topic /odom                                  latest odometry position [x, y, z] and yaw
 """
 
 import argparse
@@ -14,6 +16,8 @@ import time
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
+from geometry_msgs.msg import Twist
+from nav_msgs.msg import Odometry
 from sensor_msgs.msg import JointState
 from std_srvs.srv import Trigger
 from tf2_ros import Buffer, TransformListener
@@ -83,21 +87,58 @@ def command(node: Node, args) -> dict:
     return {"sent": sent, "subscribers": publisher.get_subscription_count()}
 
 
+def twist(node: Node, args) -> dict:
+    publisher = node.create_publisher(Twist, args.topic, 10)
+    x, y, z, yaw_rate = [float(v) for v in args.twist]
+    message = Twist()
+    message.linear.x, message.linear.y, message.linear.z = x, y, z
+    message.angular.z = yaw_rate
+    spin_until(node, lambda: publisher.get_subscription_count() > 0, 3.0)
+    deadline = time.monotonic() + args.timeout
+    sent = 0
+    while time.monotonic() < deadline:
+        publisher.publish(message)
+        sent += 1
+        rclpy.spin_once(node, timeout_sec=0.05)
+    stop = Twist()
+    for _ in range(3):
+        publisher.publish(stop)
+        rclpy.spin_once(node, timeout_sec=0.05)
+    return {"sent": sent, "subscribers": publisher.get_subscription_count()}
+
+
+def odom(node: Node, args) -> dict:
+    latest = {}
+
+    def store(m):
+        q = m.pose.pose.orientation
+        latest.update(position=[m.pose.pose.position.x, m.pose.pose.position.y,
+                                m.pose.pose.position.z],
+                      yaw=math.atan2(2 * (q.w * q.z + q.x * q.y), 1 - 2 * (q.y * q.y + q.z * q.z)))
+
+    node.create_subscription(Odometry, args.topic, store, 10)
+    spin_until(node, lambda: latest, args.timeout)
+    return latest
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("pose", "joints", "active", "command"))
+    parser.add_argument("mode", choices=("pose", "joints", "active", "command", "twist", "odom"))
     parser.add_argument("--parent", default="map")
     parser.add_argument("--frames", nargs="+", default=["base_footprint"])
     parser.add_argument("--topic", default="/joint_states")
     parser.add_argument("--manager", default="/lifecycle_manager_navigation")
     parser.add_argument("--names", nargs="*", default=[])
     parser.add_argument("--positions", nargs="*", default=[])
+    parser.add_argument("--twist", nargs=4, default=["0", "0", "0", "0"])
     parser.add_argument("--timeout", type=float, default=10.0)
     args = parser.parse_args()
     rclpy.init()
     node = rclpy.create_node(f"robotlens_quickstart_probe_{args.mode}")
     try:
-        print(json.dumps({"pose": pose, "joints": joints, "active": active, "command": command}[args.mode](node, args)))
+        modes = {"pose": pose, "joints": joints, "active": active, "command": command,
+                 "twist": twist, "odom": odom}
+        print(json.dumps(modes[args.mode](node, args)))
     finally:
         node.destroy_node()
         rclpy.shutdown()
