@@ -15,7 +15,7 @@ PROJECT = Project(
     scenario=(
         {"step": "launch", "path": "nav2_config/nav2_namespaced_launch.py", "name": "nav2_tb1",
          "args": ["namespace:=tb1", "map:=nav2_map.yaml", "params_file:=nav2_params_tb1.yaml",
-                  "x:=-1.0", "y:=0.5", "yaw:=0.0"]},
+                  "x:=0.0", "y:=0.0", "yaw:=0.0"]},
         {"step": "start_servers", "robot": "tb1"},
         {"step": "start_servers", "robot": "tb2", "generate_easynav_config": True},
         {"step": "screenshot", "name": "before-goals"},

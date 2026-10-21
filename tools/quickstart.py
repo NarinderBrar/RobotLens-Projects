@@ -232,6 +232,59 @@ def truth_joints(project: Project, source: str, timeout: float = 5.0) -> dict:
                        "--timeout", str(timeout)], True, timeout)
 
 
+def gz(args: list[str], timeout: float = 15.0) -> str:
+    line = f'source "{ROS_SETUP}" && exec gz ' + " ".join(f"'{a}'" for a in args)
+    try:
+        return subprocess.run(["bash", "-c", line], capture_output=True, text=True,
+                              timeout=timeout).stdout
+    except subprocess.TimeoutExpired:
+        return ""
+
+
+def gz_pose(model: str, link: str = "") -> list[float] | None:
+    rows = gz(["model", "-m", model] + (["-l", link] if link else ["-p"])).splitlines()
+    for index, row in enumerate(rows):
+        if row.strip().startswith("- Pose [") and index + 2 < len(rows):
+            try:
+                xyz = [float(v) for v in rows[index + 1].strip(" []").split()]
+                rpy = [float(v) for v in rows[index + 2].strip(" []").split()]
+            except ValueError:
+                return None
+            return xyz + rpy
+    return None
+
+
+def gz_publish(command: dict) -> None:
+    gz(["topic", "-t", command["topic"], "-m", command.get("type", "gz.msgs.Double"),
+        "-p", command["payload"]])
+
+
+def step_gz_motion(step: dict, out: SuiteResult) -> bool:
+    checks = step["check"]
+    before = [gz_pose(c["model"], c.get("link", "")) for c in checks]
+    for command in step["publish"]:
+        gz_publish(command)
+    time.sleep(step.get("hold", 3.0))
+    after = [gz_pose(c["model"], c.get("link", "")) for c in checks]
+    for command in step.get("stop", []):
+        gz_publish(command)
+    ok = True
+    for check, start, end in zip(checks, before, after):
+        name = f"{check['model']}{'/' + check['link'] if check.get('link') else ''}"
+        if not start or not end:
+            ok &= out.expect(f"{name} pose read from Gazebo", False, f"{start} {end}")
+            continue
+        moved = math.dist(start[:3], end[:3])
+        changes = [abs(math.remainder(b - a, math.tau)) for a, b in zip(start[3:], end[3:])]
+        axis = ("roll", "pitch", "yaw").index(check["axis"]) if "axis" in check else None
+        turned = changes[axis] if axis is not None else max(changes)
+        passed = moved >= check.get("min_move", 0.0) and turned >= check.get("min_turn", 0.0)
+        ok &= out.expect(f"{name} {check.get('label', 'moved')} (measured in Gazebo)", passed,
+                         f"moved {moved:.3f} m, turned {turned:.3f} rad, "
+                         f"at {[round(v, 2) for v in end]}")
+    return ok
+
+
 def nav_status(ctx: RunContext, robot: str) -> dict:
     return run_command(ctx, "robot.navigation.status", {"target": robot})
 
@@ -299,8 +352,9 @@ def step_launch(ctx: RunContext, step: dict, out: SuiteResult) -> bool:
         return False
     time.sleep(step.get("settle", 5.0))
     items = run_command(ctx, "process.status", {"name": step["name"]}).get("processes", [])
-    return out.expect(f"{step['name']} running", bool(items) and items[0].get("state") == "running",
-                      str(items[0].get("output_tail", ""))[-400:] if items else "not found")
+    running = [item for item in items if item.get("state") == "running"]
+    return out.expect(f"{step['name']} running", bool(running),
+                      str(items[-1].get("output_tail", ""))[-400:] if items else "not found")
 
 
 def step_start_servers(ctx: RunContext, step: dict, out: SuiteResult) -> bool:
@@ -487,6 +541,13 @@ def stop_project_navigation(ctx: RunContext, project: Project, out: SuiteResult)
                 out.expect(f"{robot} navigation stopped",
                            stopped.get("ok", False) or stopped.get("error") == "not_running",
                            str(stopped))
+    for step in project.scenario:
+        if step["step"] == "start_servers" and select_robot(ctx, step["robot"]):
+            stopped = run_command(ctx, "navigation.stop_servers")
+            out.expect(f"{step['robot']} navigation servers stopped", stopped.get("ok", False),
+                       str(stopped))
+            wait_until(lambda: run_command(ctx, "navigation.status").get("session_status")
+                       not in ("Running", "Attached", "Launching"), 20.0, 1.0)
 
 
 def run_scenario(ctx: RunContext, project: Project, stage) -> None:
@@ -507,6 +568,8 @@ def run_scenario(ctx: RunContext, project: Project, stage) -> None:
             ok = stage(name, lambda out, s=step: step_navigate(ctx, project, s, out))
         elif kind == "joint_target":
             ok = stage(name, lambda out, s=step: step_joint_target(ctx, project, s, out))
+        elif kind == "gz_motion":
+            ok = stage(name, lambda out, s=step: step_gz_motion(s, out))
         elif kind == "screenshot":
             ok = stage(name, lambda out, s=step: screenshot(ctx, project, out, s["name"]))
         else:
