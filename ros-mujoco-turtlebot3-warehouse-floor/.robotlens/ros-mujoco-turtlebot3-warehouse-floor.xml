@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robotlens_project schemaVersion="23" displayName="ros-mujoco-turtlebot3-warehouse-floor">
+    <connectionProfile domainId="0" namespace=""/>
+    <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="true" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
+    <assets>
+        <asset id="urdf-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-turtlebot3-warehouse-floor/robots/turtlebot3_burger.urdf" relativePath="robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-4646381971"/>
+        <robot id="robot-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-turtlebot3-warehouse-floor/robots/turtlebot3_burger.urdf" relativePath="robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-4646381971"/>
+        <world id="world-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-turtlebot3-warehouse-floor/worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="-4645199449"/>
+    </assets>
+    <sceneModel id="mjcf/warehouse" sourceKind="mjcf" displayName="warehouse" visible="true">
+        <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="mjcf/warehouse" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-turtlebot3-warehouse-floor/worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="-4645199449"/>
+    </sceneModel>
+    <sceneModel id="file_urdf/turtlebot3_burger" sourceKind="file_urdf" displayName="turtlebot3_burger" visible="true">
+        <transform position="-6.500000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
+        <asset id="file_urdf/turtlebot3_burger" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-turtlebot3-warehouse-floor/robots/turtlebot3_burger.urdf" relativePath="robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-4646381971"/>
+    </sceneModel>
+    <light id="light/local/scene/Directional Light_2" type="directional" name="Directional Light 2" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
+        <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId=""/>
+    </light>
+    <virtualSensor id="sensor/local/scene/sensor_1" type="lidar_2d" name="2D LiDAR 1" frameId="sensor_1" enabled="true" topic="/robot1/scan" updateRateHz="10" width="640" height="480" horizontalFovDegrees="60" rangeMin="0.12" rangeMax="12" nearClip="0.050000001" farClip="20" fovDegrees="10" force="0.000000 0.000000 0.000000" torque="0.000000 0.000000 0.000000">
+        <transform position="0.000000 0.000000 0.020000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId="link/import/urdf/turtlebot3_burger/base_scan"/>
+        <lidar scanMode="multibeam_3d" simulationBackend="ray_based" horizontalFovDegrees="360" verticalFovDegrees="30" horizontalSamples="360" beamCount="32" rotationHz="10" sweepVfxEnabled="true" noiseStddev="0.0049999999"/>
+    </virtualSensor>
+    <visualOrigin linkName="base_link" visualIndex="0" position="-0.032000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <visualOrigin linkName="wheel_left_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="0.707388 0.706825 0.000000 0.000000"/>
+    <visualOrigin linkName="wheel_right_link" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="0.707388 0.706825 0.000000 0.000000"/>
+    <visualOrigin linkName="base_scan" visualIndex="0" position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="base_joint" position="0.000000 0.000000 0.010000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="wheel_left_joint" position="0.000000 0.080000 0.023000" rotation="0.707388 -0.706825 0.000000 0.000000"/>
+    <jointOrigin jointName="wheel_right_joint" position="0.000000 -0.080000 0.023000" rotation="0.707388 -0.706825 0.000000 0.000000"/>
+    <jointOrigin jointName="caster_back_joint" position="-0.081000 0.000000 -0.004000" rotation="0.707388 -0.706825 0.000000 0.000000"/>
+    <jointOrigin jointName="imu_joint" position="-0.032000 0.000000 0.068000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <jointOrigin jointName="scan_joint" position="-0.032000 0.000000 0.172000" rotation="1.000000 0.000000 0.000000 0.000000"/>
+    <viewport target="0.000000 0.000000 0.000000" yaw="-90" pitch="30" distance="5" fov="45" projectionMode="0" showGrid="true"/>
+    <pathIntelligence plannedPathTopic="/plan" odometryTopic="/odom" fixedFrame="map" warningMeters="0.050000000000000003" criticalMeters="0.14999999999999999" maxPathRevisions="64" maxTrajectorySamples="4096"/>
+    <multiRobotNavigation shareFootprints="false"/>
+    <autonomousMission name="Autonomous Mission" behavior="waypoint" routeExecution="whole_route" patrolForever="false" patrolCycles="1" patrolDurationSeconds="0" mode="waypoints">
+        <coverage frameId="map" laneSpacingMeters="0.5"/>
+    </autonomousMission>
+    <behaviorTree>
+        <xml>&lt;?xml version="1.0"?&gt;
+&lt;root main_tree_to_execute="MainTree" BTCPP_format="4"&gt;
+  &lt;BehaviorTree ID="MainTree"&gt;
+    &lt;Sequence name="Navigate"&gt;
+      &lt;ComputePathToPose name="Compute path" goal="{goal_pose}"&gt;&lt;/ComputePathToPose&gt;
+      &lt;FollowPath name="Follow path" path="{path}"&gt;&lt;/FollowPath&gt;
+    &lt;/Sequence&gt;
+  &lt;/BehaviorTree&gt;
+&lt;/root&gt;
+</xml>
+        <layout>[{"id":"node_1","x":40.0,"y":40.0},{"id":"node_2","x":340.0,"y":20.0},{"id":"node_3","x":340.0,"y":150.0}]</layout>
+    </behaviorTree>
+    <display typeName="robotlens/TF" instanceName="TF" enabled="false" paused="false">
+        <property key="all_enabled" type="bool" value="true"/>
+        <property key="axis_length" type="double" value="0.050000000000000003"/>
+        <property key="frame_name_blacklist" type="string" value=""/>
+        <property key="frame_name_filter" type="string" value=""/>
+        <property key="link_thickness" type="double" value="0.001"/>
+        <property key="show_arrows" type="bool" value="true"/>
+        <property key="show_axes" type="bool" value="true"/>
+        <property key="show_names" type="bool" value="true"/>
+        <property key="show_parent_links" type="bool" value="true"/>
+        <property key="staleness_seconds" type="double" value="1"/>
+        <property key="tree_depth_limit" type="int" value="0"/>
+        <property key="update_interval" type="double" value="0"/>
+        <property key="use_mesh_axes" type="bool" value="true"/>
+        <property key="use_thick_links" type="bool" value="true"/>
+    </display>
+    <display typeName="scene/Primitives" instanceName="Primitives" enabled="true" paused="false"/>
+    <display typeName="scene/ImportedModels" instanceName="Imported Models" enabled="true" paused="false"/>
+    <display typeName="scene/Lights" instanceName="Lights" enabled="true" paused="false"/>
+    <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
+    <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
+    <workspaceRoot>.</workspaceRoot>
+    <simulation backend="mujoco" executable="" worldFile="" worldName="default" robotModelName="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-mujoco-turtlebot3-warehouse-floor/robots/turtlebot3_burger.urdf" attachOnly="false"/>
+    <commsBackend kind="ros2" endpoint=""/>
+    <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
+    <robotCapabilities>
+        <robotCapability ownerId="file_urdf/turtlebot3_burger">
+            <navigation stackKind="Nav2" globalFrame="map" localizationEndpoint="/amcl_pose" namespacePrefix="/robot1" goalEndpoint="navigation/goal" feedbackEndpoint="navigation/feedback" cancelEndpoint="navigation/cancel" resultEndpoint="navigation/result" visibleToPeers="true">
+                <config launchPackage="" launchFile="nav2_config/nav2_robot_launch.py" mapYamlPath="nav2_config/warehouse_navigation_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false">
+                    <arg>start_x:=-6.5</arg>
+                    <arg>start_y:=0.0</arg>
+                    <arg>start_yaw:=0.0</arg>
+                    <arg>robot_radius:=0.12</arg>
+                </config>
+                <easyNavigation mode="AttachOnly" executable="" parametersPath="" workingDirectory="" wholeRouteExecution="false" publishFreeMap="false"/>
+                <zenohExternal mode="AttachOnly" executable="" configurationPath="" showNavigationOverlays="true"/>
+            </navigation>
+        </robotCapability>
+    </robotCapabilities>
+</robotlens_project>
+
