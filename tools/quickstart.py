@@ -509,36 +509,57 @@ def step_navigate(ctx: RunContext, project: Project, step: dict, out: SuiteResul
     return ok
 
 
-def step_joint_target(ctx: RunContext, project: Project, step: dict, out: SuiteResult) -> bool:
-    joints = step["joints"]
-    tolerance = step.get("tolerance", 0.05)
-    if "command_topic" in step:
+def send_joint_target(ctx: RunContext, target: dict, out: SuiteResult) -> bool:
+    joints = target["joints"]
+    label = target.get("label", target.get("prefix") or target.get("command_topic", ""))
+    if "command_topic" in target:
         sent = probe_json(["python3", str(TOOLS / "ros_probe.py"), "command", "--topic",
-                           step["command_topic"], "--names", *joints["name"], "--positions",
+                           target["command_topic"], "--names", *joints["name"], "--positions",
                            *[str(p) for p in joints["position"]], "--timeout",
-                           str(step.get("command_seconds", 3.0))], True, 10.0)
-        if not out.expect(f"joint command published on {step['command_topic']}",
-                          sent.get("subscribers", 0) > 0, str(sent)):
-            return False
-    else:
-        sent = run_command(ctx, "motion_stack.target", {"prefix": step.get("prefix", ""),
-                                                        "joints": joints})
-        if not out.expect("joint target accepted", sent.get("ok", False), str(sent)):
+                           str(target.get("command_seconds", 3.0))], True, 10.0)
+        return out.expect(f"joint command published on {target['command_topic']}",
+                          sent.get("subscribers", 0) > 0, str(sent))
+    sent = run_command(ctx, "motion_stack.target", {"prefix": target.get("prefix", ""),
+                                                    "joints": joints})
+    target["command_id"] = sent.get("command_id", "")
+    return out.expect(f"{label} joint target accepted".strip(), sent.get("ok", False), str(sent))
+
+
+def step_joint_target(ctx: RunContext, project: Project, step: dict, out: SuiteResult) -> bool:
+    targets = step.get("targets", [step])
+    tolerance = step.get("tolerance", 0.05)
+    for target in targets:
+        if not send_joint_target(ctx, target, out):
             return False
 
-    def errors():
-        state = truth_joints(project, step["truth"])
+    def errors(target):
+        joints = target["joints"]
+        state = truth_joints(project, target["truth"])
         positions = dict(zip(state.get("name", []), state.get("position", [])))
         return {n: abs(positions[n] - p) if n in positions else float("inf")
                 for n, p in zip(joints["name"], joints["position"])}
 
-    reached = wait_until(lambda: (lambda e: e if max(e.values()) <= tolerance else None)(
-        errors()), step.get("timeout", 60.0), 1.0)
+    def worst():
+        return max(max(errors(t).values()) for t in targets)
+
+    reached = wait_until(lambda: worst() <= tolerance, step.get("timeout", 60.0), 1.0)
     time.sleep(1.0)
-    final = errors()
-    return out.expect(f"joints within {tolerance} rad and holding (measured)",
-                      bool(reached) and max(final.values()) <= tolerance,
-                      ", ".join(f"{n} {e:.3f}" for n, e in final.items()))
+    ok = True
+    for target in targets:
+        final = errors(target)
+        label = target.get("label", target["truth"])
+        name = f"{label} joints" if len(targets) > 1 else "joints"
+        ok &= out.expect(f"{name} within {tolerance} rad and holding (measured)",
+                         bool(reached) and max(final.values()) <= tolerance,
+                         ", ".join(f"{n} {e:.3f}" for n, e in final.items()))
+        if "command_topic" not in target:
+            status = lambda t=target: run_command(ctx, "motion_stack.status",
+                                                  {"prefix": t.get("prefix", "")})
+            result = wait_until(lambda: find_result(status(), str(target["command_id"])),
+                                step.get("result_timeout", 15.0), 0.5)
+            latest = str(result) if result else json.dumps(status().get("latest", {}))[:300]
+            ok &= out.expect(f"{label} stack reports success", result == "succeeded", latest)
+    return ok
 
 
 def start_stacks(project: Project, out: SuiteResult) -> subprocess.Popen | None:
