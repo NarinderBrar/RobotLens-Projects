@@ -64,6 +64,7 @@ tb1:
         robot_radius: 0.163
         plugins:
         - static_layer
+        - obstacle_layer
         - inflation_layer
         static_layer:
           plugin: nav2_costmap_2d::StaticLayer
@@ -73,6 +74,19 @@ tb1:
           cost_scaling_factor: 3.0
           inflation_radius: 0.4
         always_send_full_costmap: true
+        obstacle_layer:
+          plugin: nav2_costmap_2d::ObstacleLayer
+          enabled: true
+          observation_sources: scan
+          scan:
+            topic: /tb1/scan
+            data_type: LaserScan
+            clearing: true
+            marking: true
+            max_obstacle_height: 2.0
+            raytrace_max_range: 8.0
+            obstacle_max_range: 7.5
+            sensor_frame: tb1_lidar
   global_costmap:
     global_costmap:
       ros__parameters:
@@ -84,6 +98,7 @@ tb1:
         robot_radius: 0.163
         plugins:
         - static_layer
+        - obstacle_layer
         - inflation_layer
         static_layer:
           plugin: nav2_costmap_2d::StaticLayer
@@ -93,6 +108,19 @@ tb1:
           cost_scaling_factor: 3.0
           inflation_radius: 0.4
         always_send_full_costmap: true
+        obstacle_layer:
+          plugin: nav2_costmap_2d::ObstacleLayer
+          enabled: true
+          observation_sources: scan
+          scan:
+            topic: /tb1/scan
+            data_type: LaserScan
+            clearing: true
+            marking: true
+            max_obstacle_height: 2.0
+            raytrace_max_range: 8.0
+            obstacle_max_range: 7.5
+            sensor_frame: tb1_lidar
   behavior_server:
     ros__parameters:
       use_sim_time: true
