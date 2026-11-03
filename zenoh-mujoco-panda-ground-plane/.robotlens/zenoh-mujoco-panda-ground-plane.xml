@@ -3,12 +3,12 @@
     <connectionProfile domainId="0" namespace=""/>
     <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="false" topicInspector="true" jointControl="false" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
     <assets>
-        <asset id="urdf-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-panda-ground-plane/robots/panda.urdf" relativePath="robots/panda.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="6366" lastWriteTimeUnix="-4645108376"/>
-        <robot id="robot-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-panda-ground-plane/robots/panda.urdf" relativePath="robots/panda.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="6366" lastWriteTimeUnix="-4645108376"/>
+        <asset id="urdf-main" originalPath="robots/panda.urdf" relativePath="robots/panda.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="6366" lastWriteTimeUnix="-4645108376"/>
+        <robot id="robot-main" originalPath="robots/panda.urdf" relativePath="robots/panda.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="6366" lastWriteTimeUnix="-4645108376"/>
     </assets>
     <sceneModel id="file_urdf/panda" sourceKind="file_urdf" displayName="panda" visible="true">
         <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="file_urdf/panda" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-panda-ground-plane/robots/panda.urdf" relativePath="robots/panda.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="6366" lastWriteTimeUnix="-4645108376"/>
+        <asset id="file_urdf/panda" originalPath="robots/panda.urdf" relativePath="robots/panda.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="6366" lastWriteTimeUnix="-4645108376"/>
     </sceneModel>
     <light id="light/local/scene/Directional Light_2" type="directional" name="Directional Light 2" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
         <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId=""/>
@@ -76,7 +76,7 @@
     <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
     <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
     <workspaceRoot>.</workspaceRoot>
-    <simulation backend="mujoco" executable="" worldFile="" worldName="default" robotModelName="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-panda-ground-plane/robots/panda.urdf" attachOnly="false"/>
+    <simulation backend="mujoco" executable="" worldFile="" worldName="default" robotModelName="robots/panda.urdf" attachOnly="false"/>
     <commsBackend kind="zenoh" endpoint=""/>
     <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
 </robotlens_project>

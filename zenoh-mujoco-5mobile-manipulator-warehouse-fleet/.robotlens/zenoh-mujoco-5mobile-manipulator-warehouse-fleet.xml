@@ -3,33 +3,33 @@
     <connectionProfile domainId="0" namespace=""/>
     <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="false" topicInspector="true" jointControl="false" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
     <assets>
-        <asset id="urdf-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
-        <robot id="robot-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="24015" lastWriteTimeUnix="-350674075"/>
-        <world id="world-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-5mobile-manipulator-warehouse-fleet/worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="-350673588"/>
+        <asset id="urdf-main" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
+        <robot id="robot-main" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="24015" lastWriteTimeUnix="-350674075"/>
+        <world id="world-main" originalPath="worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="-350673588"/>
     </assets>
     <sceneModel id="file_urdf/Mobile_manipulator" sourceKind="file_urdf" displayName="Mobile_manipulator" visible="true">
         <transform position="-6.500000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="file_urdf/Mobile_manipulator" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
+        <asset id="file_urdf/Mobile_manipulator" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
     </sceneModel>
     <sceneModel id="file_urdf/Mobile_manipulator_copy" sourceKind="file_urdf" displayName="Mobile_manipulator_copy" visible="true">
         <transform position="-3.600000 -4.500000 0.000000" rotation="0.707107 0.000000 0.000000 0.707107" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="file_urdf/Mobile_manipulator_copy" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
+        <asset id="file_urdf/Mobile_manipulator_copy" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
     </sceneModel>
     <sceneModel id="file_urdf/Mobile_manipulator_copy_2" sourceKind="file_urdf" displayName="Mobile_manipulator_copy_2" visible="true">
         <transform position="3.600000 4.500000 0.000000" rotation="0.707107 0.000000 0.000000 -0.707107" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="file_urdf/Mobile_manipulator_copy_2" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
+        <asset id="file_urdf/Mobile_manipulator_copy_2" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
     </sceneModel>
     <sceneModel id="file_urdf/Mobile_manipulator_copy_3" sourceKind="file_urdf" displayName="Mobile_manipulator_copy_3" visible="true">
         <transform position="-6.500000 4.500000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="file_urdf/Mobile_manipulator_copy_3" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
+        <asset id="file_urdf/Mobile_manipulator_copy_3" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
     </sceneModel>
     <sceneModel id="file_urdf/Mobile_manipulator_copy_4" sourceKind="file_urdf" displayName="Mobile_manipulator_copy_4" visible="true">
         <transform position="6.500000 -4.500000 0.000000" rotation="-0.000000 -0.000000 0.000000 1.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="file_urdf/Mobile_manipulator_copy_4" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-5mobile-manipulator-warehouse-fleet/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
+        <asset id="file_urdf/Mobile_manipulator_copy_4" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="22751" lastWriteTimeUnix="-4645639584"/>
     </sceneModel>
     <sceneModel id="mjcf/warehouse" sourceKind="mjcf" displayName="warehouse" visible="true">
         <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="mjcf/warehouse" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-5mobile-manipulator-warehouse-fleet/worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="-4645640884"/>
+        <asset id="mjcf/warehouse" originalPath="worlds/warehouse.xml" relativePath="worlds/warehouse.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="41126" lastWriteTimeUnix="-4645640884"/>
     </sceneModel>
     <light id="light/local/scene/Directional Light_3" type="directional" name="Directional Light 3" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
         <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId=""/>
@@ -307,7 +307,7 @@
         <property key="topic" type="string" value="robot5/navigation/obstacles"/>
     </display>
     <workspaceRoot>.</workspaceRoot>
-    <simulation backend="mujoco" executable="" worldFile="/tmp/robotlens_setup_2248814.xml" worldName="default" robotModelName="robot_file_urdf_Mobile_manipulator_copy_4_base_footprint" attachOnly="false"/>
+    <simulation backend="mujoco" executable="" worldFile="" worldName="default" robotModelName="robot_file_urdf_Mobile_manipulator_copy_4_base_footprint" attachOnly="false"/>
     <commsBackend kind="zenoh" endpoint=""/>
     <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
     <robotCapabilities>

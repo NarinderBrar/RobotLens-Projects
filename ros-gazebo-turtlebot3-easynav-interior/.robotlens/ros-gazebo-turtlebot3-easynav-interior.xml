@@ -3,89 +3,89 @@
     <connectionProfile domainId="0" namespace=""/>
     <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="true" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
     <assets>
-        <asset id="urdf-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/turtlebot3/robots/turtlebot3_burger.urdf" relativePath="turtlebot3/robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-4646381971"/>
-        <robot id="robot-2" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/turtlebot3/robots/turtlebot3_burger.urdf" relativePath="turtlebot3/robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-351414675"/>
+        <asset id="urdf-main" originalPath="turtlebot3/robots/turtlebot3_burger.urdf" relativePath="turtlebot3/robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-4646381971"/>
+        <robot id="robot-2" originalPath="turtlebot3/robots/turtlebot3_burger.urdf" relativePath="turtlebot3/robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-351414675"/>
         <world id="world-main" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-356149192"/>
     </assets>
     <sceneModel id="sdf/white_floor" sourceKind="sdf" displayName="white_floor" visible="true">
         <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/white_floor" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/white_floor" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/wall_north" sourceKind="sdf" displayName="wall_north" visible="true">
         <transform position="0.000000 12.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/wall_north" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/wall_north" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/wall_south" sourceKind="sdf" displayName="wall_south" visible="true">
         <transform position="0.000000 -12.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/wall_south" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/wall_south" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/wall_east" sourceKind="sdf" displayName="wall_east" visible="true">
         <transform position="15.000000 0.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/wall_east" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/wall_east" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/wall_west" sourceKind="sdf" displayName="wall_west" visible="true">
         <transform position="-15.000000 0.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/wall_west" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/wall_west" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/mid_wall_left" sourceKind="sdf" displayName="mid_wall_left" visible="true">
         <transform position="-8.500000 0.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/mid_wall_left" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/mid_wall_left" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/mid_wall_right" sourceKind="sdf" displayName="mid_wall_right" visible="true">
         <transform position="8.500000 0.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/mid_wall_right" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/mid_wall_right" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/mid_vertical_top" sourceKind="sdf" displayName="mid_vertical_top" visible="true">
         <transform position="0.000000 10.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/mid_vertical_top" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/mid_vertical_top" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/mid_vertical_upper" sourceKind="sdf" displayName="mid_vertical_upper" visible="true">
         <transform position="0.000000 3.500000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/mid_vertical_upper" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/mid_vertical_upper" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/mid_vertical_lower" sourceKind="sdf" displayName="mid_vertical_lower" visible="true">
         <transform position="0.000000 -3.500000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/mid_vertical_lower" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/mid_vertical_lower" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/mid_vertical_bottom" sourceKind="sdf" displayName="mid_vertical_bottom" visible="true">
         <transform position="0.000000 -10.000000 1.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/mid_vertical_bottom" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/mid_vertical_bottom" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/blocker_tl" sourceKind="sdf" displayName="blocker_tl" visible="true">
         <transform position="-7.000000 5.500000 0.750000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/blocker_tl" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/blocker_tl" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/blocker_tr" sourceKind="sdf" displayName="blocker_tr" visible="true">
         <transform position="7.000000 8.800000 0.750000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/blocker_tr" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/blocker_tr" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/blocker_bl" sourceKind="sdf" displayName="blocker_bl" visible="true">
         <transform position="-7.000000 -8.800000 0.750000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/blocker_bl" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/blocker_bl" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/blocker_br" sourceKind="sdf" displayName="blocker_br" visible="true">
         <transform position="7.000000 -5.500000 0.750000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/blocker_br" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/blocker_br" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/shelf_red" sourceKind="sdf" displayName="shelf_red" visible="true">
         <transform position="-10.000000 8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/shelf_red" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/shelf_red" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/shelf_blue" sourceKind="sdf" displayName="shelf_blue" visible="true">
         <transform position="10.000000 8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/shelf_blue" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/shelf_blue" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/shelf_green" sourceKind="sdf" displayName="shelf_green" visible="true">
         <transform position="-10.000000 -8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/shelf_green" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/shelf_green" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="sdf/shelf_yellow" sourceKind="sdf" displayName="shelf_yellow" visible="true">
         <transform position="10.000000 -8.000000 0.500000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/shelf_yellow" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
+        <asset id="sdf/shelf_yellow" originalPath="worlds/open_interior.sdf" relativePath="worlds/open_interior.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="12283" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <sceneModel id="file_urdf/turtlebot3_burger" sourceKind="file_urdf" displayName="turtlebot3_burger" visible="true">
         <transform position="6.155876 -8.140087 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="file_urdf/turtlebot3_burger" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-turtlebot3-easynav-interior/turtlebot3/robots/turtlebot3_burger.urdf" relativePath="turtlebot3/robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-4646381971"/>
+        <asset id="file_urdf/turtlebot3_burger" originalPath="turtlebot3/robots/turtlebot3_burger.urdf" relativePath="turtlebot3/robots/turtlebot3_burger.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="4979" lastWriteTimeUnix="-4646381971"/>
     </sceneModel>
     <primitive id="primitive/local/scene/Box_1" shape="box" name="Box 1" alpha="1" metallic="0" roughness="0.85000002" materialId="material/local/scene/material_2" smoothShading="false" rigidBodyEnabled="false" rigidBodyType="static" mass="1" size="0.500000 0.500000 0.500000" color="0.620000 0.660000 0.740000">
         <transform position="6.401316 -10.253220 0.285385" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
@@ -276,7 +276,7 @@
         <property key="topic" type="string" value="/maps_manager_node/simple/incoming_map"/>
     </display>
     <workspaceRoot>.</workspaceRoot>
-    <simulation backend="gazebo" executable="" worldFile="/tmp/robotlens_setup_352564.sdf" worldName="open_interior" robotModelName="turtlebot3_burger" attachOnly="false"/>
+    <simulation backend="gazebo" executable="" worldFile="" worldName="open_interior" robotModelName="turtlebot3_burger" attachOnly="false"/>
     <commsBackend kind="ros2" endpoint=""/>
     <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
     <robotCapabilities>

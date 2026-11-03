@@ -3,17 +3,17 @@
     <connectionProfile domainId="0" namespace=""/>
     <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="true" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
     <assets>
-        <asset id="urdf-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-procedural-robot-ground-plane/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="24014" lastWriteTimeUnix="-4645727114"/>
-        <robot id="robot-2" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-procedural-robot-ground-plane/robots/Autonomous_mobile_robot.sdf" relativePath="robots/Autonomous_mobile_robot.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="13901" lastWriteTimeUnix="-350761921"/>
-        <robot id="robot-3" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-procedural-robot-ground-plane/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="24014" lastWriteTimeUnix="-350759818"/>
+        <asset id="urdf-main" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="24014" lastWriteTimeUnix="-4645727114"/>
+        <robot id="robot-2" originalPath="robots/Autonomous_mobile_robot.sdf" relativePath="robots/Autonomous_mobile_robot.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="13901" lastWriteTimeUnix="-350761921"/>
+        <robot id="robot-3" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="24014" lastWriteTimeUnix="-350759818"/>
     </assets>
     <sceneModel id="sdf/Autonomous_mobile_robot" sourceKind="sdf" displayName="Autonomous_mobile_robot" visible="true">
         <transform position="0.000000 2.000000 0.160000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="sdf/Autonomous_mobile_robot" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-procedural-robot-ground-plane/robots/Autonomous_mobile_robot.sdf" relativePath="robots/Autonomous_mobile_robot.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="13901" lastWriteTimeUnix="-4645729217"/>
+        <asset id="sdf/Autonomous_mobile_robot" originalPath="robots/Autonomous_mobile_robot.sdf" relativePath="robots/Autonomous_mobile_robot.sdf" absolutePath="" format="sdf" enabled="true" reloadOnOpen="true" fileSize="13901" lastWriteTimeUnix="-4645729217"/>
     </sceneModel>
     <sceneModel id="file_urdf/Mobile_manipulator" sourceKind="file_urdf" displayName="Mobile_manipulator" visible="true">
         <transform position="-1.500000 -1.000000 0.000000" rotation="0.923880 0.000000 0.000000 0.382683" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="file_urdf/Mobile_manipulator" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/ros-gazebo-procedural-robot-ground-plane/robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="24014" lastWriteTimeUnix="-4645727114"/>
+        <asset id="file_urdf/Mobile_manipulator" originalPath="robots/Mobile_manipulator.urdf" relativePath="robots/Mobile_manipulator.urdf" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="24014" lastWriteTimeUnix="-4645727114"/>
     </sceneModel>
     <light id="light/local/scene/Directional Light_3" type="directional" name="Directional Light 3" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
         <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId=""/>
@@ -117,7 +117,7 @@
     <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
     <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
     <workspaceRoot>.</workspaceRoot>
-    <simulation backend="gazebo" executable="" worldFile="/tmp/robotlens_setup_23725.sdf" worldName="robotlens_setup_23725" robotModelName="Mobile_manipulator" attachOnly="false"/>
+    <simulation backend="gazebo" executable="" worldFile="" worldName="robotlens_setup_23725" robotModelName="Mobile_manipulator" attachOnly="false"/>
     <commsBackend kind="ros2" endpoint=""/>
     <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
 </robotlens_project>

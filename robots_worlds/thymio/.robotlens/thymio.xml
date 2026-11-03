@@ -3,11 +3,11 @@
     <connectionProfile domainId="0" namespace=""/>
     <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="true" buildTerminal="false" terminal="false" projectFiles="true" settings="false" plot="true"/>
     <assets>
-        <asset id="urdf-main" originalPath="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/urdf/thymio.urdf.xacro" relativePath="urdf/thymio.urdf.xacro" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="348" lastWriteTimeUnix="-4649838998"/>
-        <robot id="robot-main" originalPath="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/urdf/thymio.urdf.xacro" relativePath="examples/thymio/urdf/thymio.urdf.xacro" absolutePath="" format="xacro" enabled="true" reloadOnOpen="true" fileSize="348" lastWriteTimeUnix="-354871702"/>
+        <asset id="urdf-main" originalPath="urdf/thymio.urdf.xacro" relativePath="urdf/thymio.urdf.xacro" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="348" lastWriteTimeUnix="-4649838998"/>
+        <robot id="robot-main" originalPath="urdf/thymio.urdf.xacro" relativePath="urdf/thymio.urdf.xacro" absolutePath="" format="xacro" enabled="true" reloadOnOpen="true" fileSize="348" lastWriteTimeUnix="-354871702"/>
     </assets>
     <sceneModel id="file_urdf/thymio" sourceKind="file_urdf" displayName="thymio" visible="true" position="0.000000 0.000000 0.000000" orientation="1.000000 0.000000 0.000000 0.000000">
-        <asset id="file_urdf/thymio" originalPath="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/urdf/thymio.urdf.xacro" relativePath="urdf/thymio.urdf.xacro" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="348" lastWriteTimeUnix="-4649838998"/>
+        <asset id="file_urdf/thymio" originalPath="urdf/thymio.urdf.xacro" relativePath="urdf/thymio.urdf.xacro" absolutePath="" format="urdf" enabled="true" reloadOnOpen="true" fileSize="348" lastWriteTimeUnix="-4649838998"/>
     </sceneModel>
     <primitive id="primitive/scene/Plane_1" shape="plane" name="Plane 1" parentId="" alpha="1" metallic="0" roughness="0.85000002" materialId="" smoothShading="false" rigidBodyEnabled="false" rigidBodyType="static" mass="1" position="0.000000 0.000000 -0.010000" rotation="0.707107 0.707107 0.000000 0.000000" size="5.000000 0.000000 5.000000" color="0.620000 0.660000 0.740000"/>
     <primitive id="primitive/scene/Box_2" shape="box" name="Box 2" parentId="" alpha="1" metallic="0" roughness="0.85000002" materialId="" smoothShading="false" rigidBodyEnabled="false" rigidBodyType="static" mass="1" position="-1.425899 0.000000 0.200000" rotation="1.000000 0.000000 0.000000 0.000000" size="0.500000 0.500000 0.500000" color="0.620000 0.660000 0.740000"/>
@@ -67,7 +67,7 @@
     <display typeName="scene/Lights" instanceName="Lights" enabled="true" paused="false"/>
     <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
     <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
-    <workspaceRoot>/home/narinder/Documents/ROSWorkspace/RobotLens</workspaceRoot>
-    <simulation backend="gazebo" executable="" worldFile="/tmp/robotlens_setup_41561.sdf" worldName="robotlens_setup_41561" robotModelName="thymio" attachOnly="false"/>
-    <nav2 launchPackage="" launchFile="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/nav2_config/nav2_launch.py" mapYamlPath="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/nav2_config/nav2_map.yaml" paramsYamlPath="/home/narinder/Documents/ROSWorkspace/RobotLens/examples/thymio/nav2_config/nav2_params.yaml" autoConfigureOutputDir=""/>
+    <workspaceRoot>.</workspaceRoot>
+    <simulation backend="gazebo" executable="" worldFile="" worldName="robotlens_setup_41561" robotModelName="thymio" attachOnly="false"/>
+    <nav2 launchPackage="" launchFile="nav2_config/nav2_launch.py" mapYamlPath="nav2_config/nav2_map.yaml" paramsYamlPath="nav2_config/nav2_params.yaml" autoConfigureOutputDir=""/>
 </robotlens_project>

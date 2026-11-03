@@ -3,16 +3,16 @@
     <connectionProfile domainId="0" namespace=""/>
     <panelVisibility hierarchy="true" relationships="true" inspector="true" viewport="true" status="false" nodeGraph="true" timeline="true" debugger="true" topicInspector="true" jointControl="false" buildTerminal="false" terminal="true" projectFiles="true" settings="false" plot="true" learning="false" workspaceTraining="false" robotCatalog="false"/>
     <assets>
-        <robot id="robot-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-microduck-balance-terrain/src/microduck/mujoco/real/microduck_real.xml" relativePath="src/microduck/mujoco/real/microduck_real.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="32220" lastWriteTimeUnix="-351158618"/>
-        <world id="world-main" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-microduck-balance-terrain/src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-351154646"/>
+        <robot id="robot-main" originalPath="src/microduck/mujoco/real/microduck_real.xml" relativePath="src/microduck/mujoco/real/microduck_real.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="32220" lastWriteTimeUnix="-351158618"/>
+        <world id="world-main" originalPath="src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="xml" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-351154646"/>
     </assets>
     <sceneModel id="mjcf/world" sourceKind="mjcf" displayName="world" visible="true">
         <transform position="0.000000 0.000000 0.000000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="mjcf/world" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-microduck-balance-terrain/src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-4646121942"/>
+        <asset id="mjcf/world" originalPath="src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-4646121942"/>
     </sceneModel>
     <sceneModel id="mjcf/trunk_base" sourceKind="mjcf" displayName="trunk_base" visible="true">
         <transform position="0.000000 0.000000 0.120000" rotation="1.000000 0.000000 0.000000 0.000000" scale="1.000000 1.000000 1.000000" parentId=""/>
-        <asset id="mjcf/trunk_base" originalPath="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-microduck-balance-terrain/src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-4646121942"/>
+        <asset id="mjcf/trunk_base" originalPath="src/microduck/mujoco/real/microduck_hybrid.xml" relativePath="src/microduck/mujoco/real/microduck_hybrid.xml" absolutePath="" format="mjcf" enabled="true" reloadOnOpen="true" fileSize="26205" lastWriteTimeUnix="-4646121942"/>
     </sceneModel>
     <light id="light/local/scene/Directional Light_3" type="directional" name="Directional Light 3" intensity="3" range="10" innerConeDegrees="20" outerConeDegrees="30" castsShadow="true" sunSky="false" color="1.000000 1.000000 1.000000">
         <transform position="0.000000 0.000000 5.000000" rotation="-0.096241 -0.284819 0.903549 0.305311" scale="1.000000 1.000000 1.000000" parentId=""/>
@@ -58,7 +58,7 @@
     <display typeName="scene/Cameras" instanceName="Cameras" enabled="true" paused="false"/>
     <display typeName="scene/VirtualSensors" instanceName="VirtualSensors" enabled="true" paused="false"/>
     <workspaceRoot>.</workspaceRoot>
-    <simulation backend="mujoco" executable="" worldFile="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-microduck-balance-terrain/src/microduck/mujoco/real/microduck_hybrid.xml" worldName="default" robotModelName="/home/narinder/Documents/RobotLens-Workspace/RobotLens-Projects/zenoh-mujoco-microduck-balance-terrain/src/microduck/mujoco/real/microduck_real.xml" attachOnly="false"/>
+    <simulation backend="mujoco" executable="" worldFile="src/microduck/mujoco/real/microduck_hybrid.xml" worldName="default" robotModelName="src/microduck/mujoco/real/microduck_real.xml" attachOnly="false"/>
     <commsBackend kind="zenoh" endpoint=""/>
     <nav2 launchPackage="nav2_bringup" launchFile="bringup_launch.py" mapYamlPath="" paramsYamlPath="" autoConfigureOutputDir="" publishKeepoutFilterLayer="false" publishSpeedFilterLayer="false"/>
 </robotlens_project>

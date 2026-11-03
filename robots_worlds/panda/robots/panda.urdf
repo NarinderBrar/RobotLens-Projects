@@ -1,70 +1,69 @@
 <?xml version="1.0"?>
-<!-- Generated from /home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots by tools/sdf_to_urdf.cpp, see its header comment for known limitations. -->
 <robot name="panda">
   <link name="panda_link0">
     <visual>
       <origin xyz="0 0 0" rpy="0 -0 0"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link0.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/link0.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_link1">
     <visual>
       <origin xyz="0 0 0" rpy="0 -0 0"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link1.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/link1.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_link2">
     <visual>
       <origin xyz="0 0 -2.77556e-17" rpy="0 -0 0"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link2.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/link2.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_link3">
     <visual>
       <origin xyz="0 0 0" rpy="0 -0 0"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link3.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/link3.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_link4">
     <visual>
       <origin xyz="0 0 0" rpy="0 -0 0"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link4.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/link4.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_link5">
     <visual>
       <origin xyz="0 0 0" rpy="0 -0 0"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link5.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/link5.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_link6">
     <visual>
       <origin xyz="0 -2.22045e-16 1.11022e-16" rpy="0 -0 0"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link6.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/link6.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_link7">
     <visual>
       <origin xyz="0 0 0" rpy="0 -0 0"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/link7.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/link7.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_hand">
     <visual>
       <origin xyz="0 0 0" rpy="0 -0 1.664e-31"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/hand.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/hand.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_leftfinger">
     <visual>
       <origin xyz="6.93889e-18 6.93889e-18 -2.22045e-16" rpy="0 -0 1.664e-31"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/finger.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/finger.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_rightfinger">
     <visual>
       <origin xyz="6.93889e-18 6.93889e-18 -2.22045e-16" rpy="0 -0 3.14159"/>
-      <geometry><mesh filename="file:///home/narinder/Documents/ROSWorkspace/RobotLens/robots_worlds/panda/robots/meshes/visual/finger.dae"/></geometry>
+      <geometry><mesh filename="meshes/visual/finger.dae"/></geometry>
     </visual>
   </link>
   <link name="panda_link8">
