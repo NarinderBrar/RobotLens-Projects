@@ -1,0 +1,14 @@
+{
+  "pr2_caster_texture.png": {
+    "source": "https://raw.githubusercontent.com/PR2/pr2_common/9a8e4fbcf66523ca14faf651c23513ee1ac29ccb/pr2_description/materials/textures/pr2_caster_texture.png",
+    "sha256": "991a053700cf24cb0d9f3a8fe512127a7c8b5ff29492404ef7423db231fa6e3e"
+  },
+  "pr2_wheel_left.png": {
+    "source": "https://raw.githubusercontent.com/PR2/pr2_common/9a8e4fbcf66523ca14faf651c23513ee1ac29ccb/pr2_description/materials/textures/pr2_wheel_left.png",
+    "sha256": "335729ebfad5c7a134efd53af0f429f20e4e7b557e14dfe73740caf1dab7fded"
+  },
+  "pr2_wheel_right.png": {
+    "source": "https://raw.githubusercontent.com/PR2/pr2_common/9a8e4fbcf66523ca14faf651c23513ee1ac29ccb/pr2_description/materials/textures/pr2_wheel_right.png",
+    "sha256": "d0559ce854c25e267cc12b927c327755a805773e53d4c97adf4ed610ab26eb75"
+  }
+}

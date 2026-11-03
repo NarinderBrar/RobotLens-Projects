@@ -22,6 +22,9 @@ import os
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from asset_paths import robot_description
+
 from launch import LaunchDescription, LaunchService
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -34,7 +37,7 @@ def build_moveit_config():
     single-source-of-truth pr2.urdf in the parent pr2 fixture --
     never a private copy (plan section 4, P3 "one source of truth")."""
     example2_dir = Path(__file__).resolve().parents[2]
-    return (
+    config = (
         MoveItConfigsBuilder("pr2_right_arm", package_name="pr2_right_arm_moveit_config")
         .robot_description(file_path=example2_dir / "pr2.urdf")
         .robot_description_semantic(file_path="config/pr2_right_arm.srdf")
@@ -66,6 +69,8 @@ def build_moveit_config():
         )
         .to_moveit_configs()
     )
+    config.robot_description = {"robot_description": robot_description(example2_dir / "pr2.urdf")}
+    return config
 
 
 def generate_launch_description():

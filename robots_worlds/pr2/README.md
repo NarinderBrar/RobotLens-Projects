@@ -1,5 +1,12 @@
 # RobotLens Example 2: PR2, static
 
+The model's mesh and texture references are relative to this fixture directory.
+Launchers resolve them at runtime through `asset_paths.py`. Run
+`python3 robots_worlds/pr2/test_asset_paths.py` from the repository root to check
+resource existence, missing-resource errors, and relocation to a path with
+spaces. The automation project generator repairs its relative links and saved
+asset paths without resetting existing project configuration.
+
 A working RobotLens fixture for the real PR2 robot (Willow Garage's
 `pr2_common`/`pr2_description`), built on top of `../pr2`'s existing
 flattened URDF. Unlike `../pr2` (which auto-animates the arms/head/torso/

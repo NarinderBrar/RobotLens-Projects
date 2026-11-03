@@ -26,7 +26,9 @@ def generate_launch_description():
     example_dir = Path(__file__).resolve().parents[1]
     urdf_path = example_dir / 'pr2.urdf'
     rviz_config_path = example_dir / 'rviz' / 'pr2.rviz'
-    robot_description = urdf_path.read_text(encoding='utf-8')
+    sys.path.insert(0, str(example_dir))
+    from asset_paths import robot_description as load_robot_description
+    robot_description = load_robot_description(urdf_path)
 
     return LaunchDescription([
         Node(

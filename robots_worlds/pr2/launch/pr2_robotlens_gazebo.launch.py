@@ -26,6 +26,9 @@ import sys
 import tempfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from asset_paths import robot_description
+
 from launch import LaunchDescription, LaunchService
 from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription
 from launch.conditions import IfCondition
@@ -122,7 +125,7 @@ def generate_launch_description():
     # tree; its distinct node name prevents RobotLens's live URDF fetcher
     # (which intentionally queries only /robot_state_publisher) from loading
     # the old flattened model instead of the SDF scene model.
-    tf_robot_description = (example_dir / "pr2.urdf").read_text(encoding="utf-8")
+    tf_robot_description = robot_description(example_dir / "pr2.urdf")
     world = prepare_world()
     bridge = bridge_config()
 

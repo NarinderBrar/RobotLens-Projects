@@ -58,8 +58,9 @@ def generate_launch_description():
     example_dir = Path(__file__).resolve().parents[1]
     urdf_file = example_dir / 'pr2.urdf'
 
-    with open(urdf_file, 'r', encoding='utf-8') as f:
-        robot_description = f.read()
+    sys.path.insert(0, str(example_dir))
+    from asset_paths import robot_description as load_robot_description
+    robot_description = load_robot_description(urdf_file)
 
     def run(*relative_path):
         return ExecuteProcess(
